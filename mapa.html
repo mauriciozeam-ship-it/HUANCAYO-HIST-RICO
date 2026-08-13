@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa · Huancayo Histórico</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           VARIABLES
+        ============================================================ */
+        :root {
+            --color-primary: #8F2D27;
+            --color-primary-dark: #641D1A;
+            --color-secondary: #B88A3B;
+            --color-accent: #C59A54;
+            --color-earth: #6D4635;
+            --color-green: #29463A;
+            --color-bg: #F6F1E8;
+            --color-bg-soft: #EEE7DA;
+            --color-white: #FFFFFF;
+            --color-text: #202020;
+            --color-text-soft: #67625B;
+            --color-text-light: #9A9488;
+            --color-border: rgba(32, 32, 32, 0.10);
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+            --shadow-primary: 0 8px 24px rgba(143, 45, 39, 0.25);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* ============================================================
+           RESET
+        ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+        ::selection {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ============================================================
+           SCROLLBAR
+        ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-soft);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 6px;
+        }
+
+        /* ============================================================
+           BOTONES
+        ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-primary);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-text);
+            border: 1.5px solid var(--color-border);
+        }
+        .btn-outline:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .btn-secondary {
+            background: var(--color-secondary);
+            color: var(--color-white);
+        }
+        .btn-secondary:hover {
+            background: var(--color-accent);
+            transform: translateY(-1px);
+        }
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.75rem;
+        }
+        .btn-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            color: var(--color-text-soft);
+        }
+        .btn-icon:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: scale(1.04);
+        }
+        .btn-icon.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        /* ============================================================
+           NAVBAR
+        ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(246, 241, 232, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .navbar .logo {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar .logo i {
+            color: var(--color-primary);
+            font-size: 1.1rem;
+        }
+        .navbar .logo span {
+            color: var(--color-primary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-text-soft);
+            transition: color var(--transition);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-text);
+        }
+        .nav-cta {
+            background: var(--color-primary) !important;
+            color: var(--color-white) !important;
+            padding: 6px 18px !important;
+            border-radius: 50px !important;
+            font-weight: 600 !important;
+            font-size: 0.8rem !important;
+            transition: var(--transition) !important;
+        }
+        .nav-cta::after {
+            display: none !important;
+        }
+        .nav-cta:hover {
+            background: var(--color-primary-dark) !important;
+            transform: scale(1.04);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--color-text);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============================================================
+           MAPA CONTAINER
+        ============================================================ */
+        #mapContainer {
+            flex: 1;
+            position: relative;
+            margin-top: 68px;
+            width: 100%;
+            height: calc(100vh - 68px);
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-soft);
+        }
+        .leaflet-control-attribution {
+            font-size: 0.7rem !important;
+            opacity: 0.6;
+        }
+
+        /* ============================================================
+           PANEL LATERAL
+        ============================================================ */
+        .panel-lateral {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 340px;
+            max-height: calc(100% - 32px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+        .panel-lateral.hidden {
+            transform: translateX(-380px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .panel-header {
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid var(--color-border);
+            flex-shrink: 0;
+            position: relative;
+        }
+        .panel-header h3 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .panel-header p {
+            font-size: 0.8rem;
+            color: var(--color-text-soft);
+            margin: 0;
+        }
+        .panel-header .close-panel {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .panel-header .close-panel:hover {
+            color: var(--color-primary);
+        }
+
+        .panel-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px 20px;
+        }
+
+        .buscador-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+        }
+        .buscador-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+        }
+        .buscador-input {
+            width: 100%;
+            padding: 10px 14px 10px 42px;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            background: var(--color-white);
+            transition: var(--transition);
+            color: var(--color-text);
+        }
+        .buscador-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(143, 45, 39, 0.06);
+        }
+        .buscador-input::placeholder {
+            color: var(--color-text-light);
+        }
+
+        .filtros-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .filtro-btn {
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text-soft);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .filtro-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .filtro-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .contador-info {
+            font-size: 0.75rem;
+            color: var(--color-text-soft);
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            background: var(--color-bg-soft);
+            border-radius: var(--radius-sm);
+            display: inline-block;
+        }
+        .contador-info span {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .lista-lugares {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .item-lugar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--color-white);
+        }
+        .item-lugar:hover {
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+        .item-lugar .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .item-lugar .info {
+            flex: 1;
+            min-width: 0;
+        }
+        .item-lugar .info .nombre {
+            font-size: 0.82rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .item-lugar .info .cat {
+            font-size: 0.65rem;
+            color: var(--color-text-soft);
+        }
+        .item-lugar .icono {
+            color: var(--color-text-light);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .item-lugar:hover .icono {
+            color: var(--color-primary);
+        }
+        .item-lugar.hidden {
+            display: none;
+        }
+
+        /* ============================================================
+           PANEL DE DETALLE (flotante)
+        ============================================================ */
+        .panel-detalle {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            z-index: 600;
+            padding: 20px 24px 24px;
+            display: none;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+        .panel-detalle.open {
+            display: block;
+            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+        .panel-detalle .detalle-categoria {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .panel-detalle .detalle-nombre {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2px 0 4px;
+        }
+        .panel-detalle .detalle-descripcion {
+            font-size: 0.9rem;
+            color: var(--color-text-soft);
+            margin-bottom: 8px;
+        }
+        .panel-detalle .detalle-estado {
+            font-size: 0.7rem;
+            color: var(--color-secondary);
+            background: rgba(184, 138, 59, 0.08);
+            padding: 4px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .panel-detalle .detalle-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .panel-detalle .detalle-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .panel-detalle .detalle-close:hover {
+            color: var(--color-primary);
+        }
+
+        /* ============================================================
+           CONTROLES FLOTANTES
+        ============================================================ */
+        .controles-flotantes {
+            position: absolute;
+            right: 16px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 400;
+        }
+        .controles-flotantes .btn-icon {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--color-border);
+        }
+        .controles-flotantes .btn-icon:hover {
+            background: var(--color-white);
+        }
+
+        .leyenda-flotante {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            z-index: 400;
+            font-size: 0.7rem;
+            max-width: 160px;
+            transition: var(--transition);
+        }
+        .leyenda-flotante h5 {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-soft);
+            margin-bottom: 6px;
+        }
+        .leyenda-flotante .leyenda-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 2px 0;
+        }
+        .leyenda-flotante .leyenda-item .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .leyenda-flotante .leyenda-item span {
+            font-size: 0.7rem;
+            color: var(--color-text-soft);
+        }
+
+        /* ============================================================
+           PANEL DE RUTA ACTIVA
+        ============================================================ */
+        .panel-ruta-activa {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            z-index: 550;
+            padding: 18px 24px 20px;
+            min-width: 320px;
+            max-width: 500px;
+            display: none;
+        }
+        .panel-ruta-activa.open {
+            display: block;
+            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .panel-ruta-activa .ruta-tag {
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-secondary);
+            background: rgba(184, 138, 59, 0.08);
+            padding: 2px 12px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        .panel-ruta-activa .ruta-nombre {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 2px 0 4px;
+        }
+        .panel-ruta-activa .ruta-info {
+            font-size: 0.8rem;
+            color: var(--color-text-soft);
+            margin-bottom: 10px;
+        }
+        .panel-ruta-activa .ruta-lugares {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+        .panel-ruta-activa .ruta-lugares .punto {
+            font-size: 0.7rem;
+            background: var(--color-bg-soft);
+            padding: 2px 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .panel-ruta-activa .ruta-lugares .punto:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .panel-ruta-activa .ruta-lugares .punto.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .panel-ruta-activa .ruta-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .panel-ruta-activa .ruta-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            color: var(--color-text-light);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .panel-ruta-activa .ruta-close:hover {
+            color: var(--color-primary);
+        }
+
+        .ruta-advertencia {
+            font-size: 0.65rem;
+            color: var(--color-text-light);
+            background: var(--color-bg-soft);
+            padding: 4px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 6px;
+            border: 1px solid var(--color-border);
+        }
+        .ruta-advertencia i {
+            margin-right: 4px;
+        }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        .footer {
+            display: none;
+            background: var(--color-text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 30px 0 20px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, var(--color-secondary) 0px, var(--color-secondary) 20px, transparent 20px, transparent 24px);
+            opacity: 0.30;
+        }
+        .footer .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.2fr;
+            gap: 30px;
+        }
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 2px;
+        }
+        .footer-brand h3 span {
+            color: var(--color-secondary);
+        }
+        .footer-brand .tagline {
+            font-style: italic;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-bottom: 10px;
+            color: var(--color-white);
+        }
+        .footer-brand p {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            max-width: 300px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .footer-col h5 {
+            color: var(--color-white);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-family: var(--font-sans);
+        }
+        .footer-col ul li {
+            margin-bottom: 4px;
+        }
+        .footer-col ul a {
+            font-size: 0.75rem;
+            transition: color var(--transition);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .footer-col ul a:hover {
+            color: var(--color-secondary);
+        }
+        .footer-col .autores {
+            font-size: 0.75rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .footer-col .autores span {
+            display: block;
+        }
+        .footer-col .colegio {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+        }
+        .footer-col .colegio .logo-placeholder {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.20);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
+        }
+        .footer-col .colegio .info-colegio {
+            font-size: 0.7rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .footer-col .colegio .info-colegio strong {
+            color: var(--color-white);
+            display: block;
+        }
+        .footer-col .colegio .info-colegio span {
+            display: block;
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        .footer-bottom {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 16px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.7rem;
+            opacity: 0.4;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 1024px) {
+            .panel-lateral {
+                width: 300px;
+                left: 12px;
+                top: 12px;
+                max-height: calc(100% - 24px);
+            }
+            .leyenda-flotante {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            .navbar {
+                padding: 10px 16px;
+            }
+            .navbar .logo {
+                font-size: 1rem;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--color-white);
+                flex-direction: column;
+                padding: 80px 28px 40px;
+                gap: 16px;
+                box-shadow: -8px 0 40px rgba(0, 0, 0, 0.08);
+                transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                align-items: flex-start;
+                justify-content: flex-start;
+                overflow-y: auto;
+                z-index: 999;
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 1rem;
+                width: 100%;
+                padding: 6px 0;
+            }
+            .nav-links a::after {
+                bottom: 0;
+            }
+            .nav-cta {
+                padding: 8px 20px !important;
+                font-size: 0.85rem !important;
+                margin-top: 4px;
+            }
+            .hamburger {
+                display: flex;
+            }
+            #mapContainer {
+                margin-top: 60px;
+                height: calc(100vh - 60px);
+            }
+
+            .panel-lateral {
+                width: 280px;
+                left: 8px;
+                top: 8px;
+                max-height: calc(100% - 16px);
+                border-radius: var(--radius-md);
+            }
+            .panel-lateral.hidden {
+                transform: translateX(-320px);
+            }
+            .panel-header {
+                padding: 14px 16px 10px;
+            }
+            .panel-header h3 {
+                font-size: 0.95rem;
+            }
+            .panel-body {
+                padding: 12px 16px 16px;
+            }
+            .buscador-input {
+                font-size: 0.8rem;
+                padding: 8px 12px 8px 36px;
+            }
+            .filtro-btn {
+                font-size: 0.6rem;
+                padding: 3px 10px;
+            }
+
+            .panel-detalle {
+                bottom: 16px;
+                width: 95%;
+                max-width: 400px;
+                padding: 16px 18px 18px;
+            }
+            .panel-detalle .detalle-nombre {
+                font-size: 1rem;
+            }
+            .panel-detalle .detalle-descripcion {
+                font-size: 0.8rem;
+            }
+
+            .panel-ruta-activa {
+                bottom: 16px;
+                width: 95%;
+                max-width: 400px;
+                padding: 14px 18px 16px;
+                min-width: auto;
+            }
+            .panel-ruta-activa .ruta-nombre {
+                font-size: 0.95rem;
+            }
+
+            .controles-flotantes {
+                right: 10px;
+                bottom: 16px;
+                gap: 4px;
+            }
+            .controles-flotantes .btn-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+
+            .footer {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .panel-lateral {
+                width: 260px;
+                left: 6px;
+                top: 6px;
+            }
+            .panel-lateral.hidden {
+                transform: translateX(-280px);
+            }
+            .panel-header h3 {
+                font-size: 0.85rem;
+            }
+            .item-lugar {
+                padding: 8px 10px;
+            }
+            .item-lugar .info .nombre {
+                font-size: 0.75rem;
+            }
+            .panel-detalle {
+                padding: 14px 14px 16px;
+            }
+            .panel-detalle .detalle-nombre {
+                font-size: 0.9rem;
+            }
+            .panel-ruta-activa {
+                padding: 12px 14px 14px;
+            }
+            .btn {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ============================================================
+           ACCESIBILIDAD
+        ============================================================ */
+        :focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        /* ============================================================
+           ANIMACIONES
+        ============================================================ */
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        .pulsing-dot {
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        /* ============================================================
+           FALLBACK
+        ============================================================ */
+        .fallback-mensaje {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 32px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            display: none;
+        }
+        .fallback-mensaje.visible {
+            display: block;
+        }
+        .fallback-mensaje i {
+            font-size: 3rem;
+            color: var(--color-primary);
+            opacity: 0.3;
+            margin-bottom: 12px;
+        }
+        .fallback-mensaje h3 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .fallback-mensaje p {
+            font-size: 0.9rem;
+            color: var(--color-text-soft);
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-landmark"></i>
+            HUANCAYO <span>HISTÓRICO</span>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="lugares.html">Lugares</a></li>
+            <li><a href="rutas.html">Rutas</a></li>
+            <li><a href="mapa.html" class="active">Mapa</a></li>
+            <li><a href="ley.html">Iniciativa de Ley</a></li>
+            <li><a href="mapa.html" class="nav-cta"><i class="fas fa-map-marked-alt"></i> Mapa</a></li>
+        </ul>
+
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- ============================================================
+    MAPA
+    ============================================================ -->
+    <div id="mapContainer">
+        <div id="map"></div>
+
+        <!-- Fallback -->
+        <div class="fallback-mensaje" id="fallback">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>El mapa interactivo no pudo cargarse.</h3>
+            <p>Puedes consultar el inventario de lugares mientras se restablece la conexión.</p>
+            <a href="lugares.html" class="btn btn-primary"><i class="fas fa-compass"></i> Ver lugares</a>
+        </div>
+
+        <!-- ============================================================
+        PANEL LATERAL
+        ============================================================ -->
+        <div class="panel-lateral" id="panelLateral">
+            <div class="panel-header">
+                <h3>Explorar Huancayo</h3>
+                <p>Descubre el patrimonio identificado en el proyecto.</p>
+                <button class="close-panel" id="closePanel" aria-label="Cerrar panel"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="panel-body">
+                <div class="buscador-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="buscador-input" id="buscador" placeholder="Buscar lugares..." />
+                </div>
+
+                <div class="filtros-wrapper" id="filtrosWrapper">
+                    <button class="filtro-btn active" data-filtro="todos">Todos</button>
+                    <button class="filtro-btn" data-filtro="Zona Monumental">Zona Monumental</button>
+                    <button class="filtro-btn" data-filtro="Centro Histórico">Centro Histórico</button>
+                    <button class="filtro-btn" data-filtro="Patrimonio Ferroviario">Ferroviario</button>
+                    <button class="filtro-btn" data-filtro="Arqueología y Patrimonio Prehispánico">Arqueología</button>
+                    <button class="filtro-btn" data-filtro="Miradores y Espacios Públicos">Espacios Públicos</button>
+                    <button class="filtro-btn" data-filtro="Vida Cultural y Comercio">Vida Cultural</button>
+                    <button class="filtro-btn" data-filtro="Museos">Museos</button>
+                </div>
+
+                <div class="contador-info" id="contadorInfo">
+                    Mostrando <span id="contadorNumeros">19</span> lugares
+                </div>
+
+                <div class="lista-lugares" id="listaLugares">
+                    <!-- Inyectado por JS -->
+                </div>
+
+                <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--color-border);">
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn btn-outline btn-sm" id="btnRutasHipoteticas"><i class="fas fa-route"></i> Rutas hipotéticas</button>
+                        <button class="btn btn-outline btn-sm" id="btnVerTodos"><i class="fas fa-globe-americas"></i> Ver todos</button>
+                        <a href="ley.html" class="btn btn-secondary btn-sm" style="background:var(--color-primary);color:#fff;"><i class="fas fa-gavel"></i> Ley</a>
+                    </div>
+                    <div style="margin-top:8px;font-size:0.65rem;color:var(--color-text-light);">
+                        <i class="fas fa-info-circle"></i> Basado en el inventario y propuesta del proyecto de investigación
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        LEYENDA FLOTANTE
+        ============================================================ -->
+        <div class="leyenda-flotante" id="leyendaFlotante">
+            <h5><i class="fas fa-palette"></i> Categorías</h5>
+            <div class="leyenda-item"><span class="color-dot" style="background:#8F2D27;"></span><span>Zona Monumental</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#C0392B;"></span><span>Centro Histórico</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#6D4635;"></span><span>Patrimonio Ferroviario</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#B88A3B;"></span><span>Arqueología</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#29463A;"></span><span>Espacios Públicos</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#C59A54;"></span><span>Vida Cultural</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#5C2D2A;"></span><span>Museos</span></div>
+        </div>
+
+        <!-- ============================================================
+        CONTROLES FLOTANTES
+        ============================================================ -->
+        <div class="controles-flotantes">
+            <button class="btn-icon" id="btnZoomIn" title="Acercar"><i class="fas fa-plus"></i></button>
+            <button class="btn-icon" id="btnZoomOut" title="Alejar"><i class="fas fa-minus"></i></button>
+            <button class="btn-icon" id="btnGeolocation" title="Mi ubicación"><i class="fas fa-location-crosshairs"></i></button>
+            <button class="btn-icon" id="btnFitBounds" title="Ver todos"><i class="fas fa-globe-americas"></i></button>
+            <button class="btn-icon" id="btnTogglePanel" title="Explorar"><i class="fas fa-list-ul"></i></button>
+        </div>
+
+        <!-- ============================================================
+        PANEL DE DETALLE
+        ============================================================ -->
+        <div class="panel-detalle" id="panelDetalle">
+            <button class="detalle-close" id="detalleClose"><i class="fas fa-times"></i></button>
+            <div class="detalle-categoria" id="detalleCategoria">Categoría</div>
+            <div class="detalle-nombre" id="detalleNombre">Nombre del lugar</div>
+            <div class="detalle-descripcion" id="detalleDescripcion">Descripción</div>
+            <div class="detalle-estado">Lugar identificado como potencial parte de la ruta histórica interactiva</div>
+            <div class="detalle-actions">
+                <a href="lugares.html" class="btn btn-primary btn-sm" id="detalleVerLugar"><i class="fas fa-eye"></i> Ver lugar</a>
+                <button class="btn btn-outline btn-sm" id="detalleAgregarRuta"><i class="fas fa-plus"></i> Añadir a ruta</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        PANEL DE RUTA ACTIVA
+        ============================================================ -->
+        <div class="panel-ruta-activa" id="panelRutaActiva">
+            <button class="ruta-close" id="rutaClose"><i class="fas fa-times"></i></button>
+            <div class="ruta-tag">RUTA HIPOTÉTICA</div>
+            <div class="ruta-nombre" id="rutaNombre">Circuito del Centro Histórico</div>
+            <div class="ruta-info" id="rutaInfo">10 lugares · Propuesta de recorrido</div>
+            <div class="ruta-lugares" id="rutaLugaresLista"></div>
+            <div class="ruta-actions">
+                <button class="btn btn-primary btn-sm" id="rutaExplorar"><i class="fas fa-play"></i> Explorar recorrido</button>
+                <button class="btn btn-outline btn-sm" id="rutaCerrar"><i class="fas fa-times"></i> Cerrar ruta</button>
+            </div>
+            <div class="ruta-advertencia"><i class="fas fa-info-circle"></i> Los recorridos mostrados son propuestas conceptuales de exploración elaboradas a partir del inventario del proyecto. El documento de investigación no establece estos trazados como rutas oficiales.</div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <h3>HUANCAYO <span>HISTÓRICO</span></h3>
+                <div class="tagline">“Rutas que cuentan nuestra historia.”</div>
+                <p>Plataforma digital de interpretación y difusión del patrimonio histórico de Huancayo.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Enlaces</h5>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="lugares.html">Lugares</a></li>
+                    <li><a href="rutas.html">Rutas</a></li>
+                    <li><a href="mapa.html">Mapa</a></li>
+                    <li><a href="ley.html">Iniciativa de Ley</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Autores</h5>
+                <div class="autores">
+                    <span>[AUTOR 1]</span>
+                    <span>[AUTOR 2]</span>
+                    <span>[AUTOR 3]</span>
+                    <span>[AUTOR 4]</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Institución Educativa</h5>
+                <div class="colegio">
+                    <div class="logo-placeholder"><i class="fas fa-school"></i></div>
+                    <div class="info-colegio">
+                        <strong>[NOMBRE DEL COLEGIO]</strong>
+                        <span>Área: Ciencias Sociales</span>
+                        <span>Proyecto: Iniciativa de Ley para promover la implementación de rutas históricas interactivas en Huancayo</span>
+                        <span>Año: 2026</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>Proyecto educativo de investigación, difusión y valorización del patrimonio histórico y cultural de Huancayo.</span>
+                <span>© 2026 Huancayo Histórico</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    LEAFLET
+    ============================================================ -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. DATOS DE LUGARES CON COORDENADAS VERIFICADAS
+            // ============================================================
+            const lugaresData = [{
+                id: 'zona-monumental',
+                numero: 1,
+                nombre: 'Zona Monumental de Huancayo',
+                categoria: 'Zona Monumental',
+                lat: -12.0681,
+                lng: -75.2090,
+                descripcion: 'Declarada Monumento Histórico en 1989. Núcleo cívico: Catedral, Arzobispado y Teatro Nuestra Señora del Valle.',
+                imagen: 'assets/lugares/zona-monumental.jpg',
+                color: '#8F2D27',
+                esArea: true
+            }, {
+                id: 'plaza-constitucion',
+                numero: 2,
+                nombre: 'Plaza Constitución y Catedral',
+                categoria: 'Centro Histórico',
+                lat: -12.06806,
+                lng: -75.21008,
+                descripcion: 'Plaza principal; catedral neoclásica (1572). Entorno con Arzobispado y Teatro.',
+                imagen: 'assets/lugares/plaza-constitucion.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'capilla-merced',
+                numero: 3,
+                nombre: 'Capilla de La Merced',
+                categoria: 'Centro Histórico',
+                lat: -12.0672,
+                lng: -75.2095,
+                descripcion: 'Monumento del siglo XVII; sede del Congreso Constituyente (1839).',
+                imagen: 'assets/lugares/capilla-merced.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'casa-pielago',
+                numero: 4,
+                nombre: 'Casa Piélago – Casa de la Abolición',
+                categoria: 'Centro Histórico',
+                lat: -12.0684,
+                lng: -75.2092,
+                descripcion: 'Lugar donde Castilla firmó la abolición (1855). Demolida en 1968, recordada con estatua.',
+                imagen: 'assets/lugares/casa-pielago.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'hotel-los-andes',
+                numero: 5,
+                nombre: 'Hotel Los Andes',
+                categoria: 'Centro Histórico',
+                lat: -12.0678,
+                lng: -75.2098,
+                descripcion: 'Edificación identificada dentro del conjunto de otros inmuebles históricos.',
+                imagen: 'assets/lugares/hotel-los-andes.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'hotel-tivoli',
+                numero: 6,
+                nombre: 'Hotel Tivoli',
+                categoria: 'Centro Histórico',
+                lat: -12.06774,
+                lng: -75.21066,
+                descripcion: 'Edificación identificada dentro del conjunto de inmuebles históricos.',
+                imagen: 'assets/lugares/hotel-tivoli.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'casa-raez',
+                numero: 7,
+                nombre: 'Casa Raez',
+                categoria: 'Centro Histórico',
+                lat: -12.06896,
+                lng: -75.20481,
+                descripcion: 'Edificación histórica identificada dentro del inventario patrimonial.',
+                imagen: 'assets/lugares/casa-raez.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'casa-juana-sofia',
+                numero: 8,
+                nombre: 'Casa Juana Sofía Raez Patiño',
+                categoria: 'Centro Histórico',
+                lat: -12.0683,
+                lng: -75.2055,
+                descripcion: 'Casa identificada como parte del patrimonio local y considerada potencial integrante de la ruta.',
+                imagen: 'assets/lugares/casa-juana-sofia.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'teatrin-maria',
+                numero: 9,
+                nombre: 'Teatrín María Inmaculada',
+                categoria: 'Centro Histórico',
+                lat: -12.0670,
+                lng: -75.2085,
+                descripcion: 'Espacio identificado dentro del conjunto de inmuebles históricos.',
+                imagen: 'assets/lugares/teatrin-maria-inmaculada.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'galeria-real',
+                numero: 10,
+                nombre: 'Galería Real 809',
+                categoria: 'Centro Histórico',
+                lat: -12.0676,
+                lng: -75.2090,
+                descripcion: 'Inmueble identificado dentro del conjunto patrimonial del centro histórico.',
+                imagen: 'assets/lugares/galeria-real-809.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'puente-centenario',
+                numero: 11,
+                nombre: 'Puente Centenario',
+                categoria: 'Centro Histórico',
+                lat: -12.0689,
+                lng: -75.2080,
+                descripcion: 'Puente incluido entre los inmuebles y espacios históricos potencialmente integrables.',
+                imagen: 'assets/lugares/puente-centenario.jpg',
+                color: '#C0392B'
+            }, {
+                id: 'estacion-chilca',
+                numero: 12,
+                nombre: 'Antigua Estación Chilca',
+                categoria: 'Patrimonio Ferroviario',
+                lat: -12.0645,
+                lng: -75.2115,
+                descripcion: 'Arquitectura del boom ferroviario. Monumento Histórico.',
+                imagen: 'assets/lugares/estacion-chilca.jpg',
+                color: '#6D4635'
+            }, {
+                id: 'wariwillka',
+                numero: 13,
+                nombre: 'Complejo Arqueológico Huarihuilca (Wariwillka)',
+                categoria: 'Arqueología y Patrimonio Prehispánico',
+                lat: -12.11759,
+                lng: -75.20612,
+                descripcion: 'Santuario Huari–Huanca. Museo de sitio con piezas arqueológicas.',
+                imagen: 'assets/lugares/wariwillka.jpg',
+                color: '#B88A3B'
+            }, {
+                id: 'huarsh',
+                numero: 14,
+                nombre: 'Monumento Arqueológico Huarsh',
+                categoria: 'Arqueología y Patrimonio Prehispánico',
+                lat: -12.0825,
+                lng: -75.2060,
+                descripcion: 'Santuario Huanca a 3 km de la ciudad. Declarado en 2015. Coordenadas convertidas desde UTM 18S: 479572 E, 8666013 N.',
+                imagen: 'assets/lugares/monumento-huarsh.jpg',
+                color: '#B88A3B'
+            }, {
+                id: 'cerrito-libertad',
+                numero: 15,
+                nombre: 'Cerrito de la Libertad',
+                categoria: 'Miradores y Espacios Públicos',
+                lat: -12.06223,
+                lng: -75.19658,
+                descripcion: 'Mirador panorámico con zoológico y áreas recreativas.',
+                imagen: 'assets/lugares/cerrito-libertad.jpg',
+                color: '#29463A'
+            }, {
+                id: 'parque-identidad',
+                numero: 16,
+                nombre: 'Parque de la Identidad Huanca',
+                categoria: 'Miradores y Espacios Públicos',
+                lat: -12.04911,
+                lng: -75.19783,
+                descripcion: 'Inaugurado en 1996. Esculturas y símbolos de la cultura Wanka.',
+                imagen: 'assets/lugares/parque-identidad-huanca.jpg',
+                color: '#29463A'
+            }, {
+                id: 'feria-dominical',
+                numero: 17,
+                nombre: 'Feria Dominical de Huancayo',
+                categoria: 'Vida Cultural y Comercio',
+                lat: -12.0685,
+                lng: -75.2058,
+                descripcion: 'Fundada en 1572. Mercado artesanal de más de 2 km.',
+                imagen: 'assets/lugares/feria-dominical.jpg',
+                color: '#C59A54'
+            }, {
+                id: 'museo-wariwillka',
+                numero: 18,
+                nombre: 'Museo de Sitio Wariwillka',
+                categoria: 'Museos',
+                lat: -12.1170,
+                lng: -75.2065,
+                descripcion: 'Cuatro salas sobre cultura Huanca y Huari.',
+                imagen: 'assets/lugares/museo-wariwillka.jpg',
+                color: '#5C2D2A'
+            }, {
+                id: 'museo-salesiano',
+                numero: 19,
+                nombre: 'Museo Salesiano Vicente Rasetto',
+                categoria: 'Museos',
+                lat: -12.0662,
+                lng: -75.2088,
+                descripcion: 'Colección de 7.800 piezas de arqueología, fauna e insectos.',
+                imagen: 'assets/lugares/museo-salesiano.jpg',
+                color: '#5C2D2A'
+            }];
+
+            // ============================================================
+            // 2. RUTAS HIPOTÉTICAS
+            // ============================================================
+            const rutasHipoteticas = [{
+                id: 'ruta-centro',
+                nombre: 'Circuito del Centro Histórico',
+                tipo: 'Ruta hipotética',
+                descripcion: 'Recorrido por los inmuebles y espacios del centro histórico de Huancayo.',
+                color: '#C0392B',
+                lugaresIds: [
+                    'plaza-constitucion',
+                    'capilla-merced',
+                    'casa-pielago',
+                    'hotel-los-andes',
+                    'hotel-tivoli',
+                    'casa-raez',
+                    'casa-juana-sofia',
+                    'teatrin-maria',
+                    'galeria-real',
+                    'puente-centenario'
+                ]
+            }, {
+                id: 'ruta-wanka',
+                nombre: 'Circuito de Patrimonio Wanka y Prehispánico',
+                tipo: 'Ruta hipotética',
+                descripcion: 'Recorrido por sitios arqueológicos y espacios vinculados a la cultura Wanka.',
+                color: '#B88A3B',
+                lugaresIds: [
+                    'wariwillka',
+                    'huarsh',
+                    'parque-identidad',
+                    'museo-wariwillka'
+                ]
+            }, {
+                id: 'ruta-cultural',
+                nombre: 'Circuito de Patrimonio, Espacio Público y Cultura',
+                tipo: 'Ruta hipotética',
+                descripcion: 'Recorrido que conecta espacios patrimoniales, públicos y culturales.',
+                color: '#29463A',
+                lugaresIds: [
+                    'zona-monumental',
+                    'estacion-chilca',
+                    'cerrito-libertad',
+                    'feria-dominical',
+                    'museo-salesiano'
+                ]
+            }];
+
+            // ============================================================
+            // 3. CONFIGURACIÓN DE COLORES POR CATEGORÍA
+            // ============================================================
+            const coloresCategoria = {
+                'Zona Monumental': '#8F2D27',
+                'Centro Histórico': '#C0392B',
+                'Patrimonio Ferroviario': '#6D4635',
+                'Arqueología y Patrimonio Prehispánico': '#B88A3B',
+                'Miradores y Espacios Públicos': '#29463A',
+                'Vida Cultural y Comercio': '#C59A54',
+                'Museos': '#5C2D2A'
+            };
+
+            // ============================================================
+            // 4. ESTADO
+            // ============================================================
+            let filtroActual = 'todos';
+            let textoBusqueda = '';
+            let lugarSeleccionado = null;
+            let rutaActiva = null;
+            let marcadoresLayer = L.layerGroup();
+            let rutaLineLayer = L.layerGroup();
+            let rutaMarcadoresLayer = L.layerGroup();
+            let mapa = null;
+            let ubicacionUsuario = null;
+            let circuloUsuario = null;
+            let modoExploracion = false;
+            let indiceExploracion = 0;
+
+            // ============================================================
+            // 5. FUNCIONES DE ICONOS PERSONALIZADOS
+            // ============================================================
+            function crearIcono(color, size, esArea) {
+                size = size || 36;
+                const half = size / 2;
+
+                if (esArea) {
+                    return L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="
+                                    width: ${size}px;
+                                    height: ${size}px;
+                                    background: ${color};
+                                    border-radius: 50%;
+                                    border: 3px solid rgba(255,255,255,0.8);
+                                    box-shadow: 0 0 0 4px ${color}33, 0 4px 12px rgba(0,0,0,0.20);
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    transition: transform 0.2s ease;
+                                    " 
+                                    onmouseover="this.style.transform='scale(1.15)'"
+                                    onmouseout="this.style.transform='scale(1)'"
+                                >
+                                    <span style="
+                                        font-size: ${size * 0.3}px;
+                                        color: #fff;
+                                        font-weight: 700;
+                                        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                                    ">⛰</span>
+                                </div>`,
+                        iconSize: [size, size],
+                        iconAnchor: [half, half],
+                        popupAnchor: [0, -half * 0.4]
+                    });
+                }
+
+                return L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="
+                                width: ${size}px;
+                                height: ${size}px;
+                                background: ${color};
+                                border-radius: 50% 50% 50% 0;
+                                transform: rotate(-45deg);
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.20);
+                                border: 2px solid rgba(255,255,255,0.6);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                transition: transform 0.2s ease;
+                                " 
+                                onmouseover="this.style.transform='rotate(-45deg) scale(1.15)'"
+                                onmouseout="this.style.transform='rotate(-45deg) scale(1)'"
+                            >
+                                <span style="
+                                    transform: rotate(45deg);
+                                    font-size: ${size * 0.3}px;
+                                    color: #fff;
+                                    font-weight: 700;
+                                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                                ">●</span>
+                            </div>`,
+                    iconSize: [size, size],
+                    iconAnchor: [half, size],
+                    popupAnchor: [0, -size * 0.6]
+                });
+            }
+
+            function getColorByCategoria(categoria) {
+                return coloresCategoria[categoria] || '#8F2D27';
+            }
+
+            // ============================================================
+            // 6. INICIALIZAR MAPA
+            // ============================================================
+            function initMap() {
+                try {
+                    mapa = L.map('map', {
+                        center: [-12.0678, -75.2070],
+                        zoom: 14,
+                        zoomControl: false,
+                        attributionControl: true
+                    });
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mapa);
+
+                    L.control.zoom({
+                        position: 'bottomright'
+                    }).addTo(mapa);
+
+                    L.control.scale({
+                        position: 'bottomleft',
+                        metric: true,
+                        imperial: false
+                    }).addTo(mapa);
+
+                    mapa.on('popupopen', function(e) {
+                        const id = e.popup.options.lugarId;
+                        if (id) {
+                            const lugar = lugaresData.find(l => l.id === id);
+                            if (lugar) abrirDetalle(lugar);
+                        }
+                    });
+
+                    cargarMarcadores();
+                    ajustarBounds();
+                    document.getElementById('fallback').classList.remove('visible');
+
+                } catch (e) {
+                    console.error('Error al inicializar el mapa:', e);
+                    document.getElementById('fallback').classList.add('visible');
+                }
+            }
+
+            // ============================================================
+            // 7. CARGAR MARCADORES
+            // ============================================================
+            function cargarMarcadores() {
+                marcadoresLayer.clearLayers();
+
+                const filtrados = obtenerLugaresFiltrados();
+
+                filtrados.forEach(lugar => {
+                    const color = getColorByCategoria(lugar.categoria);
+                    const icon = crearIcono(color, 36, lugar.esArea || false);
+
+                    const marker = L.marker([lugar.lat, lugar.lng], {
+                        icon: icon,
+                        lugarId: lugar.id
+                    });
+
+                    const popupContent = `
+                                <div style="padding:4px 0;max-width:220px;">
+                                    <div style="font-size:0.65rem;font-weight:600;color:${color};text-transform:uppercase;letter-spacing:0.5px;">${lugar.categoria}</div>
+                                    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;margin:2px 0;">${lugar.nombre}</div>
+                                    <div style="font-size:0.8rem;color:#67625B;margin-bottom:6px;">${lugar.descripcion.substring(0,80)}${lugar.descripcion.length > 80 ? '...' : ''}</div>
+                                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                        <button class="btn btn-primary btn-sm" onclick="window.verDetalleDesdePopup('${lugar.id}')" style="padding:4px 12px;font-size:0.7rem;">Ver detalle</button>
+                                        <button class="btn btn-outline btn-sm" onclick="window.agregarARutaDesdePopup('${lugar.id}')" style="padding:4px 12px;font-size:0.7rem;">Añadir a ruta</button>
+                                    </div>
+                                </div>
+                            `;
+
+                    marker.bindPopup(popupContent, {
+                        maxWidth: 260,
+                        className: 'custom-popup',
+                        lugarId: lugar.id
+                    });
+
+                    marker.on('click', function() {
+                        abrirDetalle(lugar);
+                    });
+
+                    marcadoresLayer.addLayer(marker);
+                });
+
+                marcadoresLayer.addTo(mapa);
+                actualizarContador();
+                actualizarListaLugares();
+            }
+
+            // ============================================================
+            // 8. OBTENER LUGARES FILTRADOS
+            // ============================================================
+            function obtenerLugaresFiltrados() {
+                return lugaresData.filter(lugar => {
+                    const matchFiltro = filtroActual === 'todos' || lugar.categoria === filtroActual;
+                    const matchBusqueda = textoBusqueda === '' ||
+                        lugar.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()) ||
+                        lugar.categoria.toLowerCase().includes(textoBusqueda.toLowerCase()) ||
+                        lugar.descripcion.toLowerCase().includes(textoBusqueda.toLowerCase());
+                    return matchFiltro && matchBusqueda;
+                });
+            }
+
+            // ============================================================
+            // 9. ACTUALIZAR CONTADOR
+            // ============================================================
+            function actualizarContador() {
+                const filtrados = obtenerLugaresFiltrados();
+                document.getElementById('contadorNumeros').textContent = filtrados.length;
+            }
+
+            // ============================================================
+            // 10. ACTUALIZAR LISTA DE LUGARES
+            // ============================================================
+            function actualizarListaLugares() {
+                const container = document.getElementById('listaLugares');
+                const filtrados = obtenerLugaresFiltrados();
+
+                if (filtrados.length === 0) {
+                    container.innerHTML =
+                        `
+                                <div style="text-align:center;padding:20px 0;color:var(--color-text-light);">
+                                    <i class="fas fa-search" style="font-size:1.4rem;display:block;margin-bottom:6px;"></i>
+                                    No se encontraron lugares
+                                </div>
+                            `;
+                    return;
+                }
+
+                container.innerHTML = '';
+                filtrados.forEach(lugar => {
+                    const div = document.createElement('div');
+                    div.className = 'item-lugar';
+                    const color = getColorByCategoria(lugar.categoria);
+                    div.innerHTML = `
+                                <span class="dot" style="background:${color};"></span>
+                                <div class="info">
+                                    <div class="nombre">${lugar.nombre}</div>
+                                    <div class="cat">${lugar.categoria}</div>
+                                </div>
+                                <i class="fas fa-chevron-right icono"></i>
+                            `;
+                    div.addEventListener('click', function() {
+                        abrirDetalle(lugar);
+                        if (mapa) {
+                            mapa.setView([lugar.lat, lugar.lng], 17);
+                        }
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            // ============================================================
+            // 11. ABRIR DETALLE (FUNCIONAL COMPLETO)
+            // ============================================================
+            function abrirDetalle(lugar) {
+                lugarSeleccionado = lugar;
+                const panel = document.getElementById('panelDetalle');
+                document.getElementById('detalleCategoria').textContent = lugar.categoria;
+                document.getElementById('detalleNombre').textContent = lugar.nombre;
+                document.getElementById('detalleDescripcion').textContent = lugar.descripcion;
+                document.getElementById('detalleVerLugar').href = `lugares.html?id=${lugar.id}`;
+                panel.classList.add('open');
+
+                // Cerrar panel de ruta si está abierto
+                document.getElementById('panelRutaActiva').classList.remove('open');
+
+                // Centrar mapa en el lugar con zoom
+                if (mapa) {
+                    mapa.setView([lugar.lat, lugar.lng], 17);
+                }
+            }
+
+            // ============================================================
+            // 12. CERRAR DETALLE
+            // ============================================================
+            function cerrarDetalle() {
+                document.getElementById('panelDetalle').classList.remove('open');
+                lugarSeleccionado = null;
+                // Remover botones de navegación de exploración
+                const navButtons = document.querySelectorAll('.nav-exploracion');
+                navButtons.forEach(el => el.remove());
+            }
+
+            // ============================================================
+            // 13. AJUSTAR BOUNDS
+            // ============================================================
+            function ajustarBounds() {
+                if (!mapa) return;
+                const filtrados = obtenerLugaresFiltrados();
+                if (filtrados.length === 0) return;
+                const bounds = L.latLngBounds(filtrados.map(l => [l.lat, l.lng]));
+                mapa.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+            }
+
+            // ============================================================
+            // 14. GEOLOCALIZACIÓN
+            // ============================================================
+            function obtenerUbicacion() {
+                if (!navigator.geolocation) {
+                    alert('Tu navegador no soporta geolocalización.');
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        const lat = pos.coords.latitude;
+                        const lng = pos.coords.longitude;
+                        ubicacionUsuario = [lat, lng];
+
+                        if (circuloUsuario) {
+                            mapa.removeLayer(circuloUsuario);
+                        }
+                        circuloUsuario = L.circle([lat, lng], {
+                            radius: 50,
+                            color: '#B88A3B',
+                            fillColor: '#B88A3B',
+                            fillOpacity: 0.15,
+                            weight: 2
+                        }).addTo(mapa);
+
+                        mapa.setView([lat, lng], 16);
+                    },
+                    function(err) {
+                        alert('No se pudo obtener tu ubicación. Asegúrate de permitir el acceso.');
+                    }, {
+                        enableHighAccuracy: true,
+                        timeout: 10000
+                    }
+                );
+            }
+
+            // ============================================================
+            // 15. FUNCIONES DE RUTAS
+            // ============================================================
+            function activarRuta(rutaId) {
+                const ruta = rutasHipoteticas.find(r => r.id === rutaId);
+                if (!ruta) return;
+
+                rutaActiva = ruta;
+                modoExploracion = false;
+                indiceExploracion = 0;
+
+                rutaLineLayer.clearLayers();
+                rutaMarcadoresLayer.clearLayers();
+
+                const lugaresRuta = ruta.lugaresIds.map(id => lugaresData.find(l => l.id === id)).filter(Boolean);
+
+                if (lugaresRuta.length < 2) {
+                    alert('La ruta necesita al menos 2 lugares.');
+                    return;
+                }
+
+                const puntos = lugaresRuta.map(l => [l.lat, l.lng]);
+                const line = L.polyline(puntos, {
+                    color: ruta.color,
+                    weight: 4,
+                    opacity: 0.8,
+                    dashArray: '8, 6',
+                    smoothFactor: 1
+                }).addTo(rutaLineLayer);
+
+                lugaresRuta.forEach((lugar, idx) => {
+                    const icon = crearIcono(ruta.color, 30);
+                    const marker = L.marker([lugar.lat, lugar.lng], {
+                        icon: icon,
+                        lugarId: lugar.id
+                    });
+                    marker.bindPopup(`
+                                <div style="font-weight:600;">${idx+1}. ${lugar.nombre}</div>
+                                <div style="font-size:0.8rem;color:#67625B;">${lugar.categoria}</div>
+                            `);
+                    marker.addTo(rutaMarcadoresLayer);
+                });
+
+                rutaLineLayer.addTo(mapa);
+                rutaMarcadoresLayer.addTo(mapa);
+
+                marcadoresLayer.clearLayers();
+
+                const panel = document.getElementById('panelRutaActiva');
+                document.getElementById('rutaNombre').textContent = ruta.nombre;
+                document.getElementById('rutaInfo').textContent =
+                    `${lugaresRuta.length} lugares · Propuesta de recorrido`;
+
+                const listaContainer = document.getElementById('rutaLugaresLista');
+                listaContainer.innerHTML = '';
+                lugaresRuta.forEach((lugar, idx) => {
+                    const span = document.createElement('span');
+                    span.className = 'punto';
+                    span.textContent = `${idx+1}. ${lugar.nombre}`;
+                    span.dataset.idx = idx;
+                    span.addEventListener('click', function() {
+                        const idx2 = parseInt(this.dataset.idx);
+                        const l = lugaresRuta[idx2];
+                        if (l && mapa) {
+                            mapa.setView([l.lat, l.lng], 17);
+                            abrirDetalle(l);
+                        }
+                    });
+                    listaContainer.appendChild(span);
+                });
+
+                panel.classList.add('open');
+
+                const bounds = L.latLngBounds(puntos);
+                mapa.fitBounds(bounds, { padding: [60, 60], maxZoom: 14 });
+
+                cerrarDetalle();
+            }
+
+            function cerrarRuta() {
+                rutaActiva = null;
+                modoExploracion = false;
+                indiceExploracion = 0;
+
+                rutaLineLayer.clearLayers();
+                rutaMarcadoresLayer.clearLayers();
+
+                document.getElementById('panelRutaActiva').classList.remove('open');
+
+                // Remover botones de navegación
+                const navButtons = document.querySelectorAll('.nav-exploracion');
+                navButtons.forEach(el => el.remove());
+
+                cargarMarcadores();
+                ajustarBounds();
+            }
+
+            function explorarRuta() {
+                if (!rutaActiva) return;
+                const lugaresRuta = rutaActiva.lugaresIds.map(id => lugaresData.find(l => l.id === id)).filter(Boolean);
+                if (lugaresRuta.length === 0) return;
+
+                modoExploracion = true;
+                indiceExploracion = 0;
+                mostrarPuntoExploracion(lugaresRuta, 0);
+            }
+
+            function mostrarPuntoExploracion(lugaresRuta, idx) {
+                if (idx >= lugaresRuta.length) {
+                    modoExploracion = false;
+                    alert('¡Has recorrido todos los lugares de esta ruta!');
+                    return;
+                }
+
+                const lugar = lugaresRuta[idx];
+                if (mapa) {
+                    mapa.setView([lugar.lat, lugar.lng], 17);
+                }
+                abrirDetalle(lugar);
+
+                const puntos = document.querySelectorAll('#rutaLugaresLista .punto');
+                puntos.forEach((p, i) => {
+                    p.classList.toggle('active', i === idx);
+                });
+
+                indiceExploracion = idx;
+
+                const actions = document.querySelector('.detalle-actions');
+                const navButtons = actions.querySelectorAll('.nav-exploracion');
+                navButtons.forEach(el => el.remove());
+
+                const navDiv = document.createElement('div');
+                navDiv.className = 'nav-exploracion';
+                navDiv.style.cssText = 'display:flex;gap:8px;width:100%;margin-top:6px;flex-wrap:wrap;';
+
+                const btnAnterior = document.createElement('button');
+                btnAnterior.className = 'btn btn-outline btn-sm';
+                btnAnterior.textContent = '◀ Anterior';
+                btnAnterior.disabled = idx === 0;
+                btnAnterior.addEventListener('click', function() {
+                    if (idx > 0) mostrarPuntoExploracion(lugaresRuta, idx - 1);
+                });
+
+                const btnSiguiente = document.createElement('button');
+                btnSiguiente.className = 'btn btn-primary btn-sm';
+                btnSiguiente.textContent = idx === lugaresRuta.length - 1 ? 'Finalizar' : 'Siguiente ▶';
+                btnSiguiente.addEventListener('click', function() {
+                    if (idx === lugaresRuta.length - 1) {
+                        modoExploracion = false;
+                        alert('¡Has completado el recorrido de la ruta!');
+                        return;
+                    }
+                    mostrarPuntoExploracion(lugaresRuta, idx + 1);
+                });
+
+                const contador = document.createElement('span');
+                contador.style.cssText =
+                    'font-size:0.7rem;color:var(--color-text-soft);display:flex;align-items:center;margin-left:auto;';
+                contador.textContent = `${idx+1} / ${lugaresRuta.length}`;
+
+                navDiv.appendChild(btnAnterior);
+                navDiv.appendChild(btnSiguiente);
+                navDiv.appendChild(contador);
+                actions.appendChild(navDiv);
+            }
+
+            // ============================================================
+            // 16. FILTROS Y BÚSQUEDA
+            // ============================================================
+            function aplicarFiltros() {
+                if (rutaActiva) {
+                    cerrarRuta();
+                }
+                cargarMarcadores();
+                ajustarBounds();
+            }
+
+            // ============================================================
+            // 17. WINDOW EXPOSED FUNCTIONS
+            // ============================================================
+            window.verDetalleDesdePopup = function(id) {
+                const lugar = lugaresData.find(l => l.id === id);
+                if (lugar) abrirDetalle(lugar);
+            };
+
+            window.agregarARutaDesdePopup = function(id) {
+                if (!rutaActiva) {
+                    alert('Primero activa una ruta desde el panel de rutas hipotéticas.');
+                    return;
+                }
+                const lugar = lugaresData.find(l => l.id === id);
+                if (!lugar) return;
+                alert(`"${lugar.nombre}" añadido a la ruta "${rutaActiva.nombre}" (funcionalidad conceptual)`);
+            };
+
+            // ============================================================
+            // 18. INICIALIZACIÓN
+            // ============================================================
+            document.addEventListener('DOMContentLoaded', function() {
+                initMap();
+
+                // ============================================================
+                // 19. EVENT LISTENERS
+                // ============================================================
+
+                document.getElementById('closePanel').addEventListener('click', function() {
+                    document.getElementById('panelLateral').classList.toggle('hidden');
+                });
+
+                document.getElementById('btnTogglePanel').addEventListener('click', function() {
+                    document.getElementById('panelLateral').classList.toggle('hidden');
+                });
+
+                document.getElementById('buscador').addEventListener('input', function() {
+                    textoBusqueda = this.value.trim();
+                    aplicarFiltros();
+                });
+
+                document.querySelectorAll('.filtro-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        filtroActual = this.dataset.filtro;
+                        aplicarFiltros();
+                    });
+                });
+
+                document.getElementById('btnZoomIn').addEventListener('click', function() {
+                    if (mapa) mapa.zoomIn();
+                });
+                document.getElementById('btnZoomOut').addEventListener('click', function() {
+                    if (mapa) mapa.zoomOut();
+                });
+                document.getElementById('btnGeolocation').addEventListener('click', obtenerUbicacion);
+                document.getElementById('btnFitBounds').addEventListener('click', function() {
+                    if (rutaActiva) {
+                        const lugaresRuta = rutaActiva.lugaresIds.map(id => lugaresData.find(l => l.id === id))
+                            .filter(Boolean);
+                        if (lugaresRuta.length > 0) {
+                            const bounds = L.latLngBounds(lugaresRuta.map(l => [l.lat, l.lng]));
+                            mapa.fitBounds(bounds, { padding: [60, 60] });
+                        }
+                    } else {
+                        ajustarBounds();
+                    }
+                });
+
+                document.getElementById('detalleClose').addEventListener('click', cerrarDetalle);
+                document.getElementById('detalleAgregarRuta').addEventListener('click', function() {
+                    if (lugarSeleccionado) {
+                        window.agregarARutaDesdePopup(lugarSeleccionado.id);
+                    }
+                });
+
+                document.getElementById('btnRutasHipoteticas').addEventListener('click', function() {
+                    const opciones = rutasHipoteticas.map((r, i) =>
+                        `${i+1}. ${r.nombre} (${r.lugaresIds.length} lugares)`).join('\n');
+                    const seleccion = prompt(
+                        `Selecciona una ruta hipotética:\n\n${opciones}\n\nIngresa el número de la ruta:`,
+                        '1'
+                    );
+                    if (seleccion) {
+                        const idx = parseInt(seleccion) - 1;
+                        if (idx >= 0 && idx < rutasHipoteticas.length) {
+                            if (rutaActiva) cerrarRuta();
+                            activarRuta(rutasHipoteticas[idx].id);
+                        } else {
+                            alert('Selección inválida.');
+                        }
+                    }
+                });
+
+                document.getElementById('btnVerTodos').addEventListener('click', function() {
+                    if (rutaActiva) cerrarRuta();
+                    filtroActual = 'todos';
+                    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelector('.filtro-btn[data-filtro="todos"]')?.classList.add('active');
+                    document.getElementById('buscador').value = '';
+                    textoBusqueda = '';
+                    aplicarFiltros();
+                });
+
+                document.getElementById('rutaClose').addEventListener('click', cerrarRuta);
+                document.getElementById('rutaCerrar').addEventListener('click', cerrarRuta);
+                document.getElementById('rutaExplorar').addEventListener('click', function() {
+                    if (rutaActiva) explorarRuta();
+                });
+
+                document.getElementById('hamburger').addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    document.getElementById('navLinks').classList.toggle('open');
+                });
+
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        document.getElementById('hamburger').classList.remove('active');
+                        document.getElementById('navLinks').classList.remove('open');
+                    });
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        cerrarDetalle();
+                        if (rutaActiva && modoExploracion) {
+                            modoExploracion = false;
+                        }
+                    }
+                });
+
+                mapa?.on('click', function() {
+                    cerrarDetalle();
+                });
+
+                console.log('✅ Huancayo Histórico - Mapa interactivo cargado.');
+                console.log(`📍 ${lugaresData.length} lugares identificados con coordenadas verificadas`);
+                console.log(`🗺️ ${rutasHipoteticas.length} rutas hipotéticas disponibles`);
+            });
+
+            setTimeout(function() {
+                if (typeof L === 'undefined') {
+                    document.getElementById('fallback').classList.add('visible');
+                }
+            }, 3000);
+
+        })();
+    </script>
+
+</body>
+</html>

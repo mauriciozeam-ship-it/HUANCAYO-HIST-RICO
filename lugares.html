@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lugares · Huancayo Histórico</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           VARIABLES
+        ============================================================ */
+        :root {
+            --color-primary: #8F2D27;
+            --color-primary-dark: #641D1A;
+            --color-secondary: #B88A3B;
+            --color-accent: #C59A54;
+            --color-earth: #6D4635;
+            --color-green: #29463A;
+            --color-bg: #F6F1E8;
+            --color-bg-soft: #EEE7DA;
+            --color-white: #FFFFFF;
+            --color-text: #202020;
+            --color-text-soft: #67625B;
+            --color-text-light: #9A9488;
+            --color-border: rgba(32, 32, 32, 0.10);
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+            --shadow-primary: 0 8px 24px rgba(143, 45, 39, 0.25);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* ============================================================
+           RESET
+        ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        ul {
+            list-style: none;
+        }
+
+        ::selection {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ============================================================
+           TIPOGRAFÍA
+        ============================================================ */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--color-text);
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: clamp(2rem, 4.5vw, 3.6rem);
+            letter-spacing: -0.01em;
+        }
+        h3 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+        }
+        h4 {
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+        }
+        p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--color-text-soft);
+        }
+
+        /* ============================================================
+           BUTTONS
+        ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .btn-primary:hover,
+        .btn-primary:focus-visible {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-white);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.10);
+            border-color: var(--color-white);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: var(--color-secondary);
+            color: var(--color-white);
+        }
+        .btn-secondary:hover {
+            background: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(184, 138, 59, 0.30);
+        }
+
+        /* ============================================================
+           NAVBAR
+        ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            transition: var(--transition);
+        }
+        .navbar.scrolled {
+            background: rgba(246, 241, 232, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+            padding: 10px 24px;
+        }
+        .navbar .logo {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-text);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar .logo i {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+        .navbar .logo span {
+            color: var(--color-primary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text);
+            transition: color var(--transition);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+        .nav-cta {
+            background: var(--color-primary) !important;
+            color: var(--color-white) !important;
+            padding: 8px 22px !important;
+            border-radius: 50px !important;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            transition: var(--transition) !important;
+        }
+        .nav-cta::after {
+            display: none !important;
+        }
+        .nav-cta:hover {
+            background: var(--color-primary-dark) !important;
+            transform: scale(1.04);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--color-text);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============================================================
+           HERO
+        ============================================================ */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: url('https://upla.edu.pe/web/wp-content/uploads/2026/03/653764012_26099238853038382_4664865133489018725_n.jpg') center center / cover no-repeat;
+            padding: 120px 24px 80px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(32, 32, 32, 0.55) 0%, rgba(32, 32, 32, 0.25) 100%);
+            z-index: 1;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40%;
+            height: 60%;
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(184, 138, 59, 0.04) 20px, rgba(184, 138, 59, 0.04) 22px),
+                repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(184, 138, 59, 0.04) 20px, rgba(184, 138, 59, 0.04) 22px);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 820px;
+            color: var(--color-white);
+        }
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding: 8px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            border-radius: 50px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.6rem, 7vw, 4.8rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            color: var(--color-white);
+        }
+        .hero h1 span {
+            color: var(--color-secondary);
+        }
+        .hero p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            max-width: 640px;
+            margin: 0 auto 28px;
+            opacity: 0.85;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .hero-stats .stat {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-stats .stat strong {
+            font-weight: 600;
+            color: var(--color-white);
+            font-size: 1rem;
+        }
+        .hero-stats .stat i {
+            color: var(--color-secondary);
+        }
+
+        /* ============================================================
+           SECCIÓN EXPLICACIÓN
+        ============================================================ */
+        .intro-inventario {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            background: var(--color-bg);
+        }
+        .intro-inventario .container {
+            max-width: 800px;
+            text-align: center;
+        }
+        .intro-inventario h2 {
+            margin-bottom: 12px;
+        }
+        .intro-inventario h2 span {
+            color: var(--color-primary);
+        }
+        .intro-inventario p {
+            margin-bottom: 16px;
+        }
+        .intro-inventario .nota {
+            font-size: 0.8rem;
+            background: var(--color-white);
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            border-left: 3px solid var(--color-secondary);
+            color: var(--color-text-soft);
+        }
+        .intro-inventario .nota strong {
+            color: var(--color-text);
+        }
+
+        /* ============================================================
+           BUSCADOR Y FILTROS
+        ============================================================ */
+        .filtros-seccion {
+            padding: 0 0 40px;
+            background: var(--color-bg);
+        }
+        .filtros-seccion .container {
+            max-width: 1100px;
+        }
+
+        .buscador-wrapper {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .buscador-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+        }
+        .buscador-input {
+            width: 100%;
+            padding: 16px 18px 16px 52px;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            background: var(--color-white);
+            transition: var(--transition);
+            color: var(--color-text);
+        }
+        .buscador-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(143, 45, 39, 0.08);
+        }
+        .buscador-input::placeholder {
+            color: var(--color-text-light);
+        }
+
+        .resultado-contador {
+            font-size: 0.85rem;
+            color: var(--color-text-soft);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .resultado-contador span {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .filtros-botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+        .filtro-btn {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-text-soft);
+            font-family: var(--font-sans);
+        }
+        .filtro-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .filtro-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+        .filtro-btn.active:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .sin-resultados {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--color-text-soft);
+            font-size: 1.1rem;
+            display: none;
+        }
+        .sin-resultados.visible {
+            display: block;
+        }
+
+        /* ============================================================
+           GRID DE LUGARES
+        ============================================================ */
+        .grid-lugares {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            padding-bottom: 20px;
+        }
+
+        .card-lugar {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-lugar:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card-lugar .card-img {
+            height: 200px;
+            background: var(--color-bg-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: var(--color-primary);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .card-lugar .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition);
+        }
+        .card-lugar:hover .card-img img {
+            transform: scale(1.05);
+        }
+        .card-lugar .card-img .categoria-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(32, 32, 32, 0.75);
+            backdrop-filter: blur(4px);
+            color: var(--color-white);
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 4px 16px;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .card-lugar .card-img .numero-badge {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            background: rgba(32, 32, 32, 0.6);
+            backdrop-filter: blur(4px);
+            color: var(--color-white);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+        }
+
+        .card-lugar .card-body {
+            padding: 18px 22px 22px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-lugar .card-body .categoria-text {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .card-lugar .card-body h3 {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .card-lugar .card-body p {
+            font-size: 0.9rem;
+            color: var(--color-text-soft);
+            line-height: 1.6;
+            margin-bottom: 12px;
+            flex: 1;
+        }
+        .card-lugar .card-body .lugar-tag {
+            font-size: 0.7rem;
+            color: var(--color-secondary);
+            background: rgba(184, 138, 59, 0.08);
+            padding: 4px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 12px;
+            align-self: flex-start;
+            font-weight: 500;
+        }
+        .card-lugar .card-body .card-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .card-lugar .card-body .btn-small {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .card-lugar .card-body .btn-small:hover {
+            color: var(--color-primary-dark);
+            gap: 10px;
+        }
+        .card-lugar .card-body .btn-icon {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            transition: var(--transition);
+            padding: 4px 0;
+        }
+        .card-lugar .card-body .btn-icon:hover {
+            color: var(--color-primary);
+        }
+
+        /* ============================================================
+           MODAL
+        ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        .modal {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            max-width: 640px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-lg);
+        }
+        .modal-overlay.open .modal {
+            transform: scale(1) translateY(0);
+        }
+        .modal-img {
+            width: 100%;
+            height: 240px;
+            background: var(--color-bg-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-primary);
+            position: relative;
+        }
+        .modal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            color: var(--color-white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: rotate(90deg);
+        }
+        .modal-body {
+            padding: 28px 32px 32px;
+        }
+        .modal-body .modal-cat {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .modal-body h2 {
+            font-size: 1.6rem;
+            margin: 4px 0 8px;
+        }
+        .modal-body p {
+            font-size: 0.95rem;
+            color: var(--color-text-soft);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .modal-body .modal-tag {
+            background: rgba(184, 138, 59, 0.10);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--color-secondary);
+            display: inline-block;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .modal-body .modal-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        /* ============================================================
+           SECCIÓN EDITORIAL
+        ============================================================ */
+        .seccion-editorial {
+            padding: clamp(4rem, 8vw, 6rem) 0;
+            background: var(--color-bg-soft);
+            position: relative;
+        }
+        .seccion-editorial .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .seccion-editorial .editorial-text h2 span {
+            color: var(--color-primary);
+        }
+        .seccion-editorial .editorial-text p {
+            margin-top: 12px;
+        }
+        .seccion-editorial .editorial-text blockquote {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--color-primary);
+            border-left: 3px solid var(--color-secondary);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        .seccion-editorial .editorial-visual {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+        }
+        .seccion-editorial .editorial-visual i {
+            font-size: 4rem;
+            color: var(--color-primary);
+            opacity: 0.2;
+            margin-bottom: 12px;
+        }
+        .seccion-editorial .editorial-visual .frase {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--color-text);
+        }
+
+        /* ============================================================
+           SECCIÓN TECNOLOGÍA
+        ============================================================ */
+        .tecnologia {
+            padding: clamp(4rem, 8vw, 6rem) 0;
+            background: var(--color-bg);
+        }
+        .tecnologia .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 40px;
+        }
+        .tecnologia .section-header h2 span {
+            color: var(--color-primary);
+        }
+        .grid-tecnologia {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 24px;
+        }
+        .card-tec {
+            background: var(--color-white);
+            padding: 24px 18px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+        }
+        .card-tec:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-primary);
+        }
+        .card-tec i {
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+        .card-tec h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-family: var(--font-sans);
+        }
+        .card-tec p {
+            font-size: 0.8rem;
+            color: var(--color-text-soft);
+            margin: 0;
+        }
+
+        /* ============================================================
+           CTA FINAL
+        ============================================================ */
+        .cta-final {
+            padding: clamp(4rem, 10vw, 7rem) 24px;
+            background:
+                linear-gradient(135deg, rgba(32, 32, 32, 0.70) 0%, rgba(32, 32, 32, 0.45) 100%),
+                url('https://lh7-us.googleusercontent.com/docsz/AD_4nXemY-lyKgNIvhEVCqcXZovkdeJBP-U1kZ4CVaEMHa7Oq8l32ErNgy8NLYvX5NvIJOw7adJSwKwDu6rv53Q61bNdO2hDKVeTzJkxxGTzi1DmZMW9ApzwlSqCuBLfzRt_K2EtTjDbxbCHECxhJokxfYXFIE-1?key=LGK4WhDu06YO5BSrlQOPng') center center / cover no-repeat;
+            text-align: center;
+            color: var(--color-white);
+        }
+        .cta-final h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            font-weight: 600;
+            max-width: 700px;
+            margin: 0 auto 12px;
+            color: var(--color-white);
+        }
+        .cta-final h2 span {
+            color: var(--color-secondary);
+        }
+        .cta-final p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            opacity: 0.85;
+            max-width: 500px;
+            margin: 0 auto 28px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .cta-final .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        .footer {
+            background: var(--color-text);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 0 30px;
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, var(--color-secondary) 0px, var(--color-secondary) 20px, transparent 20px, transparent 24px);
+            opacity: 0.30;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.2fr;
+            gap: 40px;
+        }
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--color-white);
+            margin-bottom: 4px;
+        }
+        .footer-brand h3 span {
+            color: var(--color-secondary);
+        }
+        .footer-brand .tagline {
+            font-style: italic;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            margin-bottom: 16px;
+            color: var(--color-white);
+        }
+        .footer-brand p {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            max-width: 320px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .footer-col h5 {
+            color: var(--color-white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-family: var(--font-sans);
+        }
+        .footer-col ul li {
+            margin-bottom: 6px;
+        }
+        .footer-col ul a {
+            font-size: 0.85rem;
+            transition: color var(--transition);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .footer-col ul a:hover {
+            color: var(--color-secondary);
+        }
+        .footer-col .autores {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .footer-col .autores span {
+            display: block;
+        }
+        .footer-col .colegio {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 6px;
+        }
+         /* ----- ESTILOS DEL LOGO REDUCIDO ----- */
+        .logo-colegio {
+            width: 80px;          /* TAMAÑO MÁS PEQUEÑO: Antes 45px */
+            height: 80px;         /* Alto igual al ancho */
+            border-radius: 50%;   /* Hace la imagen circular */
+            
+            /* Asegura que la imagen se ajuste correctamente */
+            object-fit: cover;    /* Cubre el área sin estirarse (mejor para fotos) */
+            /* object-fit: contain; /* Alternativa: Usa contain si la insignia no es circular y quieres que se vea entera dentro del círculo gris */
+            
+            display: flex;        /* Centrado interno */
+            justify-content: center;
+            align-items: center;
+        }
+        .footer-col .colegio .info-colegio {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .footer-col .colegio .info-colegio strong {
+            color: var(--color-white);
+            display: block;
+        }
+        .footer-col .colegio .info-colegio span {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+        .footer-bottom {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 24px;
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 32px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-lugares {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .seccion-editorial .container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 340px;
+                height: 100vh;
+                background: var(--color-white);
+                flex-direction: column;
+                padding: 80px 32px 40px;
+                gap: 18px;
+                box-shadow: -8px 0 40px rgba(0, 0, 0, 0.08);
+                transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                align-items: flex-start;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 1.1rem;
+                width: 100%;
+                padding: 8px 0;
+            }
+            .nav-links a::after {
+                bottom: 0;
+            }
+            .nav-cta {
+                padding: 10px 28px !important;
+                font-size: 0.95rem !important;
+                margin-top: 8px;
+            }
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                min-height: 60vh;
+                padding: 100px 20px 60px;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .hero p {
+                font-size: 0.95rem;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stats .stat {
+                font-size: 0.75rem;
+            }
+
+            .grid-lugares {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .filtros-botones {
+                gap: 8px;
+            }
+            .filtro-btn {
+                font-size: 0.72rem;
+                padding: 6px 14px;
+            }
+
+            .grid-tecnologia {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            .footer-brand p {
+                max-width: 100%;
+            }
+
+            .modal-body {
+                padding: 20px 24px 24px;
+            }
+            .modal-img {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 16px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .hero-tag {
+                font-size: 0.55rem;
+                padding: 4px 14px;
+                letter-spacing: 2px;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 6px;
+                align-items: center;
+            }
+
+            .grid-tecnologia {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .card-lugar .card-img {
+                height: 160px;
+            }
+            .card-lugar .card-body {
+                padding: 14px 16px 18px;
+            }
+            .card-lugar .card-body h3 {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+
+            .cta-final h2 {
+                font-size: 1.6rem;
+            }
+            .cta-final p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ============================================================
+           ACCESIBILIDAD
+        ============================================================ */
+        :focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        /* ============================================================
+           ANIMACIONES FADE-UP
+        ============================================================ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-up.delay-1 {
+            transition-delay: 0.08s;
+        }
+        .fade-up.delay-2 {
+            transition-delay: 0.16s;
+        }
+        .fade-up.delay-3 {
+            transition-delay: 0.24s;
+        }
+        .fade-up.delay-4 {
+            transition-delay: 0.32s;
+        }
+        .fade-up.delay-5 {
+            transition-delay: 0.40s;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-landmark"></i>
+            HUANCAYO <span>HISTÓRICO</span>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="lugares.html" class="active">Lugares</a></li>
+            <li><a href="rutas.html">Rutas</a></li>
+            <li><a href="mapa.html">Mapa</a></li>
+            <li><a href="ley.html">Iniciativa de Ley</a></li>
+            <li><a href="mapa.html" class="nav-cta"><i class="fas fa-map-marked-alt"></i> Explorar mapa</a></li>
+        </ul>
+
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <span class="hero-tag">INVENTARIO PATRIMONIAL</span>
+            <h1>Lugares que <span>cuentan</span> nuestra historia</h1>
+            <p>Explora los espacios históricos, arqueológicos, culturales y patrimoniales identificados en la propuesta de Rutas Históricas Interactivas de Huancayo.</p>
+            <div class="hero-stats">
+                <span class="stat"><i class="fas fa-flag"></i> <strong>Patrimonio identificado</strong></span>
+                <span class="stat"><i class="fas fa-book"></i> <strong>Historia + cultura + territorio</strong></span>
+            </div>
+            <a href="#catalogo" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Explorar el inventario</a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    EXPLICACIÓN DEL INVENTARIO
+    ============================================================ -->
+    <section class="intro-inventario" id="intro-inventario">
+        <div class="container">
+            <h2>Un patrimonio <span>conectado</span></h2>
+            <p>El proyecto identifica distintos espacios de Huancayo con potencial para integrarse en una red de rutas históricas interactivas. Estos lugares pertenecen a diferentes categorías del patrimonio y permiten construir una visión amplia de la historia y cultura de la ciudad.</p>
+            <div class="nota">
+                <strong>NOTA DEL PROYECTO</strong> — Los lugares mostrados corresponden al inventario identificado como potencial parte de la ruta histórica interactiva dentro de la investigación.
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FILTROS Y BÚSQUEDA
+    ============================================================ -->
+    <section class="filtros-seccion" id="catalogo">
+        <div class="container">
+            <div class="buscador-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" class="buscador-input" id="buscador" placeholder="Busca un lugar, museo, monumento o espacio cultural..." />
+            </div>
+
+            <div class="resultado-contador">
+                Mostrando <span id="contador-resultados">0</span> lugares
+            </div>
+
+            <div class="filtros-botones" id="filtrosBotones">
+                <button class="filtro-btn active" data-filtro="todos">Todos</button>
+                <button class="filtro-btn" data-filtro="Zona Monumental">Zona Monumental</button>
+                <button class="filtro-btn" data-filtro="Centro Histórico">Centro Histórico</button>
+                <button class="filtro-btn" data-filtro="Patrimonio Ferroviario">Patrimonio Ferroviario</button>
+                <button class="filtro-btn" data-filtro="Arqueología y Patrimonio Prehispánico">Arqueología</button>
+                <button class="filtro-btn" data-filtro="Miradores y Espacios Públicos">Espacios Públicos</button>
+                <button class="filtro-btn" data-filtro="Vida Cultural y Comercio">Vida Cultural</button>
+                <button class="filtro-btn" data-filtro="Museos">Museos</button>
+            </div>
+
+            <div class="sin-resultados" id="sinResultados">
+                <i class="fas fa-search" style="font-size:2rem;color:var(--color-text-light);margin-bottom:12px;display:block;"></i>
+                No encontramos lugares que coincidan con tu búsqueda.
+            </div>
+
+            <div class="grid-lugares" id="gridLugares">
+                <!-- Los lugares se inyectan con JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SECCIÓN EDITORIAL
+    ============================================================ -->
+    <section class="seccion-editorial" id="editorial">
+        <div class="container">
+            <div class="editorial-text">
+                <h2>Más que lugares: <span>memoria</span></h2>
+                <p>El proyecto entiende plazas, calles, monumentos, museos y espacios culturales no solo como estructuras físicas, sino como espacios donde se conserva, transmite y reinterpreta la memoria histórica de Huancayo.</p>
+                <blockquote>“Conocer un lugar también es comprender la historia que lo rodea.”</blockquote>
+            </div>
+            <div class="editorial-visual">
+                <i class="fas fa-landmark"></i>
+                <div class="frase">Huancayo, ciudad de historia viva</div>
+                <p style="font-size:0.85rem;margin-top:12px;">Patrimonio que conecta pasado y presente</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SECCIÓN TECNOLÓGICA
+    ============================================================ -->
+    <section class="tecnologia" id="tecnologia">
+        <div class="container">
+            <div class="section-header">
+                <h2>El siguiente paso: convertir el inventario en una <span>experiencia interactiva</span></h2>
+            </div>
+            <div class="grid-tecnologia">
+                <div class="card-tec">
+                    <i class="fas fa-qrcode"></i>
+                    <h5>QR</h5>
+                    <p>Información en el propio lugar</p>
+                </div>
+                <div class="card-tec">
+                    <i class="fas fa-headphones"></i>
+                    <h5>Audioguías</h5>
+                    <p>Recorridos narrados</p>
+                </div>
+                <div class="card-tec">
+                    <i class="fas fa-map"></i>
+                    <h5>Mapa interactivo</h5>
+                    <p>Exploración geográfica</p>
+                </div>
+                <div class="card-tec">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h5>Web / PWA</h5>
+                    <p>Acceso desde móviles</p>
+                </div>
+                <div class="card-tec">
+                    <i class="fas fa-vr-cardboard"></i>
+                    <h5>Realidad aumentada</h5>
+                    <p>Ampliar la interpretación patrimonial</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CTA FINAL
+    ============================================================ -->
+    <section class="cta-final" id="cta-final">
+        <div class="container">
+            <h2>Explora Huancayo desde <span>otro punto de vista</span></h2>
+            <p>Cada plaza, monumento, museo y espacio cultural puede convertirse en una puerta hacia nuestra historia.</p>
+            <div class="btn-group">
+                <a href="rutas.html" class="btn btn-secondary"><i class="fas fa-route"></i> Ver las rutas</a>
+                <a href="mapa.html" class="btn btn-outline"><i class="fas fa-map-marked-alt"></i> Explorar el mapa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+      <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <h3>HUANCAYO <span>HISTÓRICO</span></h3>
+                <div class="tagline">“Rutas que cuentan nuestra historia.”</div>
+                <p>Plataforma digital de interpretación y difusión del patrimonio histórico de Huancayo, diseñada como soporte para la implementación de las Rutas Históricas Interactivas.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Enlaces</h5>
+                <ul>
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#lugares-destacados">Lugares</a></li>
+                    <li><a href="#rutas">Rutas</a></li>
+                    <li><a href="#mapa-preview">Mapa</a></li>
+                    <li><a href="#ley">Iniciativa de Ley</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Autores</h5>
+                <div class="autores">
+                    <span>Jackelin Berrocal Retamozo</span>
+                    <span>Mauricio Zea Rafael</span>
+                    <span>Romina Ortiz Huayhua</span>
+                    <span>Carmen Sandoval Terrazos</span>
+                    <span>Estefano Garcia Acuña</span>
+                </div>
+            </div>
+
+            <div class="footer-col">
+    <h5>Institución Educativa</h5>
+    <div class="colegio">
+        <!-- Reemplazamos el placeholder por la etiqueta de imagen -->
+        <img src="assets/logoandino.png" alt="Logo Colegio Particular Andino" class="logo-colegio" />
+        
+        <div class="info-colegio">
+            <strong>Colegio Particular Andino</strong><br />
+            <span style="font-size:0.75rem; opacity:0.7;">Área: Ciencias Sociales</span><br />
+            <span style="font-size:0.7rem; opacity:0.6;">Proyecto: Iniciativa de Ley para promover la implementación de rutas históricas interactivas en Huancayo</span><br />
+            <span style="font-size:0.7rem; opacity:0.5;">Año: 2026</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>Proyecto educativo de investigación, difusión y valorización del patrimonio histórico y cultural de Huancayo.</span>
+                <span>© 2026 Huancayo Histórico</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    MODAL
+    ============================================================ -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-img" id="modalImg">
+                <img src="" alt="" id="modalImgSrc" />
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-cat" id="modalCategoria"></div>
+                <h2 id="modalNombre"></h2>
+                <div class="modal-tag">Potencial integrante de la ruta</div>
+                <p id="modalDescripcion"></p>
+                <div class="modal-actions">
+                    <a href="mapa.html" class="btn btn-primary"><i class="fas fa-map-marked-alt"></i> Ver en el mapa</a>
+                    <button class="btn-secondary" style="background:var(--color-text-soft);color:#fff;" id="modalCerrarBtn">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // DATOS DE LUGARES
+            // ============================================================
+            const lugares = [{
+                id: 1,
+                nombre: "Zona Monumental de Huancayo",
+                categoria: "Zona Monumental",
+                descripcion: "Declarada Monumento Histórico en 1989. Constituye un núcleo cívico de la ciudad y comprende espacios como la Catedral, el Arzobispado y el Teatro Nuestra Señora del Valle.",
+                imagen: "assets/lugares/zona-monumental.jpg",
+                icono: "fas fa-crown",
+                color: "#8F2D27"
+            }, {
+                id: 2,
+                nombre: "Plaza Constitución y Catedral",
+                categoria: "Centro Histórico",
+                descripcion: "Plaza principal de Huancayo, vinculada a la Catedral y a un entorno que incluye el Arzobispado y el Teatro Nuestra Señora del Valle.",
+                imagen: "assets/lugares/plaza-constitucion.jpg",
+                icono: "fas fa-church",
+                color: "#6D4635"
+            }, {
+                id: 3,
+                nombre: "Capilla de La Merced",
+                categoria: "Centro Histórico",
+                descripcion: "Monumento del siglo XVII y sede del Congreso Constituyente de 1839.",
+                imagen: "assets/lugares/capilla-merced.jpg",
+                icono: "fas fa-place-of-worship",
+                color: "#8F2D27"
+            }, {
+                id: 4,
+                nombre: "Casa Piélago – Casa de la Abolición",
+                categoria: "Centro Histórico",
+                descripcion: "Lugar donde Castilla firmó la abolición en 1855. La casa fue demolida en 1968 y actualmente es recordada mediante una estatua.",
+                imagen: "assets/lugares/casa-pielago.jpg",
+                icono: "fas fa-scroll",
+                color: "#6D4635"
+            }, {
+                id: 5,
+                nombre: "Hotel Los Andes",
+                categoria: "Centro Histórico",
+                descripcion: "Edificación identificada dentro del conjunto de otros inmuebles históricos del centro de Huancayo.",
+                imagen: "assets/lugares/hotel-los-andes.jpg",
+                icono: "fas fa-hotel",
+                color: "#67625B"
+            }, {
+                id: 6,
+                nombre: "Hotel Tivoli",
+                categoria: "Centro Histórico",
+                descripcion: "Edificación identificada dentro del conjunto de inmuebles históricos considerados para la ruta.",
+                imagen: "assets/lugares/hotel-tivoli.jpg",
+                icono: "fas fa-hotel",
+                color: "#67625B"
+            }, {
+                id: 7,
+                nombre: "Casa Raez",
+                categoria: "Centro Histórico",
+                descripcion: "Edificación histórica identificada dentro del inventario patrimonial propuesto.",
+                imagen: "assets/lugares/casa-raez.jpg",
+                icono: "fas fa-home",
+                color: "#67625B"
+            }, {
+                id: 9,
+                nombre: "Teatrín María Inmaculada",
+                categoria: "Centro Histórico",
+                descripcion: "Espacio identificado dentro del conjunto de inmuebles históricos considerados para la ruta.",
+                imagen: "assets/lugares/teatrin-maria-inmaculada.jpg",
+                icono: "fas fa-theater-masks",
+                color: "#67625B"
+            }, {
+                id: 10,
+                nombre: "Galería Real 809",
+                categoria: "Centro Histórico",
+                descripcion: "Inmueble identificado dentro del conjunto patrimonial del centro histórico.",
+                imagen: "assets/lugares/galeria-real-809.jpg",
+                icono: "fas fa-store",
+                color: "#67625B"
+            }, {
+                id: 11,
+                nombre: "Puente Centenario",
+                categoria: "Centro Histórico",
+                descripcion: "Puente incluido entre los inmuebles y espacios históricos potencialmente integrables a la ruta.",
+                imagen: "assets/lugares/puente-centenario.jpg",
+                icono: "fas fa-bridge",
+                color: "#67625B"
+            }, {
+                id: 12,
+                nombre: "Antigua Estación Chilca",
+                categoria: "Patrimonio Ferroviario",
+                descripcion: "Edificación vinculada al boom ferroviario de la ciudad y considerada Monumento Histórico.",
+                imagen: "assets/lugares/estacion-chilca.jpg",
+                icono: "fas fa-train",
+                color: "#29463A"
+            }, {
+                id: 13,
+                nombre: "Complejo Arqueológico Huarihuilca (Wariwillka)",
+                categoria: "Arqueología y Patrimonio Prehispánico",
+                descripcion: "Santuario Huari–Huanca y sitio arqueológico que cuenta con museo de sitio y piezas relacionadas con el patrimonio prehispánico.",
+                imagen: "assets/lugares/wariwillka.jpg",
+                icono: "fas fa-landmark",
+                color: "#6D4635"
+            }, {
+                id: 14,
+                nombre: "Monumento Arqueológico Huarsh",
+                categoria: "Arqueología y Patrimonio Prehispánico",
+                descripcion: "Santuario Huanca situado aproximadamente a 3 km de la ciudad y declarado en 2015.",
+                imagen: "assets/lugares/monumento-huarsh.jpg",
+                icono: "fas fa-mountain",
+                color: "#6D4635"
+            }, {
+                id: 15,
+                nombre: "Cerrito de la Libertad",
+                categoria: "Miradores y Espacios Públicos",
+                descripcion: "Mirador panorámico que cuenta con zoológico y áreas recreativas.",
+                imagen: "assets/lugares/cerrito-libertad.jpg",
+                icono: "fas fa-tree",
+                color: "#29463A"
+            }, {
+                id: 16,
+                nombre: "Parque de la Identidad Huanca",
+                categoria: "Miradores y Espacios Públicos",
+                descripcion: "Espacio inaugurado en 1996, caracterizado por sus esculturas y símbolos vinculados con la cultura Wanka.",
+                imagen: "assets/lugares/parque-identidad-huanca.jpg",
+                icono: "fas fa-leaf",
+                color: "#29463A"
+            }, {
+                id: 17,
+                nombre: "Feria Dominical de Huancayo",
+                categoria: "Vida Cultural y Comercio",
+                descripcion: "Feria fundada en 1572, reconocida por su actividad comercial y artesanal y por extenderse a lo largo de más de 2 km.",
+                imagen: "assets/lugares/feria-dominical.jpg",
+                icono: "fas fa-store-alt",
+                color: "#B88A3B"
+            }, {
+                id: 18,
+                nombre: "Museo de Sitio Wariwillka",
+                categoria: "Museos",
+                descripcion: "Museo de sitio con cuatro salas dedicadas a contenidos relacionados con las culturas Huanca y Huari.",
+                imagen: "assets/lugares/museo-wariwillka.jpg",
+                icono: "fas fa-university",
+                color: "#8F2D27"
+            }, {
+                id: 19,
+                nombre: "Museo Salesiano Vicente Rasetto",
+                categoria: "Museos",
+                descripcion: "Colección que reúne aproximadamente 7.800 piezas de arqueología, fauna e insectos.",
+                imagen: "assets/lugares/museo-salesiano.jpg",
+                icono: "fas fa-archive",
+                color: "#8F2D27"
+            }];
+
+            // ============================================================
+            // REFERENCIAS
+            // ============================================================
+            const grid = document.getElementById('gridLugares');
+            const buscador = document.getElementById('buscador');
+            const contador = document.getElementById('contador-resultados');
+            const sinResultados = document.getElementById('sinResultados');
+            const filtroBtns = document.querySelectorAll('.filtro-btn');
+
+            // Modal
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalClose = document.getElementById('modalClose');
+            const modalCerrarBtn = document.getElementById('modalCerrarBtn');
+            const modalImg = document.getElementById('modalImg');
+            const modalImgSrc = document.getElementById('modalImgSrc');
+            const modalCategoria = document.getElementById('modalCategoria');
+            const modalNombre = document.getElementById('modalNombre');
+            const modalDescripcion = document.getElementById('modalDescripcion');
+
+            let lugarActivo = null;
+            let filtroActual = 'todos';
+            let textoBusqueda = '';
+
+            // ============================================================
+            // FUNCIÓN PARA GENERAR TARJETAS
+            // ============================================================
+            function renderizarLugares() {
+                const filtrados = lugares.filter(lugar => {
+                    const matchFiltro = filtroActual === 'todos' || lugar.categoria === filtroActual;
+                    const matchBusqueda = textoBusqueda === '' ||
+                        lugar.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()) ||
+                        lugar.categoria.toLowerCase().includes(textoBusqueda.toLowerCase()) ||
+                        lugar.descripcion.toLowerCase().includes(textoBusqueda.toLowerCase());
+                    return matchFiltro && matchBusqueda;
+                });
+
+                contador.textContent = filtrados.length;
+                sinResultados.classList.toggle('visible', filtrados.length === 0);
+
+                if (filtrados.length === 0) {
+                    grid.innerHTML = '';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                filtrados.forEach((lugar, index) => {
+                    const card = document.createElement('div');
+                    card.className = `card-lugar fade-up delay-${(index % 5) + 1}`;
+                    card.dataset.id = lugar.id;
+
+                    const imgSrc = lugar.imagen;
+                    const imgTag = imgSrc ?
+                        `<img src="${imgSrc}" alt="${lugar.nombre}" loading="lazy" />` :
+                        `<span style="font-size:3rem;">${lugar.icono ? `<i class="${lugar.icono}"></i>` : '🏛️'}</span>`;
+
+                    card.innerHTML = `
+                                <div class="card-img">
+                                    ${imgTag}
+                                    <span class="categoria-badge">${lugar.categoria}</span>
+                                    <span class="numero-badge">${String(lugar.id).padStart(2, '0')}</span>
+                                </div>
+                                <div class="card-body">
+                                    <span class="categoria-text">${lugar.categoria}</span>
+                                    <h3>${lugar.nombre}</h3>
+                                    <p>${lugar.descripcion}</p>
+                                    <span class="lugar-tag"><i class="fas fa-flag"></i> Potencial integrante de la ruta</span>
+                                    <div class="card-actions">
+                                        <button class="btn-small" data-id="${lugar.id}">Explorar lugar <i class="fas fa-arrow-right"></i></button>
+                                        <a href="mapa.html" class="btn-icon" title="Ver ubicación"><i class="fas fa-map-pin"></i></a>
+                                    </div>
+                                </div>
+                            `;
+
+                    grid.appendChild(card);
+
+                    // Observer para animaciones
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, 80 * (index + 1));
+                });
+
+                // Event listeners para botones "Explorar"
+                document.querySelectorAll('.btn-small[data-id]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const lugar = lugares.find(l => l.id === id);
+                        if (lugar) abrirModal(lugar);
+                    });
+                });
+            }
+
+            // ============================================================
+            // MODAL
+            // ============================================================
+            function abrirModal(lugar) {
+                lugarActivo = lugar;
+                const imgSrc = lugar.imagen;
+                modalImgSrc.src = imgSrc || '';
+                modalImgSrc.alt = lugar.nombre;
+                if (!imgSrc) {
+                    modalImgSrc.style.display = 'none';
+                    modalImg.innerHTML = `
+                                <span style="font-size:4rem;color:var(--color-primary);">${lugar.icono ? `<i class="${lugar.icono}"></i>` : '🏛️'}</span>
+                                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+                            `;
+                    // Re-asignar close
+                    document.getElementById('modalClose')?.addEventListener('click', cerrarModal);
+                } else {
+                    modalImgSrc.style.display = 'block';
+                    modalImg.innerHTML = `
+                                <img src="${imgSrc}" alt="${lugar.nombre}" />
+                                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+                            `;
+                    document.getElementById('modalClose')?.addEventListener('click', cerrarModal);
+                }
+
+                modalCategoria.textContent = lugar.categoria;
+                modalNombre.textContent = lugar.nombre;
+                modalDescripcion.textContent = lugar.descripcion;
+
+                modalOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function cerrarModal() {
+                modalOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+                lugarActivo = null;
+            }
+
+            // Eventos del modal
+            modalClose.addEventListener('click', cerrarModal);
+            modalCerrarBtn.addEventListener('click', cerrarModal);
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === this) cerrarModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') cerrarModal();
+            });
+
+            // ============================================================
+            // FILTROS Y BÚSQUEDA
+            // ============================================================
+            function aplicarFiltros() {
+                renderizarLugares();
+            }
+
+            filtroBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filtroBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filtroActual = this.dataset.filtro;
+                    aplicarFiltros();
+                });
+            });
+
+            buscador.addEventListener('input', function() {
+                textoBusqueda = this.value.trim();
+                aplicarFiltros();
+            });
+
+            // ============================================================
+            // NAVBAR SCROLL
+            // ============================================================
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                navbar.classList.toggle('scrolled', window.scrollY > 60);
+            });
+
+            // ============================================================
+            // HAMBURGER
+            // ============================================================
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            // ============================================================
+            // SCROLL SUAVE PARA ENLACES INTERNOS
+            // ============================================================
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        const offset = 80;
+                        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ============================================================
+            // RENDER INICIAL
+            // ============================================================
+            renderizarLugares();
+
+            // ============================================================
+            // FADE-UP OBSERVER (para elementos adicionales)
+            // ============================================================
+            const fadeElements = document.querySelectorAll('.fade-up:not(.card-lugar)');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            fadeElements.forEach(el => observer.observe(el));
+
+        })();
+    </script>
+
+</body>
+</html>
