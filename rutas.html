@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rutas · Huancayo Histórico</title>
 
-    <!-- Favicon -->
+     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
         /* ============================================================
@@ -42,7 +42,7 @@
             --radius-md: 16px;
             --radius-lg: 24px;
             --radius-xl: 32px;
-            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
@@ -79,11 +79,6 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-        }
         a {
             text-decoration: none;
             color: inherit;
@@ -96,6 +91,11 @@
         }
         ul {
             list-style: none;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
         }
         ::selection {
             background: var(--color-primary);
@@ -119,39 +119,22 @@
         }
 
         /* ============================================================
-           TIPOGRAFÍA
+           SCROLLBAR
         ============================================================ */
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            line-height: 1.2;
-            color: var(--color-text);
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        h1 {
-            font-size: clamp(2.8rem, 8vw, 5.5rem);
-            letter-spacing: -0.02em;
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-soft);
         }
-        h2 {
-            font-size: clamp(2rem, 4.5vw, 3.6rem);
-            letter-spacing: -0.01em;
-        }
-        h3 {
-            font-size: clamp(1.4rem, 2.5vw, 2rem);
-        }
-        h4 {
-            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-        }
-        p {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--color-text-soft);
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 6px;
         }
 
         /* ============================================================
-           BUTTONS
+           BOTONES
         ============================================================ */
         .btn {
             display: inline-flex;
@@ -172,8 +155,7 @@
             background: var(--color-primary);
             color: var(--color-white);
         }
-        .btn-primary:hover,
-        .btn-primary:focus-visible {
+        .btn-primary:hover {
             background: var(--color-primary-dark);
             transform: translateY(-2px);
             box-shadow: var(--shadow-primary);
@@ -197,13 +179,9 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(184, 138, 59, 0.30);
         }
-        .btn-dark {
-            background: var(--color-text);
-            color: var(--color-white);
-        }
-        .btn-dark:hover {
-            background: #3a3a3a;
-            transform: translateY(-2px);
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.8rem;
         }
 
         /* ============================================================
@@ -215,7 +193,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 18px 24px;
+            padding: 14px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -273,7 +251,8 @@
         .nav-links a.active::after {
             width: 100%;
         }
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--color-primary);
         }
         .nav-cta {
@@ -326,12 +305,12 @@
            HERO
         ============================================================ */
         .hero {
-            min-height: 80vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: url('https://grupoeuroandino.com/wp-content/uploads/2023/06/Tours-y-Paquetes-Turisticos-de-Huancayo.jpg') center center / cover no-repeat;
+            background: url('https://images.unsplash.com/photo-1587590227264-0ac64ce63ce8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
             padding: 120px 24px 80px;
             text-align: center;
             overflow: hidden;
@@ -378,7 +357,7 @@
         }
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(2.4rem, 6.5vw, 4.5rem);
+            font-size: clamp(2.6rem, 7vw, 4.8rem);
             font-weight: 700;
             line-height: 1.05;
             margin-bottom: 12px;
@@ -400,7 +379,7 @@
             font-size: 1.05rem;
             font-weight: 300;
             max-width: 640px;
-            margin: 0 auto 28px;
+            margin: 0 auto 32px;
             opacity: 0.85;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.9);
@@ -411,15 +390,66 @@
             gap: 16px;
             justify-content: center;
         }
-
-        /* ============================================================
-           SECCIONES GENERALES
-        ============================================================ */
-        section {
-            padding: clamp(4rem, 10vw, 7rem) 0;
-            position: relative;
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounceDown 2s ease-in-out infinite;
+        }
+        .scroll-hint i {
+            font-size: 1.2rem;
+        }
+        @keyframes bounceDown {
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(8px);
+            }
         }
 
+        /* ============================================================
+           INTRO
+        ============================================================ */
+        .intro {
+            padding: clamp(3rem, 8vw, 5rem) 0;
+            background: var(--color-bg);
+            text-align: center;
+        }
+        .intro .container {
+            max-width: 720px;
+        }
+        .intro h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 12px;
+        }
+        .intro h2 span {
+            color: var(--color-primary);
+        }
+        .intro p {
+            font-size: 1.05rem;
+            color: var(--color-text-soft);
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+           SECCIÓN RUTAS
+        ============================================================ */
+        .rutas-section {
+            padding: clamp(3rem, 8vw, 6rem) 0;
+            background: var(--color-bg-soft);
+        }
         .section-header {
             text-align: center;
             max-width: 720px;
@@ -434,877 +464,563 @@
             margin-top: 8px;
         }
 
-        .bg-soft {
-            background: var(--color-bg-soft);
+        .grid-rutas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
         }
-        .bg-white {
+
+        .card-ruta {
             background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
         }
-        .bg-primary {
-            background: var(--color-primary);
+        .card-ruta:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card-ruta .ruta-img {
+            height: 220px;
+            background: var(--color-bg-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-primary);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .card-ruta .ruta-img .ruta-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(32, 32, 32, 0.75);
+            backdrop-filter: blur(4px);
             color: var(--color-white);
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        .bg-primary .section-header h2 {
-            color: var(--color-white);
+        .card-ruta .ruta-img .ruta-num {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.15);
+            line-height: 1;
         }
-        .bg-primary .section-header h2 span {
-            color: var(--color-secondary);
+        .card-ruta .ruta-body {
+            padding: 22px 24px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
-        .bg-primary .section-header p {
-            color: rgba(255, 255, 255, 0.7);
+        .card-ruta .ruta-body .ruta-nombre {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .card-ruta .ruta-body .ruta-desc {
+            font-size: 0.92rem;
+            color: var(--color-text-soft);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .card-ruta .ruta-body .ruta-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+            color: var(--color-text-soft);
+        }
+        .card-ruta .ruta-body .ruta-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-ruta .ruta-body .ruta-meta i {
+            color: var(--color-primary);
+        }
+        .card-ruta .ruta-body .ruta-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
         }
 
         /* ============================================================
-           SECCIÓN DEFINICIÓN
+           RUTA COLORS
         ============================================================ */
-        .definicion-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
+        .ruta-color-1 .ruta-img {
+            background: linear-gradient(135deg, #8F2D27 0%, #641D1A 100%);
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .ruta-color-1 .ruta-body .ruta-nombre {
+            color: var(--color-primary);
+        }
+        .ruta-color-1 .ruta-tag {
+            background: rgba(143, 45, 39, 0.85);
+        }
+
+        .ruta-color-2 .ruta-img {
+            background: linear-gradient(135deg, #B88A3B 0%, #8A6A2E 100%);
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .ruta-color-2 .ruta-body .ruta-nombre {
+            color: var(--color-secondary);
+        }
+        .ruta-color-2 .ruta-tag {
+            background: rgba(184, 138, 59, 0.85);
+        }
+
+        .ruta-color-3 .ruta-img {
+            background: linear-gradient(135deg, #29463A 0%, #1C2F26 100%);
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .ruta-color-3 .ruta-body .ruta-nombre {
+            color: var(--color-green);
+        }
+        .ruta-color-3 .ruta-tag {
+            background: rgba(41, 70, 58, 0.85);
+        }
+
+        /* ============================================================
+           MODAL / EXPERIENCIA DE RUTA
+        ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
             align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
-        .definicion-texto .definicion-destacada {
-            font-size: 1.15rem;
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--color-bg);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            padding: 20px 28px 16px;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-shrink: 0;
+            background: var(--color-white);
+        }
+        .modal-header .modal-titulo {
+            flex: 1;
+        }
+        .modal-header .modal-titulo .tag {
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-secondary);
+            background: rgba(184, 138, 59, 0.08);
+            padding: 2px 12px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        .modal-header .modal-titulo h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 4px 0 2px;
+        }
+        .modal-header .modal-titulo p {
+            font-size: 0.85rem;
+            color: var(--color-text-soft);
+            margin: 0;
+        }
+        .modal-close-btn {
+            color: var(--color-text-light);
+            font-size: 1.4rem;
+            transition: var(--transition);
+            padding: 4px;
+            cursor: pointer;
+        }
+        .modal-close-btn:hover {
+            color: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px 28px;
+        }
+
+        /* Progreso */
+        .recorrido-progreso {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding: 12px 18px;
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+        .recorrido-progreso .barra {
+            flex: 1;
+            height: 4px;
+            background: var(--color-bg-soft);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .recorrido-progreso .barra .fill {
+            height: 100%;
+            background: var(--color-primary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .recorrido-progreso .texto {
+            font-size: 0.8rem;
             font-weight: 500;
-            color: var(--color-text);
-            border-left: 4px solid var(--color-secondary);
-            padding-left: 20px;
-            margin: 16px 0;
+            color: var(--color-text-soft);
+            white-space: nowrap;
         }
-        .definicion-texto p {
+
+        /* Lista de lugares en el recorrido */
+        .recorrido-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .recorrido-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .recorrido-item:hover {
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+        .recorrido-item.active {
+            border-color: var(--color-primary);
+            background: rgba(143, 45, 39, 0.04);
+        }
+        .recorrido-item .idx {
+            font-weight: 700;
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            min-width: 28px;
+        }
+        .recorrido-item .info {
+            flex: 1;
+        }
+        .recorrido-item .info .nombre {
+            font-weight: 500;
+            font-size: 0.92rem;
+        }
+        .recorrido-item .info .cat {
+            font-size: 0.7rem;
+            color: var(--color-text-soft);
+        }
+        .recorrido-item .estado {
+            font-size: 0.7rem;
+            color: var(--color-text-light);
+        }
+        .recorrido-item .estado.visitado {
+            color: var(--color-green);
+        }
+
+        /* Tarjeta de lugar destacado en modal */
+        .lugar-destacado {
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            margin-bottom: 24px;
+        }
+        .lugar-destacado .lugar-img {
+            height: 180px;
+            background: var(--color-bg-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-primary);
+        }
+        .lugar-destacado .lugar-info {
+            padding: 18px 22px 22px;
+        }
+        .lugar-destacado .lugar-info .cat {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .lugar-destacado .lugar-info h4 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2px 0 4px;
+        }
+        .lugar-destacado .lugar-info p {
+            font-size: 0.9rem;
+            color: var(--color-text-soft);
             margin-bottom: 12px;
         }
 
-        .definicion-flujo {
-            background: var(--color-white);
-            padding: 32px 24px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            text-align: center;
-        }
-        .definicion-flujo .paso {
-            padding: 8px 0;
-            position: relative;
-        }
-        .definicion-flujo .paso:not(:last-child)::after {
-            content: '↓';
-            display: block;
-            color: var(--color-secondary);
-            font-size: 1.2rem;
-            opacity: 0.4;
-        }
-        .definicion-flujo .paso span {
-            display: inline-block;
-            background: var(--color-bg-soft);
-            padding: 6px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .definicion-flujo .paso .icono {
-            font-size: 1.6rem;
-            color: var(--color-primary);
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        /* ============================================================
-           SECCIÓN POR QUÉ RUTAS
-        ============================================================ */
-        .porque-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+        .modal-footer {
+            padding: 16px 28px 20px;
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-        }
-        .porque-grid .problema-box {
-            background: var(--color-white);
-            padding: 28px 24px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-        }
-        .porque-grid .problema-box ul li {
-            padding: 6px 0;
-            display: flex;
-            gap: 12px;
-            font-size: 0.95rem;
-            color: var(--color-text-soft);
-            border-bottom: 1px solid var(--color-border);
-        }
-        .porque-grid .problema-box ul li:last-child {
-            border-bottom: none;
-        }
-        .porque-grid .problema-box ul li i {
-            color: var(--color-primary);
-            margin-top: 4px;
-        }
-        .porque-grid .solucion-box {
-            background: var(--color-primary);
-            padding: 28px 24px;
-            border-radius: var(--radius-md);
-            color: var(--color-white);
-            text-align: center;
-        }
-        .porque-grid .solucion-box h3 {
-            color: var(--color-white);
-        }
-        .porque-grid .solucion-box p {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        .porque-grid .solucion-box .flecha-grande {
-            font-size: 3rem;
-            color: var(--color-secondary);
-            opacity: 0.5;
-            margin: 8px 0;
-        }
-
-        /* ============================================================
-           SECCIÓN RUTAS COMO INSTRUMENTO
-        ============================================================ */
-        .instrumento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-            margin: 24px 0;
-        }
-        .instrumento-item {
-            background: var(--color-white);
-            padding: 20px 16px;
-            border-radius: var(--radius-md);
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            transition: var(--transition);
-        }
-        .instrumento-item:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .instrumento-item i {
-            font-size: 2rem;
-            color: var(--color-primary);
-            margin-bottom: 6px;
-        }
-        .instrumento-item span {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .instrumento-flujo {
-            display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            justify-content: center;
-            align-items: center;
-            margin: 16px 0;
-        }
-        .instrumento-flujo .paso {
             background: var(--color-white);
-            padding: 12px 20px;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-sm);
-            font-weight: 500;
-            font-size: 0.85rem;
-            border: 1px solid var(--color-border);
+            flex-shrink: 0;
         }
-        .instrumento-flujo .flecha {
-            color: var(--color-secondary);
-            font-size: 1.2rem;
-            opacity: 0.4;
+        .modal-footer .nav-buttons {
+            display: flex;
+            gap: 10px;
         }
 
         /* ============================================================
-           SECCIÓN INVENTARIO
+           SECCIÓN QUÉ ENCONTRARÁS
         ============================================================ */
-        .inventario-red {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 24px 0;
+        .que-encontraras {
+            padding: clamp(3rem, 8vw, 5rem) 0;
+            background: var(--color-bg);
         }
-        .inventario-nodo {
-            background: var(--color-white);
-            border-radius: var(--radius-md);
-            padding: 20px 18px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            transition: var(--transition);
-            border-top: 4px solid var(--color-primary);
-        }
-        .inventario-nodo:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .inventario-nodo h4 {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--color-primary);
-            margin-bottom: 6px;
-        }
-        .inventario-nodo ul li {
-            font-size: 0.82rem;
-            color: var(--color-text-soft);
-            padding: 2px 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-        .inventario-nodo ul li:last-child {
-            border-bottom: none;
-        }
-        .inventario-nodo .sub-items {
-            padding-left: 12px;
-            font-size: 0.78rem;
-            color: var(--color-text-light);
-        }
-        .inventario-nodo .sub-items li {
-            border-bottom: none;
-            padding: 1px 0;
-        }
-        .inventario-nodo .sub-items li::before {
-            content: '• ';
-            color: var(--color-secondary);
-        }
-        .inventario-nota {
-            font-size: 0.8rem;
-            color: var(--color-text-light);
-            text-align: center;
-            margin-top: 12px;
-        }
-
-        /* ============================================================
-           SECCIÓN TECNOLOGÍA
-        ============================================================ */
-        .grid-tecnologia {
+        .grid-encontraras {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 20px;
-            margin: 24px 0;
+            margin-top: 24px;
         }
-        .card-tec {
+        .encontrar-item {
             background: var(--color-white);
-            padding: 24px 18px;
+            padding: 24px 16px;
             border-radius: var(--radius-md);
             text-align: center;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--color-border);
             transition: var(--transition);
         }
-        .card-tec:hover {
+        .encontrar-item:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-md);
-            border-color: var(--color-primary);
         }
-        .card-tec i {
-            font-size: 2.2rem;
+        .encontrar-item i {
+            font-size: 2.4rem;
             color: var(--color-primary);
             margin-bottom: 8px;
+            display: block;
         }
-        .card-tec h5 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            font-family: var(--font-sans);
-            margin-bottom: 2px;
-        }
-        .card-tec p {
-            font-size: 0.8rem;
-            color: var(--color-text-soft);
-            margin: 0;
-        }
-
-        .tecnologia-flujo {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-            padding: 20px;
-            background: var(--color-white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-        }
-        .tecnologia-flujo .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px 16px;
-            font-weight: 500;
+        .encontrar-item span {
             font-size: 0.85rem;
-        }
-        .tecnologia-flujo .step i {
-            font-size: 1.8rem;
-            color: var(--color-primary);
-            margin-bottom: 4px;
-        }
-        .tecnologia-flujo .arrow {
-            color: var(--color-secondary);
-            font-size: 1.2rem;
-            opacity: 0.4;
-        }
-
-        /* ============================================================
-           SECCIÓN EXPERIENCIA DEL VISITANTE
-        ============================================================ */
-        .experiencia-flujo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-        .experiencia-paso {
-            background: var(--color-white);
-            padding: 20px 16px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-        }
-        .experiencia-paso:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .experiencia-paso .num {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            opacity: 0.2;
-        }
-        .experiencia-paso h4 {
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 4px 0;
-        }
-        .experiencia-paso p {
-            font-size: 0.8rem;
-            color: var(--color-text-soft);
-            margin: 0;
-        }
-
-        /* ============================================================
-           SECCIÓN EDUCACIÓN PATRIMONIAL
-        ============================================================ */
-        .educacion-flujo {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-            margin: 24px 0;
-        }
-        .educacion-flujo .paso {
-            background: var(--color-white);
-            padding: 14px 24px;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-sm);
             font-weight: 500;
-            font-size: 0.9rem;
-            border: 1px solid var(--color-border);
-        }
-        .educacion-flujo .paso i {
-            margin-right: 6px;
-            color: var(--color-primary);
-        }
-        .educacion-flujo .flecha {
-            color: var(--color-secondary);
-            font-size: 1.2rem;
-            opacity: 0.4;
+            display: block;
         }
 
         /* ============================================================
-           SECCIÓN ANTECEDENTES
+           SECCIÓN DESTACADOS
         ============================================================ */
-        .grid-antecedentes {
+        .destacados {
+            padding: clamp(3rem, 8vw, 5rem) 0;
+            background: var(--color-bg-soft);
+        }
+        .grid-destacados {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .antecedente-card {
-            background: var(--color-white);
-            padding: 20px 18px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            transition: var(--transition);
-            border-left: 4px solid var(--color-secondary);
-        }
-        .antecedente-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .antecedente-card h4 {
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .antecedente-card p {
-            font-size: 0.82rem;
-            color: var(--color-text-soft);
-            margin: 0;
-        }
-
-        /* ============================================================
-           SECCIÓN METODOLOGÍA (FASES)
-        ============================================================ */
-        .fases-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 24px;
-            margin: 24px 0;
         }
-        .fase-card {
+        .card-destacado {
             background: var(--color-white);
-            padding: 24px 20px;
             border-radius: var(--radius-md);
+            overflow: hidden;
             box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
             transition: var(--transition);
-            position: relative;
-            padding-top: 48px;
+            border: 1px solid var(--color-border);
         }
-        .fase-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
+        .card-destacado:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
         }
-        .fase-card .num {
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background: var(--color-primary);
-            color: var(--color-white);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+        .card-destacado .dest-img {
+            height: 160px;
+            background: var(--color-bg-soft);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-            font-family: var(--font-serif);
+            font-size: 2.4rem;
+            color: var(--color-primary);
         }
-        .fase-card h4 {
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
+        .card-destacado .dest-body {
+            padding: 16px 20px 20px;
+        }
+        .card-destacado .dest-body .cat {
+            font-size: 0.6rem;
             font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .fase-card p {
+        .card-destacado .dest-body h4 {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 2px 0 6px;
+        }
+        .card-destacado .dest-body p {
             font-size: 0.85rem;
             color: var(--color-text-soft);
-            margin: 4px 0 0;
+            margin-bottom: 12px;
+        }
+        .card-destacado .dest-body .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.75rem;
         }
 
         /* ============================================================
-           SECCIÓN MAPEO VISUAL
+           SECCIÓN MAPA PREVIEW
         ============================================================ */
-        .mapeo-visual {
+        .mapa-preview {
+            padding: clamp(3rem, 8vw, 5rem) 0;
+            background: var(--color-bg);
+            text-align: center;
+        }
+        .mapa-preview .preview-block {
             background: var(--color-bg-soft);
             border-radius: var(--radius-lg);
             padding: 40px 24px;
-            text-align: center;
             border: 1px solid var(--color-border);
+            margin-top: 24px;
             position: relative;
             overflow: hidden;
         }
-        .mapeo-visual .marcadores {
+        .mapa-preview .preview-block .marcadores {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 20px 0;
+            margin: 16px 0;
         }
-        .mapeo-visual .marcador {
+        .mapa-preview .preview-block .marcador {
             display: flex;
             flex-direction: column;
             align-items: center;
             font-size: 0.75rem;
             color: var(--color-text-soft);
         }
-        .mapeo-visual .marcador i {
-            font-size: 1.8rem;
+        .mapa-preview .preview-block .marcador i {
+            font-size: 1.6rem;
             color: var(--color-primary);
             margin-bottom: 4px;
             animation: pulseMarker 2.5s ease-in-out infinite;
         }
-        .mapeo-visual .marcador:nth-child(2) i {
+        .mapa-preview .preview-block .marcador:nth-child(2) i {
             animation-delay: 0.5s;
         }
-        .mapeo-visual .marcador:nth-child(3) i {
+        .mapa-preview .preview-block .marcador:nth-child(3) i {
             animation-delay: 1s;
         }
-        .mapeo-visual .marcador:nth-child(4) i {
+        .mapa-preview .preview-block .marcador:nth-child(4) i {
             animation-delay: 1.5s;
         }
         @keyframes pulseMarker {
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.7;
+                opacity: 0.6;
             }
             50% {
                 transform: scale(1.15);
                 opacity: 1;
             }
         }
-        .mapeo-visual .marcador .linea {
-            width: 40px;
-            height: 2px;
-            background: var(--color-primary);
-            opacity: 0.20;
+        .mapa-preview .preview-block .linea-connection {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
             margin: 4px 0;
         }
-        .mapeo-visual .marcador:last-child .linea {
-            display: none;
-        }
-
-        /* ============================================================
-           SECCIÓN SEÑALÉTICA
-        ============================================================ */
-        .senaletica-placa {
-            max-width: 400px;
-            margin: 0 auto;
-            background: var(--color-white);
-            border-radius: var(--radius-md);
-            padding: 24px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--color-border);
-            text-align: center;
-        }
-        .senaletica-placa .placa-icon {
-            font-size: 3rem;
-            color: var(--color-primary);
-            opacity: 0.3;
-        }
-        .senaletica-placa .placa-titulo {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 8px 0 4px;
-        }
-        .senaletica-placa .placa-items {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 12px 0;
-        }
-        .senaletica-placa .placa-items span {
-            background: var(--color-bg-soft);
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        /* ============================================================
-           SECCIÓN PARTICIPACIÓN COMUNITARIA
-        ============================================================ */
-        .participacion-flujo {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-            margin: 24px 0;
-        }
-        .participacion-flujo .etapa {
-            background: var(--color-white);
-            padding: 14px 22px;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-sm);
-            font-weight: 500;
-            font-size: 0.85rem;
-            border: 1px solid var(--color-border);
-        }
-        .participacion-flujo .flecha {
-            color: var(--color-secondary);
-            font-size: 1.2rem;
-            opacity: 0.4;
-        }
-
-        /* ============================================================
-           SECCIÓN SOSTENIBILIDAD
-        ============================================================ */
-        .sostenibilidad-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-            margin: 24px 0;
-        }
-        .sostenibilidad-item {
-            background: var(--color-white);
-            padding: 24px 16px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            transition: var(--transition);
-        }
-        .sostenibilidad-item:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .sostenibilidad-item i {
-            font-size: 2.4rem;
-            color: var(--color-primary);
-            margin-bottom: 6px;
-        }
-        .sostenibilidad-item h4 {
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        /* ============================================================
-           SECCIÓN PILOTO
-        ============================================================ */
-        .piloto-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin: 24px 0;
-        }
-        .piloto-card {
-            background: var(--color-white);
-            padding: 24px 20px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            transition: var(--transition);
-        }
-        .piloto-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .piloto-card .numero-grande {
-            font-family: var(--font-serif);
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            line-height: 1;
-        }
-        .piloto-card p {
-            font-size: 0.85rem;
-            margin: 4px 0 0;
-        }
-
-        /* ============================================================
-           SECCIÓN CRONOGRAMA
-        ============================================================ */
-        .cronograma-timeline {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            align-items: center;
-            margin: 24px 0;
-            padding: 24px;
-            background: var(--color-white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-        }
-        .cronograma-timeline .mes {
-            background: var(--color-bg-soft);
-            padding: 8px 14px;
-            border-radius: var(--radius-sm);
-            font-size: 0.75rem;
-            font-weight: 500;
-            min-width: 40px;
-            text-align: center;
-        }
-        .cronograma-timeline .mes.activo {
+        .mapa-preview .preview-block .linea-connection span {
+            width: 20px;
+            height: 2px;
             background: var(--color-primary);
-            color: var(--color-white);
-        }
-        .cronograma-timeline .separador {
-            color: var(--color-text-light);
-            font-size: 0.7rem;
-        }
-        .cronograma-nota {
-            font-size: 0.8rem;
-            color: var(--color-text-light);
-            text-align: center;
-            margin-top: 12px;
+            opacity: 0.15;
         }
 
         /* ============================================================
-           SECCIÓN ANEXOS
+           NOTA SOBRE RUTAS
         ============================================================ */
-        .grid-anexos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
+        .nota-rutas {
+            padding: 20px 0 40px;
+            background: var(--color-bg-soft);
+            text-align: center;
         }
-        .anexo-card {
+        .nota-rutas .nota-box {
             background: var(--color-white);
-            padding: 24px 20px;
+            padding: 20px 28px;
             border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
             border: 1px solid var(--color-border);
-            transition: var(--transition);
-            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
         }
-        .anexo-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .anexo-card .anexo-num {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            opacity: 0.2;
-        }
-        .anexo-card h4 {
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-        .anexo-card p {
-            font-size: 0.85rem;
-            color: var(--color-text-soft);
-            margin: 4px 0 0;
-        }
-
-        /* ============================================================
-           SECCIÓN MARCO TEÓRICO
-        ============================================================ */
-        .marco-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        .marco-item {
-            background: var(--color-white);
-            padding: 16px 18px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            transition: var(--transition);
-        }
-        .marco-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        .marco-item i {
-            font-size: 1.6rem;
-            color: var(--color-primary);
-            margin-bottom: 6px;
-        }
-        .marco-item span {
-            font-size: 0.8rem;
-            font-weight: 500;
-            display: block;
-        }
-
-        /* ============================================================
-           SECCIÓN MARCO LEGAL
-        ============================================================ */
-        .legal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        .legal-item {
-            background: var(--color-white);
-            padding: 16px 18px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border-left: 4px solid var(--color-secondary);
-        }
-        .legal-item h4 {
+        .nota-rutas .nota-box h4 {
             font-family: var(--font-sans);
             font-size: 0.85rem;
             font-weight: 600;
-        }
-        .legal-item p {
-            font-size: 0.8rem;
             color: var(--color-text-soft);
-            margin: 2px 0 0;
+            margin-bottom: 4px;
         }
-
-        /* ============================================================
-           SECCIÓN RESULTADO ESPERADO
-        ============================================================ */
-        .resultado-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .resultado-item {
-            background: var(--color-white);
-            padding: 20px 18px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            transition: var(--transition);
-        }
-        .resultado-item:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-        .resultado-item i {
-            font-size: 2rem;
-            color: var(--color-primary);
-            margin-bottom: 6px;
-        }
-        .resultado-item h4 {
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .resultado-item p {
-            font-size: 0.8rem;
-            color: var(--color-text-soft);
-            margin: 2px 0 0;
-        }
-
-        /* ============================================================
-           CTA FINAL
-        ============================================================ */
-        .cta-final {
-            padding: clamp(4rem, 10vw, 7rem) 24px;
-            background:
-                linear-gradient(135deg, rgba(32, 32, 32, 0.70) 0%, rgba(32, 32, 32, 0.45) 100%),
-                url('https://lh7-us.googleusercontent.com/docsz/AD_4nXemY-lyKgNIvhEVCqcXZovkdeJBP-U1kZ4CVaEMHa7Oq8l32ErNgy8NLYvX5NvIJOw7adJSwKwDu6rv53Q61bNdO2hDKVeTzJkxxGTzi1DmZMW9ApzwlSqCuBLfzRt_K2EtTjDbxbCHECxhJokxfYXFIE-1?key=LGK4WhDu06YO5BSrlQOPng') center center / cover no-repeat;
-            text-align: center;
-            color: var(--color-white);
-        }
-        .cta-final h2 {
-            font-family: var(--font-serif);
-            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-            font-weight: 600;
-            max-width: 700px;
-            margin: 0 auto 12px;
-            color: var(--color-white);
-        }
-        .cta-final h2 span {
-            color: var(--color-secondary);
-        }
-        .cta-final p {
-            font-size: 1.05rem;
-            font-weight: 300;
-            opacity: 0.85;
-            max-width: 500px;
-            margin: 0 auto 28px;
-            color: rgba(255, 255, 255, 0.85);
-        }
-        .cta-final .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
+        .nota-rutas .nota-box p {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            margin: 0;
         }
 
         /* ============================================================
@@ -1386,18 +1102,18 @@
             gap: 14px;
             margin-top: 6px;
         }
-        .logo-colegio {
-            width: 80px;          /* TAMAÑO MÁS PEQUEÑO: Antes 45px */
-            height: 80px;         /* Alto igual al ancho */
-            border-radius: 50%;   /* Hace la imagen circular */
-            
-            /* Asegura que la imagen se ajuste correctamente */
-            object-fit: cover;    /* Cubre el área sin estirarse (mejor para fotos) */
-            /* object-fit: contain; /* Alternativa: Usa contain si la insignia no es circular y quieres que se vea entera dentro del círculo gris */
-            
-            display: flex;        /* Centrado interno */
-            justify-content: center;
+        .footer-col .colegio .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-sm);
+            display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.30);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
         }
         .footer-col .colegio .info-colegio {
             font-size: 0.8rem;
@@ -1431,20 +1147,9 @@
         /* ============================================================
            RESPONSIVE
         ============================================================ */
-        @media (max-width: 1200px) {
-            .container {
-                padding: 0 32px;
-            }
-        }
-
         @media (max-width: 1024px) {
-            .definicion-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .porque-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
+            .grid-rutas {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
             .footer .container {
                 grid-template-columns: 1fr 1fr;
@@ -1453,6 +1158,12 @@
         }
 
         @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 16px;
+            }
+            .navbar .logo {
+                font-size: 1rem;
+            }
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -1491,7 +1202,7 @@
             }
 
             .hero {
-                min-height: 70vh;
+                min-height: 80vh;
                 padding: 100px 20px 60px;
             }
             .hero h1 {
@@ -1501,81 +1212,50 @@
                 font-size: 0.95rem;
             }
 
-            .inventario-red {
+            .grid-rutas {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .grid-encontraras {
                 grid-template-columns: 1fr 1fr;
             }
-            .grid-tecnologia {
-                grid-template-columns: 1fr 1fr;
-            }
-            .experiencia-flujo {
-                grid-template-columns: 1fr 1fr;
-            }
-            .grid-antecedentes {
-                grid-template-columns: 1fr 1fr;
-            }
-            .fases-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .grid-anexos {
-                grid-template-columns: 1fr 1fr;
-            }
-            .marco-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .legal-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .resultado-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .sostenibilidad-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .piloto-grid {
+            .grid-destacados {
                 grid-template-columns: 1fr 1fr;
             }
 
-            .instrumento-flujo {
+            .modal-content {
+                max-height: 95vh;
+                border-radius: var(--radius-md);
+            }
+            .modal-header {
+                padding: 16px 20px 12px;
+            }
+            .modal-header .modal-titulo h3 {
+                font-size: 1.1rem;
+            }
+            .modal-body {
+                padding: 16px 20px 20px;
+            }
+            .modal-footer {
+                padding: 12px 20px 16px;
                 flex-direction: column;
-                gap: 8px;
             }
-            .instrumento-flujo .flecha {
-                transform: rotate(90deg);
-            }
-            .educacion-flujo {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .educacion-flujo .flecha {
-                transform: rotate(90deg);
-            }
-            .participacion-flujo {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .participacion-flujo .flecha {
-                transform: rotate(90deg);
+            .modal-footer .nav-buttons {
+                width: 100%;
+                justify-content: center;
             }
 
-            .tecnologia-flujo {
-                flex-direction: column;
-                gap: 8px;
+            .recorrido-item {
+                padding: 10px 14px;
             }
-            .tecnologia-flujo .arrow {
-                transform: rotate(90deg);
+            .lugar-destacado .lugar-img {
+                height: 140px;
             }
-
-            .cronograma-timeline {
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-            .cronograma-timeline .mes {
-                font-size: 0.65rem;
-                padding: 4px 10px;
-                min-width: 30px;
-            }
-            .cronograma-timeline .separador {
-                display: none;
+            .lugar-destacado .lugar-info {
+                padding: 14px 16px 18px;
             }
 
             .footer .container {
@@ -1592,11 +1272,10 @@
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 480px) {
             .container {
                 padding: 0 16px;
             }
-
             .hero h1 {
                 font-size: 1.8rem;
             }
@@ -1612,43 +1291,10 @@
                 letter-spacing: 2px;
             }
 
-            .inventario-red {
-                grid-template-columns: 1fr;
+            .grid-encontraras {
+                grid-template-columns: 1fr 1fr;
             }
-            .grid-tecnologia {
-                grid-template-columns: 1fr;
-                max-width: 320px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .experiencia-flujo {
-                grid-template-columns: 1fr;
-                max-width: 320px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .grid-antecedentes {
-                grid-template-columns: 1fr;
-            }
-            .fases-grid {
-                grid-template-columns: 1fr;
-            }
-            .grid-anexos {
-                grid-template-columns: 1fr;
-            }
-            .marco-grid {
-                grid-template-columns: 1fr;
-            }
-            .legal-grid {
-                grid-template-columns: 1fr;
-            }
-            .resultado-grid {
-                grid-template-columns: 1fr;
-            }
-            .sostenibilidad-grid {
-                grid-template-columns: 1fr;
-            }
-            .piloto-grid {
+            .grid-destacados {
                 grid-template-columns: 1fr;
             }
 
@@ -1657,31 +1303,25 @@
                 font-size: 0.85rem;
             }
 
-            .cta-final h2 {
-                font-size: 1.6rem;
+            .card-ruta .ruta-img {
+                height: 160px;
             }
-            .cta-final p {
-                font-size: 0.9rem;
+            .card-ruta .ruta-body {
+                padding: 16px 18px 20px;
             }
-
-            .senaletica-placa {
-                padding: 16px;
-            }
-            .mapeo-visual {
-                padding: 24px 16px;
-            }
-            .mapeo-visual .marcadores {
-                gap: 16px;
-            }
-            .mapeo-visual .marcador i {
-                font-size: 1.4rem;
-            }
-            .mapeo-visual .marcador .linea {
-                width: 20px;
+            .card-ruta .ruta-body .ruta-nombre {
+                font-size: 1.1rem;
             }
 
-            .cronograma-timeline {
-                padding: 16px;
+            .modal-header .modal-titulo h3 {
+                font-size: 1rem;
+            }
+            .recorrido-progreso {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .recorrido-progreso .texto {
+                font-size: 0.7rem;
             }
         }
 
@@ -1715,21 +1355,9 @@
         .fade-up.delay-3 {
             transition-delay: 0.24s;
         }
-        .fade-up.delay-4 {
-            transition-delay: 0.32s;
-        }
-        .fade-up.delay-5 {
-            transition-delay: 0.40s;
-        }
 
         .text-center {
             text-align: center;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mt-24 {
-            margin-top: 24px;
         }
     </style>
 </head>
@@ -1766,897 +1394,254 @@
     ============================================================ -->
     <section class="hero" id="hero">
         <div class="hero-content">
-            <span class="hero-tag">RUTAS HISTÓRICAS</span>
-            <h1>Camina por la <span>historia</span> de Huancayo</h1>
-            <p class="subtitle">“Un recorrido donde el patrimonio, la memoria y la tecnología se encuentran.”</p>
-            <p>Las Rutas Históricas Interactivas propuestas para Huancayo buscan articular sitios de interés histórico mediante señalización física y recursos digitales para informar, educar y fortalecer la identidad histórica.</p>
+            <span class="hero-tag">EXPLORA HUANCAYO</span>
+            <h1>Rutas que <span>cuentan</span> nuestra historia</h1>
+            <p class="subtitle">“Recorre Huancayo a través de sus espacios históricos, culturales y patrimoniales.”</p>
+            <p>Descubre la ciudad caminando por sus calles, plazas, monumentos y rincones llenos de memoria.</p>
             <div class="hero-buttons">
-                <a href="#inventario" class="btn btn-primary"><i class="fas fa-compass"></i> Explorar los lugares</a>
-                <a href="mapa.html" class="btn btn-outline"><i class="fas fa-map"></i> Ver el mapa</a>
+                <a href="#rutas" class="btn btn-primary"><i class="fas fa-route"></i> Explorar rutas</a>
+                <a href="mapa.html" class="btn btn-outline"><i class="fas fa-map-marked-alt"></i> Ver mapa</a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Desliza para descubrir</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    INTRO
+    ============================================================ -->
+    <section class="intro" id="intro">
+        <div class="container fade-up">
+            <h2>Una ciudad, <span>muchas historias</span></h2>
+            <p>Recorrer Huancayo es caminar sobre siglos de memoria. Cada plaza, cada calle y cada edificio guarda una historia que espera ser descubierta. Estas rutas te invitan a conectar con el patrimonio vivo de la ciudad.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    RUTAS
+    ============================================================ -->
+    <section class="rutas-section" id="rutas">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Elige tu <span>recorrido</span></h2>
+                <p>Cada ruta te acerca a una parte diferente de la historia de Huancayo.</p>
+            </div>
+
+            <div class="grid-rutas">
+                <!-- Ruta 01 -->
+                <div class="card-ruta ruta-color-1 fade-up delay-1">
+                    <div class="ruta-img">
+                        <span style="font-size:3.6rem;opacity:0.5;">🏛️</span>
+                        <span class="ruta-tag">RUTA HIPOTÉTICA</span>
+                        <span class="ruta-num">01</span>
+                    </div>
+                    <div class="ruta-body">
+                        <h3 class="ruta-nombre">Circuito del Centro Histórico</h3>
+                        <p class="ruta-desc">Un recorrido por el corazón histórico de Huancayo, conectando plazas, edificios, casas y espacios que forman parte de la memoria urbana de la ciudad.</p>
+                        <div class="ruta-meta">
+                            <span><i class="fas fa-map-pin"></i> 10 lugares</span>
+                            <span><i class="fas fa-tag"></i> Centro Histórico</span>
+                        </div>
+                        <div class="ruta-actions">
+                            <button class="btn btn-primary btn-sm" onclick="abrirRuta(0)"><i class="fas fa-eye"></i> Explorar ruta</button>
+                            <a href="mapa.html" class="btn btn-outline btn-sm" style="color:var(--color-text);border-color:var(--color-border);"><i class="fas fa-map"></i> Ver mapa</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ruta 02 -->
+                <div class="card-ruta ruta-color-2 fade-up delay-2">
+                    <div class="ruta-img">
+                        <span style="font-size:3.6rem;opacity:0.5;">🏺</span>
+                        <span class="ruta-tag">RUTA HIPOTÉTICA</span>
+                        <span class="ruta-num">02</span>
+                    </div>
+                    <div class="ruta-body">
+                        <h3 class="ruta-nombre">Circuito del Patrimonio Wanka</h3>
+                        <p class="ruta-desc">Un recorrido centrado en los vestigios prehispánicos y espacios vinculados con la identidad cultural de Huancayo y el valle del Mantaro.</p>
+                        <div class="ruta-meta">
+                            <span><i class="fas fa-map-pin"></i> 4 lugares</span>
+                            <span><i class="fas fa-tag"></i> Arqueología · Cultura</span>
+                        </div>
+                        <div class="ruta-actions">
+                            <button class="btn btn-primary btn-sm" onclick="abrirRuta(1)"><i class="fas fa-eye"></i> Explorar ruta</button>
+                            <a href="mapa.html" class="btn btn-outline btn-sm" style="color:var(--color-text);border-color:var(--color-border);"><i class="fas fa-map"></i> Ver mapa</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ruta 03 -->
+                <div class="card-ruta ruta-color-3 fade-up delay-3">
+                    <div class="ruta-img">
+                        <span style="font-size:3.6rem;opacity:0.5;">🎭</span>
+                        <span class="ruta-tag">RUTA HIPOTÉTICA</span>
+                        <span class="ruta-num">03</span>
+                    </div>
+                    <div class="ruta-body">
+                        <h3 class="ruta-nombre">Circuito de Cultura y Memoria</h3>
+                        <p class="ruta-desc">Un recorrido que reúne espacios públicos, patrimonio, cultura, comercio tradicional y museos para descubrir distintas expresiones de la memoria de Huancayo.</p>
+                        <div class="ruta-meta">
+                            <span><i class="fas fa-map-pin"></i> 5 lugares</span>
+                            <span><i class="fas fa-tag"></i> Cultura · Memoria</span>
+                        </div>
+                        <div class="ruta-actions">
+                            <button class="btn btn-primary btn-sm" onclick="abrirRuta(2)"><i class="fas fa-eye"></i> Explorar ruta</button>
+                            <a href="mapa.html" class="btn btn-outline btn-sm" style="color:var(--color-text);border-color:var(--color-border);"><i class="fas fa-map"></i> Ver mapa</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    DEFINICIÓN
+    NOTA SOBRE RUTAS
     ============================================================ -->
-    <section class="bg-white" id="definicion">
+    <section class="nota-rutas">
         <div class="container">
-            <div class="section-header fade-up">
-                <h2>¿Qué es una <span>Ruta Histórica Interactiva</span>?</h2>
-                <p>La definición establecida en el proyecto de investigación.</p>
-            </div>
-
-            <div class="definicion-grid fade-up">
-                <div class="definicion-texto">
-                    <p>Una <strong>Ruta Histórica Interactiva</strong> es un <strong>itinerario cultural y turístico</strong> que recorre sitios o monumentos de interés histórico, equipado con <strong>señalética física</strong> y <strong>contenidos interactivos</strong> como realidad aumentada, códigos QR, audioguías y aplicaciones móviles que informan y educan al visitante.</p>
-                    <div class="definicion-destacada">
-                        <i class="fas fa-flag" style="color:var(--color-secondary);margin-right:8px;"></i>
-                        Las Rutas Históricas Interactivas en Huancayo son entendidas como un conjunto de políticas, proyectos y recursos destinados a la creación, mantenimiento y promoción de dichas rutas.
-                    </div>
-                </div>
-                <div class="definicion-flujo">
-                    <div class="paso">
-                        <span class="icono"><i class="fas fa-landmark"></i></span>
-                        <span>Patrimonio</span>
-                    </div>
-                    <div class="paso">
-                        <span class="icono"><i class="fas fa-route"></i></span>
-                        <span>Recorrido</span>
-                    </div>
-                    <div class="paso">
-                        <span class="icono"><i class="fas fa-sign"></i></span>
-                        <span>Señalética</span>
-                    </div>
-                    <div class="paso">
-                        <span class="icono"><i class="fas fa-microchip"></i></span>
-                        <span>Tecnología</span>
-                    </div>
-                    <div class="paso">
-                        <span class="icono"><i class="fas fa-book-open"></i></span>
-                        <span>Interpretación</span>
-                    </div>
-                    <div class="paso">
-                        <span class="icono"><i class="fas fa-graduation-cap"></i></span>
-                        <span>Aprendizaje</span>
-                    </div>
-                </div>
+            <div class="nota-box">
+                <h4><i class="fas fa-info-circle" style="color:var(--color-secondary);"></i> Sobre estos recorridos</h4>
+                <p>Los recorridos mostrados son propuestas hipotéticas de exploración construidas a partir de los lugares identificados en el proyecto. Su finalidad es mostrar cómo podrían conectarse los distintos espacios patrimoniales de Huancayo.</p>
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    POR QUÉ RUTAS
+    QUÉ ENCONTRARÁS
     ============================================================ -->
-    <section class="bg-soft" id="porque">
+    <section class="que-encontraras">
         <div class="container">
             <div class="section-header fade-up">
-                <h2>¿Por qué <span>rutas</span>?</h2>
-                <p>El contexto y justificación de la investigación.</p>
+                <h2>¿Qué encontrarás en el <span>camino</span>?</h2>
             </div>
-
-            <div class="porque-grid fade-up">
-                <div class="problema-box">
-                    <h4 style="font-family:var(--font-sans);color:var(--color-primary);margin-bottom:8px;">El diagnóstico</h4>
-                    <ul>
-                        <li><i class="fas fa-exclamation-circle"></i> Patrimonio subvalorado</li>
-                        <li><i class="fas fa-exclamation-circle"></i> Limitada accesibilidad al público</li>
-                        <li><i class="fas fa-exclamation-circle"></i> Ausencia de sistema integrado de señalización patrimonial</li>
-                        <li><i class="fas fa-exclamation-circle"></i> Falta de recursos digitales para interpretación</li>
-                        <li><i class="fas fa-exclamation-circle"></i> Monumentos que pueden pasar desapercibidos</li>
-                        <li><i class="fas fa-exclamation-circle"></i> Oportunidades perdidas para promoción cultural y turismo sostenible</li>
-                    </ul>
-                </div>
-                <div class="solucion-box">
-                    <h3 style="font-size:1.4rem;">La propuesta</h3>
-                    <div class="flecha-grande"><i class="fas fa-arrow-down"></i></div>
-                    <p><strong>Inventario · Mapeo · Rutas</strong></p>
-                    <p><strong>Señalética · QR · Audioguías · Web</strong></p>
-                    <p><strong>Participación comunitaria · Turismo sostenible</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    RUTAS COMO INSTRUMENTO CULTURAL
-    ============================================================ -->
-    <section class="bg-white" id="instrumento">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Las rutas como <span>instrumento</span> cultural y turístico</h2>
-                <p>Articulan patrimonio, paisaje, tradición e interpretación.</p>
-            </div>
-
-            <div class="instrumento-grid fade-up">
-                <div class="instrumento-item">
-                    <i class="fas fa-monument"></i>
-                    <span>Monumentos</span>
-                </div>
-                <div class="instrumento-item">
-                    <i class="fas fa-mountain"></i>
-                    <span>Paisajes</span>
-                </div>
-                <div class="instrumento-item">
-                    <i class="fas fa-drum"></i>
-                    <span>Tradiciones</span>
-                </div>
-                <div class="instrumento-item">
-                    <i class="fas fa-star"></i>
-                    <span>Sitios destacados</span>
-                </div>
-            </div>
-
-            <div class="instrumento-flujo fade-up">
-                <span class="paso"><i class="fas fa-arrow-right" style="margin-right:6px;color:var(--color-primary);"></i> Itinerario</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-arrow-right" style="margin-right:6px;color:var(--color-primary);"></i> Interpretación del pasado</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-arrow-right" style="margin-right:6px;color:var(--color-primary);"></i> Memoria patrimonial</span>
-            </div>
-
-            <div class="fade-up" style="background:var(--color-bg-soft);padding:16px 24px;border-radius:var(--radius-sm);max-width:600px;margin:16px auto 0;text-align:center;">
-                <p style="font-size:0.85rem;margin:0;"><i class="fas fa-flag" style="color:var(--color-secondary);margin-right:8px;"></i> El documento menciona como ejemplo el <strong>Qhapaq Ñan / Camino del Inca</strong>, así como rutas de independencia y coloniales.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    INVENTARIO
-    ============================================================ -->
-    <section class="bg-soft" id="inventario">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Los lugares que podrían formar la <span>red</span></h2>
-                <p>Sitios identificados como potencial parte de la ruta histórica interactiva.</p>
-            </div>
-
-            <div class="inventario-red fade-up">
-                <div class="inventario-nodo">
-                    <h4><i class="fas fa-crown"></i> Zona Monumental</h4>
-                    <ul>
-                        <li>Zona Monumental de Huancayo</li>
-                    </ul>
-                    <p style="font-size:0.7rem;color:var(--color-text-light);margin-top:4px;">Declarada Monumento Histórico (1989). Núcleo cívico: Catedral, Arzobispado y Teatro.</p>
-                </div>
-
-                <div class="inventario-nodo" style="border-top-color:var(--color-secondary);">
-                    <h4><i class="fas fa-church"></i> Centro Histórico</h4>
-                    <ul>
-                        <li>Plaza Constitución y Catedral</li>
-                        <li>Capilla de La Merced</li>
-                        <li>Casa Piélago – Casa de la Abolición</li>
-                        <li>
-                            Otros inmuebles históricos
-                            <ul class="sub-items">
-                                <li>Hotel Los Andes</li>
-                                <li>Hotel Tivoli</li>
-                                <li>Casa Raez</li>
-                                <li>Casa Juana Sofía Raez Patiño</li>
-                                <li>Teatrín María Inmaculada</li>
-                                <li>Galería Real 809</li>
-                                <li>Puente Centenario</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="inventario-nodo" style="border-top-color:var(--color-green);">
-                    <h4><i class="fas fa-train"></i> Patrimonio Ferroviario</h4>
-                    <ul>
-                        <li>Antigua Estación Chilca</li>
-                    </ul>
-                    <p style="font-size:0.7rem;color:var(--color-text-light);margin-top:4px;">Arquitectura del boom ferroviario. Monumento Histórico.</p>
-                </div>
-
-                <div class="inventario-nodo" style="border-top-color:var(--color-earth);">
-                    <h4><i class="fas fa-landmark"></i> Arqueología y Prehispánico</h4>
-                    <ul>
-                        <li>Complejo Arqueológico Huarihuilca (Wariwillka)</li>
-                        <li>Monumento Arqueológico Huarsh</li>
-                    </ul>
-                </div>
-
-                <div class="inventario-nodo" style="border-top-color:var(--color-green);">
-                    <h4><i class="fas fa-tree"></i> Miradores y Espacios Públicos</h4>
-                    <ul>
-                        <li>Cerrito de la Libertad</li>
-                        <li>Parque de la Identidad Huanca</li>
-                    </ul>
-                </div>
-
-                <div class="inventario-nodo" style="border-top-color:var(--color-secondary);">
-                    <h4><i class="fas fa-store-alt"></i> Vida Cultural y Comercio</h4>
-                    <ul>
-                        <li>Feria Dominical de Huancayo</li>
-                    </ul>
-                </div>
-
-                <div class="inventario-nodo" style="border-top-color:var(--color-primary);">
-                    <h4><i class="fas fa-university"></i> Museos</h4>
-                    <ul>
-                        <li>Museo de Sitio Wariwillka</li>
-                        <li>Museo Salesiano Vicente Rasetto</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="inventario-nota fade-up">
-                <i class="fas fa-info-circle"></i> El inventario completo incluye 19 fichas patrimoniales derivadas del proyecto de investigación.
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    TECNOLOGÍA
-    ============================================================ -->
-    <section class="bg-white" id="tecnologia">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Una ruta que también se puede <span>escuchar, escanear y explorar</span></h2>
-                <p>Los recursos tecnológicos contemplados en el proyecto.</p>
-            </div>
-
-            <div class="grid-tecnologia fade-up">
-                <div class="card-tec">
-                    <i class="fas fa-sign"></i>
-                    <h5>Señalética física</h5>
-                    <p>Información instalada en los espacios</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-qrcode"></i>
-                    <h5>Códigos QR</h5>
-                    <p>Acceso a contenidos digitales</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-headphones"></i>
-                    <h5>Audioguías</h5>
-                    <p>Contenido histórico en formato sonoro</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-globe"></i>
-                    <h5>Aplicaciones web</h5>
-                    <p>Recursos digitales vinculados a las rutas</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h5>PWA</h5>
-                    <p>Aplicaciones web progresivas</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-vr-cardboard"></i>
-                    <h5>Realidad aumentada</h5>
-                    <p>Recurso interactivo incluido en la definición</p>
-                </div>
-            </div>
-
-            <div class="tecnologia-flujo fade-up">
-                <div class="step">
+            <div class="grid-encontraras fade-up">
+                <div class="encontrar-item">
                     <i class="fas fa-landmark"></i>
-                    <span>Lugar</span>
+                    <span>Arquitectura histórica</span>
                 </div>
-                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-                <div class="step">
-                    <i class="fas fa-sign"></i>
-                    <span>Placa</span>
+                <div class="encontrar-item">
+                    <i class="fas fa-archway"></i>
+                    <span>Patrimonio arqueológico</span>
                 </div>
-                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-                <div class="step">
-                    <i class="fas fa-qrcode"></i>
-                    <span>QR</span>
+                <div class="encontrar-item">
+                    <i class="fas fa-train"></i>
+                    <span>Memoria ferroviaria</span>
                 </div>
-                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-                <div class="step">
-                    <i class="fas fa-mobile-alt"></i>
-                    <span>Teléfono</span>
+                <div class="encontrar-item">
+                    <i class="fas fa-tree"></i>
+                    <span>Espacios públicos</span>
                 </div>
-                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-                <div class="step">
-                    <i class="fas fa-book-open"></i>
-                    <span>Contenido</span>
+                <div class="encontrar-item">
+                    <i class="fas fa-mask"></i>
+                    <span>Cultura y tradición</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    EXPERIENCIA DEL VISITANTE
-    ============================================================ -->
-    <section class="bg-soft" id="experiencia">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Así podría vivirse una <span>Ruta Histórica Interactiva</span></h2>
-                <p>La experiencia conceptual planteada por el proyecto.</p>
-            </div>
-
-            <div class="experiencia-flujo fade-up">
-                <div class="experiencia-paso">
-                    <div class="num">01</div>
-                    <h4>Llegar al sitio</h4>
-                    <p>El visitante encuentra señalética física.</p>
+                <div class="encontrar-item">
+                    <i class="fas fa-university"></i>
+                    <span>Museos</span>
                 </div>
-                <div class="experiencia-paso">
-                    <div class="num">02</div>
-                    <h4>Identificar el punto</h4>
-                    <p>La señalética presenta información y recursos interactivos.</p>
-                </div>
-                <div class="experiencia-paso">
-                    <div class="num">03</div>
-                    <h4>Escaneo / Acceso</h4>
-                    <p>El visitante utiliza QR, audioguías u otros recursos.</p>
-                </div>
-                <div class="experiencia-paso">
-                    <div class="num">04</div>
-                    <h4>Interpretar</h4>
-                    <p>Accede a contenidos históricos y educativos.</p>
-                </div>
-                <div class="experiencia-paso">
-                    <div class="num">05</div>
-                    <h4>Continuar el recorrido</h4>
-                    <p>El sistema conecta el patrimonio dentro de un itinerario cultural.</p>
+                <div class="encontrar-item">
+                    <i class="fas fa-city"></i>
+                    <span>Memoria urbana</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    EDUCACIÓN PATRIMONIAL
+    DESTACADOS
     ============================================================ -->
-    <section class="bg-white" id="educacion">
+    <section class="destacados">
         <div class="container">
             <div class="section-header fade-up">
-                <h2>El patrimonio también es un espacio de <span>aprendizaje</span></h2>
-                <p>Educación patrimonial para conectar personas con su historia.</p>
+                <h2>Lugares que no puedes <span>perderte</span></h2>
             </div>
+            <div class="grid-destacados">
+                <div class="card-destacado fade-up delay-1">
+                    <div class="dest-img" style="background:linear-gradient(135deg,#C0392B20,#C0392B05);">
+                        <span style="font-size:3rem;">⛪</span>
+                    </div>
+                    <div class="dest-body">
+                        <div class="cat">Centro Histórico</div>
+                        <h4>Plaza Constitución y Catedral</h4>
+                        <p>El corazón de la ciudad, donde la historia y la vida cotidiana se encuentran.</p>
+                        <a href="lugares.html#plaza-constitucion" class="btn btn-primary btn-sm">Ver lugar →</a>
+                    </div>
+                </div>
 
-            <div class="educacion-flujo fade-up">
-                <span class="paso"><i class="fas fa-eye"></i> Observar</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-brain"></i> Interpretar</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-graduation-cap"></i> Aprender</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-heart"></i> Valorar</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-shield-alt"></i> Cuidar</span>
-            </div>
+                <div class="card-destacado fade-up delay-2">
+                    <div class="dest-img" style="background:linear-gradient(135deg,#8F2D2720,#8F2D2705);">
+                        <span style="font-size:3rem;">🕊️</span>
+                    </div>
+                    <div class="dest-body">
+                        <div class="cat">Centro Histórico</div>
+                        <h4>Capilla de La Merced</h4>
+                        <p>Monumento del siglo XVII que fue sede del Congreso Constituyente de 1839.</p>
+                        <a href="lugares.html#capilla-merced" class="btn btn-primary btn-sm">Ver lugar →</a>
+                    </div>
+                </div>
 
-            <p class="text-center fade-up" style="font-size:0.9rem;max-width:600px;margin:0 auto;">Los recorridos patrimoniales y herramientas móviles favorecen experiencias de aprendizaje fuera del aula.</p>
-        </div>
-    </section>
+                <div class="card-destacado fade-up delay-3">
+                    <div class="dest-img" style="background:linear-gradient(135deg,#B88A3B20,#B88A3B05);">
+                        <span style="font-size:3rem;">🏺</span>
+                    </div>
+                    <div class="dest-body">
+                        <div class="cat">Arqueología</div>
+                        <h4>Complejo Arqueológico Huarihuilca</h4>
+                        <p>Santuario Huari–Huanca con museo de sitio y piezas arqueológicas.</p>
+                        <a href="lugares.html#wariwillka" class="btn btn-primary btn-sm">Ver lugar →</a>
+                    </div>
+                </div>
 
-    <!-- ============================================================
-    TECNOLOGÍA Y PATRIMONIO (2.1.4)
-    ============================================================ -->
-    <section class="bg-soft" id="tec-patrimonio">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Tecnología y <span>patrimonio</span></h2>
-                <p>Recursos que enriquecen la experiencia educativa y turística.</p>
-            </div>
-
-            <div class="grid-tecnologia fade-up" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-                <div class="card-tec">
-                    <i class="fas fa-vr-cardboard"></i>
-                    <h5>Realidad aumentada</h5>
-                    <p>Integra objetos virtuales sobre el entorno físico</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-qrcode"></i>
-                    <h5>Códigos QR</h5>
-                    <p>Tecnología de bajo costo y alta accesibilidad</p>
-                </div>
-                <div class="card-tec">
-                    <i class="fas fa-headphones"></i>
-                    <h5>Audioguías</h5>
-                    <p>Acceso a videos, audios y textos complementarios</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ANTECEDENTES
-    ============================================================ -->
-    <section class="bg-white" id="antecedentes">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>No partimos de <span>cero</span></h2>
-                <p>Antecedentes que sustentan la propuesta.</p>
-            </div>
-
-            <div class="grid-antecedentes fade-up">
-                <div class="antecedente-card">
-                    <h4>Miraflores — SmartGuide</h4>
-                    <p>Walking tours con mapas interactivos, audioguías, varios idiomas y realidad aumentada.</p>
-                </div>
-                <div class="antecedente-card">
-                    <h4>Gipuzkoa — Itinerarios Culturales</h4>
-                    <p>Aplicación gratuita con puntos patrimoniales y recursos audiovisuales.</p>
-                </div>
-                <div class="antecedente-card">
-                    <h4>Casa Juana Sofía Ráez / Wari Willka</h4>
-                    <p>Ejemplos concretos de patrimonio en Huancayo.</p>
-                </div>
-                <div class="antecedente-card">
-                    <h4>Centro Histórico de Lima</h4>
-                    <p>206 códigos QR asociados a sitios patrimoniales y videos informativos.</p>
-                </div>
-                <div class="antecedente-card">
-                    <h4>Miraflores 2016</h4>
-                    <p>15 obras vinculadas mediante códigos QR y videoguías.</p>
+                <div class="card-destacado fade-up delay-4">
+                    <div class="dest-img" style="background:linear-gradient(135deg,#29463A20,#29463A05);">
+                        <span style="font-size:3rem;">🌳</span>
+                    </div>
+                    <div class="dest-body">
+                        <div class="cat">Espacios Públicos</div>
+                        <h4>Parque de la Identidad Huanca</h4>
+                        <p>Esculturas y símbolos que celebran la cultura Wanka en un espacio abierto.</p>
+                        <a href="lugares.html#parque-identidad" class="btn btn-primary btn-sm">Ver lugar →</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    METODOLOGÍA (FASES)
+    MAPA PREVIEW
     ============================================================ -->
-    <section class="bg-soft" id="metodologia">
+    <section class="mapa-preview">
         <div class="container">
             <div class="section-header fade-up">
-                <h2>¿Cómo se construiría la <span>red</span>?</h2>
-                <p>Las tres fases de la metodología de investigación.</p>
+                <h2>¿Quieres ver <span>dónde están</span>?</h2>
+                <p>Explora los lugares y recorridos directamente sobre el mapa.</p>
             </div>
-
-            <div class="fases-grid fade-up">
-                <div class="fase-card">
-                    <div class="num">1</div>
-                    <h4>Análisis comparativo</h4>
-                    <p>Revisión de experiencias nacionales e internacionales y criterios de adaptación al contexto local.</p>
-                </div>
-                <div class="fase-card">
-                    <div class="num">2</div>
-                    <h4>Fase diagnóstica</h4>
-                    <p>Inventario y mapeo georreferenciado. Evaluación de señalización, preservación e información disponible.</p>
-                </div>
-                <div class="fase-card">
-                    <div class="num">3</div>
-                    <h4>Propuesta normativa</h4>
-                    <p>Redacción del proyecto de ley considerando el marco legal vigente y estándares técnicos internacionales.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    MAPEO
-    ============================================================ -->
-    <section class="bg-white" id="mapeo">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Del inventario al <span>mapa</span></h2>
-                <p>El Ministerio de Cultura tendría entre sus funciones elaborar el mapeo georreferenciado.</p>
-            </div>
-
-            <div class="mapeo-visual fade-up">
-                <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--color-primary);font-weight:600;margin-bottom:8px;">
-                    <i class="fas fa-map"></i> Mapeo conceptual
-                </div>
+            <div class="preview-block fade-up">
                 <div class="marcadores">
                     <div class="marcador">
                         <i class="fas fa-map-pin"></i>
-                        <span>Zona Monumental</span>
-                        <div class="linea"></div>
-                    </div>
-                    <div class="marcador">
-                        <i class="fas fa-map-pin"></i>
                         <span>Centro Histórico</span>
-                        <div class="linea"></div>
+                        <div class="linea-connection"><span></span><span></span><span></span></div>
                     </div>
                     <div class="marcador">
                         <i class="fas fa-map-pin"></i>
                         <span>Arqueología</span>
-                        <div class="linea"></div>
+                        <div class="linea-connection"><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="marcador">
+                        <i class="fas fa-map-pin"></i>
+                        <span>Espacios Públicos</span>
+                        <div class="linea-connection"><span></span><span></span><span></span></div>
                     </div>
                     <div class="marcador">
                         <i class="fas fa-map-pin"></i>
                         <span>Museos</span>
                     </div>
                 </div>
-                <p style="font-size:0.85rem;color:var(--color-text-soft);margin:8px 0 16px;">Representación de las categorías patrimoniales identificadas.</p>
-                <a href="mapa.html" class="btn btn-primary"><i class="fas fa-map-marked-alt"></i> Explorar el mapa</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    SEÑALÉTICA
-    ============================================================ -->
-    <section class="bg-soft" id="senaletica">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>El patrimonio también se lee en la <span>calle</span></h2>
-                <p>Señalética física complementada con recursos digitales.</p>
-            </div>
-
-            <div class="senaletica-placa fade-up">
-                <div class="placa-icon"><i class="fas fa-sign"></i></div>
-                <div class="placa-titulo">Señalética patrimonial</div>
-                <div class="placa-items">
-                    <span>Información</span>
-                    <span>Códigos QR</span>
-                    <span>Diseño visual</span>
-                </div>
-                <p style="font-size:0.8rem;margin:8px 0 0;color:var(--color-text-soft);">Lineamientos acordes con la identidad de cada espacio</p>
-            </div>
-
-            <div class="text-center fade-up mt-16">
-                <p style="font-size:0.85rem;">Se definirá señalética física con información, QR y diseños visuales acordes con la identidad de cada espacio.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    CONTENIDOS HISTÓRICOS
-    ============================================================ -->
-    <section class="bg-white" id="contenidos">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>La información debe estar <span>respaldada</span></h2>
-                <p>Contenidos validados por historiadores y especialistas.</p>
-            </div>
-
-            <div class="instrumento-flujo fade-up">
-                <span class="paso"><i class="fas fa-search" style="color:var(--color-primary);margin-right:6px;"></i> Investigación</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-pen-fancy" style="color:var(--color-primary);margin-right:6px;"></i> Contenido</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-check-circle" style="color:var(--color-primary);margin-right:6px;"></i> Validación</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-user-graduate" style="color:var(--color-primary);margin-right:6px;"></i> Experiencia del visitante</span>
-            </div>
-
-            <p class="text-center fade-up" style="font-size:0.9rem;max-width:500px;margin:0 auto;">Textos informativos, audioguías y recursos web validados por historiadores.</p>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    PARTICIPACIÓN COMUNITARIA
-    ============================================================ -->
-    <section class="bg-soft" id="participacion">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Las rutas se construyen con la <span>comunidad</span></h2>
-                <p>Participación ciudadana en todas las fases.</p>
-            </div>
-
-            <div class="grid-antecedentes fade-up" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-                <div class="antecedente-card" style="border-left-color:var(--color-primary);">
-                    <h4>Comunidades locales</h4>
-                    <p>Involucradas en el proceso</p>
-                </div>
-                <div class="antecedente-card" style="border-left-color:var(--color-primary);">
-                    <h4>Asociaciones de vecinos</h4>
-                    <p>Participación activa</p>
-                </div>
-                <div class="antecedente-card" style="border-left-color:var(--color-primary);">
-                    <h4>Gestores culturales</h4>
-                    <p>Expertos en patrimonio</p>
-                </div>
-                <div class="antecedente-card" style="border-left-color:var(--color-primary);">
-                    <h4>Expertos</h4>
-                    <p>Validación de contenidos</p>
-                </div>
-            </div>
-
-            <div class="participacion-flujo fade-up">
-                <span class="etapa"><i class="fas fa-users"></i> Comunidad</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="etapa"><i class="fas fa-comments"></i> Talleres</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="etapa"><i class="fas fa-check-circle"></i> Validación</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="etapa"><i class="fas fa-tools"></i> Implementación</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    SOSTENIBILIDAD
-    ============================================================ -->
-    <section class="bg-white" id="sostenibilidad">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Una ruta que necesita <span>colaboración</span></h2>
-                <p>Coordinación interinstitucional para asegurar recursos y evaluar impactos.</p>
-            </div>
-
-            <div class="sostenibilidad-grid fade-up">
-                <div class="sostenibilidad-item">
-                    <i class="fas fa-users"></i>
-                    <h4>Social</h4>
-                </div>
-                <div class="sostenibilidad-item">
-                    <i class="fas fa-chart-line"></i>
-                    <h4>Económico</h4>
-                </div>
-                <div class="sostenibilidad-item">
-                    <i class="fas fa-leaf"></i>
-                    <h4>Ambiental</h4>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    QUIÉNES PARTICIPAN
-    ============================================================ -->
-    <section class="bg-primary" id="actores">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>¿Quiénes <span style="color:var(--color-secondary);">participan</span>?</h2>
-                <p>Instituciones y actores involucrados según los artículos 4, 5 y 6.</p>
-            </div>
-
-            <div class="participacion-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
-                <div class="participante-card" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(4px);padding:20px 18px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:var(--transition);">
-                    <div style="font-size:2.8rem;color:var(--color-secondary);opacity:0.6;margin-bottom:8px;"><i class="fas fa-university"></i></div>
-                    <h4 style="color:var(--color-white);font-family:var(--font-sans);font-size:0.95rem;font-weight:600;">Ministerio de Cultura</h4>
-                    <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin:4px 0 0;">Responsable de liderar el programa</p>
-                </div>
-                <div class="participante-card" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(4px);padding:20px 18px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.08);text-align:center;">
-                    <div style="font-size:2.8rem;color:var(--color-secondary);opacity:0.6;margin-bottom:8px;"><i class="fas fa-suitcase"></i></div>
-                    <h4 style="color:var(--color-white);font-family:var(--font-sans);font-size:0.95rem;font-weight:600;">MINCETUR</h4>
-                    <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin:4px 0 0;">Apoya difusión y promoción</p>
-                </div>
-                <div class="participante-card" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(4px);padding:20px 18px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.08);text-align:center;">
-                    <div style="font-size:2.8rem;color:var(--color-secondary);opacity:0.6;margin-bottom:8px;"><i class="fas fa-building"></i></div>
-                    <h4 style="color:var(--color-white);font-family:var(--font-sans);font-size:0.95rem;font-weight:600;">Autoridades regionales y locales</h4>
-                    <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin:4px 0 0;">Gestiones locales · Permisos · Seguridad</p>
-                </div>
-                <div class="participante-card" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(4px);padding:20px 18px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.08);text-align:center;">
-                    <div style="font-size:2.8rem;color:var(--color-secondary);opacity:0.6;margin-bottom:8px;"><i class="fas fa-graduation-cap"></i></div>
-                    <h4 style="color:var(--color-white);font-family:var(--font-sans);font-size:0.95rem;font-weight:600;">Universidades / Centros culturales</h4>
-                    <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin:4px 0 0;">Investigación · Contenidos · Validación</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    PILOTO
-    ============================================================ -->
-    <section class="bg-white" id="piloto">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>El proyecto contempla una fase <span>piloto</span></h2>
-                <p>10 sitios históricos · S/ 42,650 · 12 meses</p>
-            </div>
-
-            <div class="piloto-grid fade-up">
-                <div class="piloto-card">
-                    <div class="numero-grande">10</div>
-                    <p>Sitios históricos para el piloto</p>
-                </div>
-                <div class="piloto-card">
-                    <div class="numero-grande" style="font-size:2.2rem;">S/ 42,650</div>
-                    <p>Presupuesto referencial estimado</p>
-                </div>
-                <div class="piloto-card">
-                    <div class="numero-grande">12</div>
-                    <p>Meses para el proyecto piloto</p>
-                </div>
-            </div>
-
-            <p class="text-center fade-up" style="font-size:0.85rem;max-width:600px;margin:0 auto;">El presupuesto estimado corresponde a un piloto inicial de señalización en 10 puntos históricos, incluyendo producción de audioguías y desarrollo web.</p>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    CRONOGRAMA
-    ============================================================ -->
-    <section class="bg-soft" id="cronograma">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>12 meses para el <span>proyecto piloto</span></h2>
-                <p>Componentes generales del cronograma (Anexo 3).</p>
-            </div>
-
-            <div class="cronograma-timeline fade-up">
-                <span class="mes activo">1</span>
-                <span class="separador">·</span>
-                <span class="mes activo">2</span>
-                <span class="separador">·</span>
-                <span class="mes activo">3</span>
-                <span class="separador">·</span>
-                <span class="mes activo">4</span>
-                <span class="separador">·</span>
-                <span class="mes">5</span>
-                <span class="separador">·</span>
-                <span class="mes">6</span>
-                <span class="separador">·</span>
-                <span class="mes">7</span>
-                <span class="separador">·</span>
-                <span class="mes">8</span>
-                <span class="separador">·</span>
-                <span class="mes">9</span>
-                <span class="separador">·</span>
-                <span class="mes">10</span>
-                <span class="separador">·</span>
-                <span class="mes">11</span>
-                <span class="separador">·</span>
-                <span class="mes">12</span>
-            </div>
-
-            <div class="instrumento-flujo fade-up">
-                <span class="paso"><i class="fas fa-clipboard-list" style="color:var(--color-primary);margin-right:6px;"></i> Inventario</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-sign" style="color:var(--color-primary);margin-right:6px;"></i> Señalética</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-book" style="color:var(--color-primary);margin-right:6px;"></i> Contenidos</span>
-                <span class="flecha"><i class="fas fa-arrow-right"></i></span>
-                <span class="paso"><i class="fas fa-globe" style="color:var(--color-primary);margin-right:6px;"></i> Web</span>
-            </div>
-
-            <div class="cronograma-nota fade-up">
-                <i class="fas fa-info-circle"></i> Los detalles del cronograma corresponden al Anexo 3 del proyecto.
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ANEXOS
-    ============================================================ -->
-    <section class="bg-white" id="anexos">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Anexos <span>técnicos</span></h2>
-                <p>Documentación complementaria del proyecto.</p>
-            </div>
-
-            <div class="grid-anexos fade-up">
-                <div class="anexo-card">
-                    <div class="anexo-num">Anexo 1</div>
-                    <h4>Metodología de diagnóstico</h4>
-                    <p>Inventario y mapeo de sitios históricos</p>
-                </div>
-                <div class="anexo-card">
-                    <div class="anexo-num">Anexo 2</div>
-                    <h4>Lineamientos técnicos</h4>
-                    <p>Señalética presencial, QR, audioguías y plataforma web</p>
-                </div>
-                <div class="anexo-card">
-                    <div class="anexo-num">Anexo 3</div>
-                    <h4>Cronograma y presupuesto</h4>
-                    <p>12 meses · Piloto de 10 sitios</p>
-                </div>
-            </div>
-
-            <p class="text-center fade-up" style="font-size:0.85rem;color:var(--color-text-light);max-width:600px;margin:16px auto 0;">Los anexos son referenciales y pueden ajustarse conforme a los resultados de los talleres participativos y la disponibilidad presupuestal.</p>
-
-            <div class="text-center fade-up mt-16">
-                <a href="ley.html" class="btn btn-primary"><i class="fas fa-gavel"></i> Ver propuesta de ley</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    MARCO TEÓRICO
-    ============================================================ -->
-    <section class="bg-soft" id="marco-teorico">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>¿En qué se sustenta la <span>propuesta</span>?</h2>
-                <p>Bases teóricas del proyecto de investigación.</p>
-            </div>
-
-            <div class="marco-grid fade-up">
-                <div class="marco-item">
-                    <i class="fas fa-landmark"></i>
-                    <span>Patrimonio cultural</span>
-                </div>
-                <div class="marco-item">
-                    <i class="fas fa-city"></i>
-                    <span>Espacio público como escenario cultural</span>
-                </div>
-                <div class="marco-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Educación patrimonial</span>
-                </div>
-                <div class="marco-item">
-                    <i class="fas fa-microchip"></i>
-                    <span>Uso de tecnología en espacios culturales</span>
-                </div>
-                <div class="marco-item">
-                    <i class="fas fa-route"></i>
-                    <span>Rutas como instrumento cultural y turístico</span>
-                </div>
-                <div class="marco-item">
-                    <i class="fas fa-gavel"></i>
-                    <span>Normas legales sobre patrimonio</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    MARCO LEGAL
-    ============================================================ -->
-    <section class="bg-white" id="marco-legal">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>El marco <span>normativo</span> de la propuesta</h2>
-                <p>Leyes mencionadas en el proyecto de investigación.</p>
-            </div>
-
-            <div class="legal-grid fade-up">
-                <div class="legal-item">
-                    <h4>Ley N.º 28296</h4>
-                    <p>Ley General del Patrimonio Cultural de la Nación</p>
-                </div>
-                <div class="legal-item">
-                    <h4>Ley N.º 29408</h4>
-                    <p>Ley General de Turismo</p>
-                </div>
-                <div class="legal-item">
-                    <h4>Ley N.º 31199</h4>
-                    <p>Ley de Protección y Gestión de los Espacios Públicos</p>
-                </div>
-                <div class="legal-item">
-                    <h4>Ley N.º 31313</h4>
-                    <p>Ley de Desarrollo Urbano Sostenible</p>
-                </div>
-                <div class="legal-item" style="grid-column:1/-1;max-width:400px;margin:0 auto;">
-                    <h4>Lineamientos del MINEDU</h4>
-                    <p>Educación intercultural y patrimonial</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    RESULTADO ESPERADO
-    ============================================================ -->
-    <section class="bg-soft" id="resultado">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>¿Qué busca lograr el <span>proyecto</span>?</h2>
-                <p>Resultados esperados descritos en la investigación.</p>
-            </div>
-
-            <div class="resultado-grid fade-up">
-                <div class="resultado-item">
-                    <i class="fas fa-flag"></i>
-                    <h4>Fortalecer la identidad histórica</h4>
-                    <p>Conectar a la comunidad con su patrimonio</p>
-                </div>
-                <div class="resultado-item">
-                    <i class="fas fa-eye"></i>
-                    <h4>Mejorar la visibilidad del patrimonio</h4>
-                    <p>Dar a conocer espacios históricos</p>
-                </div>
-                <div class="resultado-item">
-                    <i class="fas fa-user-graduate"></i>
-                    <h4>Mejorar la experiencia turística y educativa</h4>
-                    <p>Recorridos enriquecidos con tecnología</p>
-                </div>
-                <div class="resultado-item">
-                    <i class="fas fa-microchip"></i>
-                    <h4>Incorporar tecnología educativa</h4>
-                    <p>Recursos digitales para el aprendizaje</p>
-                </div>
-                <div class="resultado-item">
-                    <i class="fas fa-leaf"></i>
-                    <h4>Promover turismo sostenible</h4>
-                    <p>Desarrollo económico con responsabilidad</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    CTA FINAL
-    ============================================================ -->
-    <section class="cta-final">
-        <div class="container">
-            <h2>Todos los lugares, <span>una sola red</span></h2>
-            <p>El proyecto contempla el inventario y mapeo georreferenciado de potenciales sitios históricos para integrar las rutas.</p>
-            <div class="btn-group">
-                <a href="lugares.html" class="btn btn-primary"><i class="fas fa-compass"></i> Explorar los lugares</a>
-                <a href="mapa.html" class="btn btn-outline"><i class="fas fa-map-marked-alt"></i> Ver el mapa</a>
-                <a href="ley.html" class="btn btn-secondary"><i class="fas fa-gavel"></i> Ver iniciativa de ley</a>
+                <p style="font-size:0.85rem;color:var(--color-text-soft);margin-bottom:16px;">Todos los lugares patrimoniales conectados en una red.</p>
+                <a href="mapa.html" class="btn btn-primary"><i class="fas fa-map-marked-alt"></i> Explorar mapa</a>
             </div>
         </div>
     </section>
@@ -2676,10 +1661,10 @@
                 <h5>Enlaces</h5>
                 <ul>
                     <li><a href="#hero">Inicio</a></li>
-                    <li><a href="#lugares-destacados">Lugares</a></li>
-                    <li><a href="#rutas">Rutas</a></li>
-                    <li><a href="#mapa-preview">Mapa</a></li>
-                    <li><a href="#ley">Iniciativa de Ley</a></li>
+                    <li><a href="lugares.html">Lugares</a></li>
+                    <li><a href="rutas.html">Rutas</a></li>
+                    <li><a href="mapa.html">Mapa</a></li>
+                    <li><a href="ley.html">Iniciativa de Ley</a></li>
                 </ul>
             </div>
 
@@ -2719,6 +1704,56 @@
     </footer>
 
     <!-- ============================================================
+    MODAL DE RUTA
+    ============================================================ -->
+    <div class="modal-overlay" id="modalRuta">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-titulo">
+                    <span class="tag" id="modalTag">RUTA HIPOTÉTICA</span>
+                    <h3 id="modalNombre">Circuito del Centro Histórico</h3>
+                    <p id="modalDesc">10 lugares · Propuesta de recorrido</p>
+                </div>
+                <button class="modal-close-btn" id="modalCerrar"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="modal-body" id="modalBody">
+                <!-- Progreso -->
+                <div class="recorrido-progreso">
+                    <div class="barra">
+                        <div class="fill" id="progresoFill" style="width:0%;"></div>
+                    </div>
+                    <span class="texto" id="progresoTexto">0 / 0 lugares</span>
+                </div>
+
+                <!-- Lista de lugares -->
+                <div class="recorrido-lista" id="recorridoLista">
+                    <!-- Inyectado por JS -->
+                </div>
+
+                <!-- Lugar destacado actual -->
+                <div class="lugar-destacado" id="lugarDestacado">
+                    <div class="lugar-img" id="destacadoImg">🏛️</div>
+                    <div class="lugar-info">
+                        <div class="cat" id="destacadoCat">Categoría</div>
+                        <h4 id="destacadoNombre">Nombre del lugar</h4>
+                        <p id="destacadoDesc">Descripción del lugar.</p>
+                        <a href="lugares.html" class="btn btn-primary btn-sm" id="destacadoBtn"><i class="fas fa-eye"></i> Conocer lugar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <span style="font-size:0.8rem;color:var(--color-text-light);" id="modalFooterInfo">Ruta hipotética · Propuesta de exploración</span>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline btn-sm" id="btnAnterior" style="color:var(--color-text);border-color:var(--color-border);"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-primary btn-sm" id="btnSiguiente">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
     JAVASCRIPT
     ============================================================ -->
     <script>
@@ -2726,7 +1761,342 @@
             'use strict';
 
             // ============================================================
-            // NAVBAR SCROLL
+            // DATOS DE LUGARES (resumidos para rutas)
+            // ============================================================
+            const lugaresData = [{
+                id: 'plaza-constitucion',
+                nombre: 'Plaza Constitución y Catedral',
+                categoria: 'Centro Histórico',
+                descripcion: 'El corazón de la ciudad. La plaza principal y la Catedral neoclásica son el centro de la vida huancaína.',
+                icono: '⛪'
+            }, {
+                id: 'capilla-merced',
+                nombre: 'Capilla de La Merced',
+                categoria: 'Centro Histórico',
+                descripcion: 'Monumento del siglo XVII que fue sede del Congreso Constituyente de 1839.',
+                icono: '🕊️'
+            }, {
+                id: 'casa-pielago',
+                nombre: 'Casa Piélago – Casa de la Abolición',
+                categoria: 'Centro Histórico',
+                descripcion: 'Lugar donde Castilla firmó la abolición de la esclavitud en 1855. Demolida en 1968.',
+                icono: '📜'
+            }, {
+                id: 'hotel-los-andes',
+                nombre: 'Hotel Los Andes',
+                categoria: 'Centro Histórico',
+                descripcion: 'Edificación histórica parte del patrimonio arquitectónico del centro de Huancayo.',
+                icono: '🏨'
+            }, {
+                id: 'hotel-tivoli',
+                nombre: 'Hotel Tivoli',
+                categoria: 'Centro Histórico',
+                descripcion: 'Inmueble patrimonial que forma parte de la historia hotelera de la ciudad.',
+                icono: '🏨'
+            }, {
+                id: 'casa-raez',
+                nombre: 'Casa Raez',
+                categoria: 'Centro Histórico',
+                descripcion: 'Edificación representativa de la arquitectura republicana en el centro histórico.',
+                icono: '🏠'
+            }, {
+                id: 'casa-juana-sofia',
+                nombre: 'Casa Juana Sofía Raez Patiño',
+                categoria: 'Centro Histórico',
+                descripcion: 'Casona del siglo XIX que preserva la arquitectura doméstica tradicional huancaína.',
+                icono: '🏠'
+            }, {
+                id: 'teatrin-maria',
+                nombre: 'Teatrín María Inmaculada',
+                categoria: 'Centro Histórico',
+                descripcion: 'Espacio cultural dentro de un colegio histórico de la ciudad.',
+                icono: '🎭'
+            }, {
+                id: 'galeria-real',
+                nombre: 'Galería Real 809',
+                categoria: 'Centro Histórico',
+                descripcion: 'Espacio comercial que forma parte del tejido histórico del centro.',
+                icono: '🛍️'
+            }, {
+                id: 'puente-centenario',
+                nombre: 'Puente Centenario',
+                categoria: 'Centro Histórico',
+                descripcion: 'Puente histórico que conecta sectores de la ciudad y es parte de su memoria.',
+                icono: '🌉'
+            }, {
+                id: 'wariwillka',
+                nombre: 'Complejo Arqueológico Huarihuilca',
+                categoria: 'Arqueología',
+                descripcion: 'Santuario Huari–Huanca con museo de sitio y piezas arqueológicas.',
+                icono: '🏺'
+            }, {
+                id: 'huarsh',
+                nombre: 'Monumento Arqueológico Huarsh',
+                categoria: 'Arqueología',
+                descripcion: 'Santuario Huanca declarado monumento arqueológico en 2015.',
+                icono: '🗿'
+            }, {
+                id: 'parque-identidad',
+                nombre: 'Parque de la Identidad Huanca',
+                categoria: 'Espacios Públicos',
+                descripcion: 'Espacio con esculturas y símbolos que celebran la cultura Wanka.',
+                icono: '🌳'
+            }, {
+                id: 'museo-wariwillka',
+                nombre: 'Museo de Sitio Wariwillka',
+                categoria: 'Museos',
+                descripcion: 'Cuatro salas dedicadas a las culturas Huanca y Huari.',
+                icono: '🏛️'
+            }, {
+                id: 'zona-monumental',
+                nombre: 'Zona Monumental de Huancayo',
+                categoria: 'Zona Monumental',
+                descripcion: 'Declarada Monumento Histórico en 1989. Núcleo cívico de la ciudad.',
+                icono: '🏛️'
+            }, {
+                id: 'estacion-chilca',
+                nombre: 'Antigua Estación Chilca',
+                categoria: 'Patrimonio Ferroviario',
+                descripcion: 'Arquitectura del boom ferroviario. Monumento Histórico.',
+                icono: '🚂'
+            }, {
+                id: 'cerrito-libertad',
+                nombre: 'Cerrito de la Libertad',
+                categoria: 'Espacios Públicos',
+                descripcion: 'Mirador panorámico con zoológico y áreas recreativas.',
+                icono: '🌄'
+            }, {
+                id: 'feria-dominical',
+                nombre: 'Feria Dominical de Huancayo',
+                categoria: 'Vida Cultural',
+                descripcion: 'Mercado artesanal fundado en 1572 que se extiende por más de 2 km.',
+                icono: '🎪'
+            }, {
+                id: 'museo-salesiano',
+                nombre: 'Museo Salesiano Vicente Rasetto',
+                categoria: 'Museos',
+                descripcion: 'Colección de 7.800 piezas de arqueología, fauna e insectos.',
+                icono: '🖼️'
+            }];
+
+            // ============================================================
+            // RUTAS
+            // ============================================================
+            const rutas = [{
+                id: 'ruta-centro',
+                nombre: 'Circuito del Centro Histórico',
+                color: '#8F2D27',
+                lugaresIds: [
+                    'plaza-constitucion',
+                    'capilla-merced',
+                    'casa-pielago',
+                    'hotel-los-andes',
+                    'hotel-tivoli',
+                    'casa-raez',
+                    'casa-juana-sofia',
+                    'teatrin-maria',
+                    'galeria-real',
+                    'puente-centenario'
+                ]
+            }, {
+                id: 'ruta-wanka',
+                nombre: 'Circuito del Patrimonio Wanka',
+                color: '#B88A3B',
+                lugaresIds: [
+                    'wariwillka',
+                    'huarsh',
+                    'parque-identidad',
+                    'museo-wariwillka'
+                ]
+            }, {
+                id: 'ruta-cultural',
+                nombre: 'Circuito de Cultura y Memoria',
+                color: '#29463A',
+                lugaresIds: [
+                    'zona-monumental',
+                    'estacion-chilca',
+                    'cerrito-libertad',
+                    'feria-dominical',
+                    'museo-salesiano'
+                ]
+            }];
+
+            // ============================================================
+            // ESTADO
+            // ============================================================
+            let rutaActual = null;
+            let lugaresRuta = [];
+            let indiceActual = 0;
+
+            // ============================================================
+            // REFERENCIAS DOM
+            // ============================================================
+            const modal = document.getElementById('modalRuta');
+            const modalCerrar = document.getElementById('modalCerrar');
+            const modalNombre = document.getElementById('modalNombre');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalTag = document.getElementById('modalTag');
+            const recorridoLista = document.getElementById('recorridoLista');
+            const progresoFill = document.getElementById('progresoFill');
+            const progresoTexto = document.getElementById('progresoTexto');
+            const destacadoImg = document.getElementById('destacadoImg');
+            const destacadoCat = document.getElementById('destacadoCat');
+            const destacadoNombre = document.getElementById('destacadoNombre');
+            const destacadoDesc = document.getElementById('destacadoDesc');
+            const destacadoBtn = document.getElementById('destacadoBtn');
+            const btnAnterior = document.getElementById('btnAnterior');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            const modalFooterInfo = document.getElementById('modalFooterInfo');
+
+            // ============================================================
+            // FUNCIONES
+            // ============================================================
+            function abrirRuta(index) {
+                const ruta = rutas[index];
+                if (!ruta) return;
+
+                rutaActual = ruta;
+                lugaresRuta = ruta.lugaresIds.map(id => lugaresData.find(l => l.id === id)).filter(Boolean);
+                indiceActual = 0;
+
+                if (lugaresRuta.length === 0) {
+                    alert('Esta ruta no tiene lugares disponibles.');
+                    return;
+                }
+
+                // Configurar modal
+                modalNombre.textContent = ruta.nombre;
+                modalDesc.textContent = `${lugaresRuta.length} lugares · Propuesta de recorrido`;
+                modalTag.textContent = 'RUTA HIPOTÉTICA';
+                modalTag.style.color = ruta.color;
+                modalFooterInfo.textContent = 'Ruta hipotética · Propuesta de exploración';
+
+                renderizarLista();
+                mostrarLugar(indiceActual);
+                actualizarProgreso();
+
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function cerrarModal() {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                rutaActual = null;
+                lugaresRuta = [];
+                indiceActual = 0;
+            }
+
+            function renderizarLista() {
+                recorridoLista.innerHTML = '';
+                lugaresRuta.forEach((lugar, idx) => {
+                    const div = document.createElement('div');
+                    div.className = 'recorrido-item';
+                    if (idx === indiceActual) div.classList.add('active');
+                    div.innerHTML = `
+                                <span class="idx">${String(idx + 1).padStart(2, '0')}</span>
+                                <div class="info">
+                                    <div class="nombre">${lugar.nombre}</div>
+                                    <div class="cat">${lugar.categoria}</div>
+                                </div>
+                                <span class="estado ${idx <= indiceActual ? 'visitado' : ''}">
+                                    ${idx < indiceActual ? '✓ Visitado' : idx === indiceActual ? '◉ Actual' : ''}
+                                </span>
+                            `;
+                    div.addEventListener('click', function() {
+                        indiceActual = idx;
+                        mostrarLugar(indiceActual);
+                        actualizarProgreso();
+                        renderizarLista();
+                    });
+                    recorridoLista.appendChild(div);
+                });
+            }
+
+            function mostrarLugar(idx) {
+                const lugar = lugaresRuta[idx];
+                if (!lugar) return;
+
+                destacadoImg.textContent = lugar.icono || '🏛️';
+                destacadoCat.textContent = lugar.categoria;
+                destacadoNombre.textContent = lugar.nombre;
+                destacadoDesc.textContent = lugar.descripcion;
+                destacadoBtn.href = `lugares.html#${lugar.id}`;
+
+                // Actualizar lista visual
+                const items = recorridoLista.querySelectorAll('.recorrido-item');
+                items.forEach((item, i) => {
+                    item.classList.toggle('active', i === idx);
+                    const estado = item.querySelector('.estado');
+                    if (estado) {
+                        if (i < idx) {
+                            estado.textContent = '✓ Visitado';
+                            estado.className = 'estado visitado';
+                        } else if (i === idx) {
+                            estado.textContent = '◉ Actual';
+                            estado.className = 'estado';
+                        } else {
+                            estado.textContent = '';
+                            estado.className = 'estado';
+                        }
+                    }
+                });
+
+                // Scroll al lugar en la lista
+                const activeItem = recorridoLista.querySelector('.recorrido-item.active');
+                if (activeItem) {
+                    activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+
+                actualizarProgreso();
+            }
+
+            function actualizarProgreso() {
+                const total = lugaresRuta.length;
+                const actual = indiceActual + 1;
+                const porcentaje = total > 0 ? (actual / total) * 100 : 0;
+                progresoFill.style.width = `${porcentaje}%`;
+                progresoTexto.textContent = `${actual} / ${total} lugares`;
+            }
+
+            function siguienteLugar() {
+                if (indiceActual < lugaresRuta.length - 1) {
+                    indiceActual++;
+                    mostrarLugar(indiceActual);
+                    renderizarLista();
+                } else {
+                    alert('¡Has completado el recorrido de esta ruta!');
+                }
+            }
+
+            function anteriorLugar() {
+                if (indiceActual > 0) {
+                    indiceActual--;
+                    mostrarLugar(indiceActual);
+                    renderizarLista();
+                }
+            }
+
+            // ============================================================
+            // EVENT LISTENERS
+            // ============================================================
+            window.abrirRuta = abrirRuta;
+
+            modalCerrar.addEventListener('click', cerrarModal);
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) cerrarModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') cerrarModal();
+                if (e.key === 'ArrowRight' && modal.classList.contains('open')) siguienteLugar();
+                if (e.key === 'ArrowLeft' && modal.classList.contains('open')) anteriorLugar();
+            });
+
+            btnSiguiente.addEventListener('click', siguienteLugar);
+            btnAnterior.addEventListener('click', anteriorLugar);
+
+            // ============================================================
+            // NAVBAR
             // ============================================================
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function() {
@@ -2752,21 +2122,6 @@
             });
 
             // ============================================================
-            // SCROLL SUAVE
-            // ============================================================
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        e.preventDefault();
-                        const offset = 80;
-                        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({ top, behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // ============================================================
             // FADE-UP OBSERVER
             // ============================================================
             const fadeElements = document.querySelectorAll('.fade-up');
@@ -2781,26 +2136,23 @@
             fadeElements.forEach(el => observer.observe(el));
 
             // ============================================================
-            // ACTIVE NAV LINK POR SCROLL
+            // SCROLL SUAVE
             // ============================================================
-            const sections = document.querySelectorAll('section[id]');
-            const navItems = document.querySelectorAll('.nav-links a:not(.nav-cta)');
-
-            window.addEventListener('scroll', function() {
-                let current = '';
-                sections.forEach(section => {
-                    const top = section.offsetTop - 120;
-                    if (window.scrollY >= top) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                navItems.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        const offset = 80;
+                        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top, behavior: 'smooth' });
                     }
                 });
             });
+
+            console.log('✅ Huancayo Histórico - Rutas cargadas.');
+            console.log(`📍 ${lugaresData.length} lugares disponibles`);
+            console.log(`🗺️ ${rutas.length} rutas hipotéticas`);
 
         })();
     </script>
