@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mapa · Huancayo Histórico</title>
 
+        <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -190,11 +193,6 @@
             border-color: var(--color-primary);
             color: var(--color-primary);
             transform: scale(1.04);
-        }
-        .btn-icon.active {
-            background: var(--color-primary);
-            color: var(--color-white);
-            border-color: var(--color-primary);
         }
 
         /* ============================================================
@@ -520,15 +518,14 @@
         }
 
         /* ============================================================
-           PANEL DE DETALLE (flotante)
+           PANEL DE DETALLE (lateral derecho)
         ============================================================ */
         .panel-detalle {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 480px;
+            top: 16px;
+            right: 16px;
+            width: 380px;
+            max-height: calc(100% - 32px);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -536,23 +533,32 @@
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--color-border);
             z-index: 600;
-            padding: 20px 24px 24px;
+            padding: 0;
             display: none;
+            flex-direction: column;
+            overflow: hidden;
             transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
         }
         .panel-detalle.open {
-            display: block;
-            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            animation: slideInRight 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        @keyframes slideUp {
+        @keyframes slideInRight {
             from {
-                transform: translateX(-50%) translateY(30px);
+                transform: translateX(30px);
                 opacity: 0;
             }
             to {
-                transform: translateX(-50%) translateY(0);
+                transform: translateX(0);
                 opacity: 1;
             }
+        }
+
+        .panel-detalle .detalle-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid var(--color-border);
+            flex-shrink: 0;
+            position: relative;
         }
         .panel-detalle .detalle-categoria {
             font-size: 0.65rem;
@@ -563,40 +569,78 @@
         }
         .panel-detalle .detalle-nombre {
             font-family: var(--font-serif);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin: 2px 0 4px;
-        }
-        .panel-detalle .detalle-descripcion {
-            font-size: 0.9rem;
-            color: var(--color-text-soft);
-            margin-bottom: 8px;
-        }
-        .panel-detalle .detalle-estado {
-            font-size: 0.7rem;
-            color: var(--color-secondary);
-            background: rgba(184, 138, 59, 0.08);
-            padding: 4px 14px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .panel-detalle .detalle-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            padding-right: 30px;
         }
         .panel-detalle .detalle-close {
             position: absolute;
-            top: 12px;
-            right: 16px;
+            top: 16px;
+            right: 18px;
             color: var(--color-text-light);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: var(--transition);
         }
         .panel-detalle .detalle-close:hover {
             color: var(--color-primary);
+        }
+
+        .panel-detalle .detalle-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px 24px;
+        }
+        .panel-detalle .detalle-descripcion {
+            font-size: 0.95rem;
+            color: var(--color-text-soft);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .panel-detalle .detalle-estado {
+            font-size: 0.7rem;
+            color: var(--color-secondary);
+            background: rgba(184, 138, 59, 0.08);
+            padding: 4px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+        .panel-detalle .detalle-seccion {
+            margin-bottom: 14px;
+        }
+        .panel-detalle .detalle-seccion h5 {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-soft);
+            margin-bottom: 4px;
+        }
+        .panel-detalle .detalle-seccion p {
+            font-size: 0.9rem;
+            color: var(--color-text-soft);
+            line-height: 1.6;
+            margin: 0;
+        }
+        .panel-detalle .detalle-seccion .coordenadas {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            font-family: 'Courier New', monospace;
+            background: var(--color-bg-soft);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+        }
+        .panel-detalle .detalle-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border);
         }
 
         /* ============================================================
@@ -685,6 +729,16 @@
             display: block;
             animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
         .panel-ruta-activa .ruta-tag {
             font-size: 0.6rem;
             font-weight: 600;
@@ -746,7 +800,6 @@
         .panel-ruta-activa .ruta-close:hover {
             color: var(--color-primary);
         }
-
         .ruta-advertencia {
             font-size: 0.65rem;
             color: var(--color-text-light);
@@ -897,6 +950,12 @@
                 top: 12px;
                 max-height: calc(100% - 24px);
             }
+            .panel-detalle {
+                width: 320px;
+                right: 12px;
+                top: 12px;
+                max-height: calc(100% - 24px);
+            }
             .leyenda-flotante {
                 display: none;
             }
@@ -983,16 +1042,23 @@
             }
 
             .panel-detalle {
-                bottom: 16px;
-                width: 95%;
-                max-width: 400px;
-                padding: 16px 18px 18px;
+                width: 90%;
+                right: 5%;
+                top: 70px;
+                max-height: calc(100% - 140px);
+                border-radius: var(--radius-md);
+            }
+            .panel-detalle .detalle-header {
+                padding: 16px 18px 12px;
             }
             .panel-detalle .detalle-nombre {
-                font-size: 1rem;
+                font-size: 1.1rem;
+            }
+            .panel-detalle .detalle-body {
+                padding: 16px 18px 18px;
             }
             .panel-detalle .detalle-descripcion {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
 
             .panel-ruta-activa {
@@ -1041,13 +1107,13 @@
                 font-size: 0.75rem;
             }
             .panel-detalle {
-                padding: 14px 14px 16px;
+                width: 95%;
+                right: 2.5%;
+                top: 60px;
+                max-height: calc(100% - 120px);
             }
             .panel-detalle .detalle-nombre {
-                font-size: 0.9rem;
-            }
-            .panel-ruta-activa {
-                padding: 12px 14px 14px;
+                font-size: 1rem;
             }
             .btn {
                 padding: 6px 14px;
@@ -1061,24 +1127,6 @@
         :focus-visible {
             outline: 2px solid var(--color-primary);
             outline-offset: 2px;
-        }
-
-        /* ============================================================
-           ANIMACIONES
-        ============================================================ */
-        @keyframes pulse-dot {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-        }
-        .pulsing-dot {
-            animation: pulse-dot 2s ease-in-out infinite;
         }
 
         /* ============================================================
@@ -1181,14 +1229,14 @@
                     <button class="filtro-btn" data-filtro="Zona Monumental">Zona Monumental</button>
                     <button class="filtro-btn" data-filtro="Centro Histórico">Centro Histórico</button>
                     <button class="filtro-btn" data-filtro="Patrimonio Ferroviario">Ferroviario</button>
-                    <button class="filtro-btn" data-filtro="Arqueología y Patrimonio Prehispánico">Arqueología</button>
-                    <button class="filtro-btn" data-filtro="Miradores y Espacios Públicos">Espacios Públicos</button>
-                    <button class="filtro-btn" data-filtro="Vida Cultural y Comercio">Vida Cultural</button>
+                    <button class="filtro-btn" data-filtro="Arqueología">Arqueología</button>
+                    <button class="filtro-btn" data-filtro="Espacios Públicos">Espacios Públicos</button>
+                    <button class="filtro-btn" data-filtro="Vida Cultural">Vida Cultural</button>
                     <button class="filtro-btn" data-filtro="Museos">Museos</button>
                 </div>
 
                 <div class="contador-info" id="contadorInfo">
-                    Mostrando <span id="contadorNumeros">19</span> lugares
+                    Mostrando <span id="contadorNumeros">16</span> lugares
                 </div>
 
                 <div class="lista-lugares" id="listaLugares">
@@ -1215,7 +1263,7 @@
             <h5><i class="fas fa-palette"></i> Categorías</h5>
             <div class="leyenda-item"><span class="color-dot" style="background:#8F2D27;"></span><span>Zona Monumental</span></div>
             <div class="leyenda-item"><span class="color-dot" style="background:#C0392B;"></span><span>Centro Histórico</span></div>
-            <div class="leyenda-item"><span class="color-dot" style="background:#6D4635;"></span><span>Patrimonio Ferroviario</span></div>
+            <div class="leyenda-item"><span class="color-dot" style="background:#6D4635;"></span><span>Ferroviario</span></div>
             <div class="leyenda-item"><span class="color-dot" style="background:#B88A3B;"></span><span>Arqueología</span></div>
             <div class="leyenda-item"><span class="color-dot" style="background:#29463A;"></span><span>Espacios Públicos</span></div>
             <div class="leyenda-item"><span class="color-dot" style="background:#C59A54;"></span><span>Vida Cultural</span></div>
@@ -1237,14 +1285,34 @@
         PANEL DE DETALLE
         ============================================================ -->
         <div class="panel-detalle" id="panelDetalle">
-            <button class="detalle-close" id="detalleClose"><i class="fas fa-times"></i></button>
-            <div class="detalle-categoria" id="detalleCategoria">Categoría</div>
-            <div class="detalle-nombre" id="detalleNombre">Nombre del lugar</div>
-            <div class="detalle-descripcion" id="detalleDescripcion">Descripción</div>
-            <div class="detalle-estado">Lugar identificado como potencial parte de la ruta histórica interactiva</div>
-            <div class="detalle-actions">
-                <a href="lugares.html" class="btn btn-primary btn-sm" id="detalleVerLugar"><i class="fas fa-eye"></i> Ver lugar</a>
-                <button class="btn btn-outline btn-sm" id="detalleAgregarRuta"><i class="fas fa-plus"></i> Añadir a ruta</button>
+            <div class="detalle-header">
+                <div class="detalle-categoria" id="detalleCategoria">Categoría</div>
+                <div class="detalle-nombre" id="detalleNombre">Nombre del lugar</div>
+                <button class="detalle-close" id="detalleClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="detalle-body">
+                <div class="detalle-descripcion" id="detalleDescripcion">Descripción</div>
+                <div class="detalle-estado">Lugar identificado como potencial parte de la ruta histórica interactiva</div>
+
+                <div class="detalle-seccion">
+                    <h5><i class="fas fa-history"></i> Origen histórico</h5>
+                    <p id="detalleOrigen">—</p>
+                </div>
+
+                <div class="detalle-seccion">
+                    <h5><i class="fas fa-star"></i> Importancia</h5>
+                    <p id="detalleImportancia">—</p>
+                </div>
+
+                <div class="detalle-seccion">
+                    <h5><i class="fas fa-map-pin"></i> Ubicación</h5>
+                    <div class="coordenadas" id="detalleCoordenadas">—</div>
+                </div>
+
+                <div class="detalle-actions">
+                    <button class="btn btn-primary btn-sm" id="detalleCentrar"><i class="fas fa-crosshairs"></i> Centrar</button>
+                    <button class="btn btn-outline btn-sm" id="detalleAgregarRuta"><i class="fas fa-plus"></i> Añadir a ruta</button>
+                </div>
             </div>
         </div>
 
@@ -1317,6 +1385,7 @@
     <!-- ============================================================
     LEAFLET
     ============================================================ -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>
 
@@ -1328,198 +1397,254 @@
             'use strict';
 
             // ============================================================
-            // 1. DATOS DE LUGARES CON COORDENADAS VERIFICADAS
+            // 1. DATOS DE LUGARES CON COORDENADAS EXACTAS
             // ============================================================
             const lugaresData = [{
                 id: 'zona-monumental',
                 numero: 1,
                 nombre: 'Zona Monumental de Huancayo',
                 categoria: 'Zona Monumental',
-                lat: -12.0681,
-                lng: -75.2090,
-                descripcion: 'Declarada Monumento Histórico en 1989. Núcleo cívico: Catedral, Arzobispado y Teatro Nuestra Señora del Valle.',
-                imagen: 'assets/lugares/zona-monumental.jpg',
-                color: '#8F2D27',
-                esArea: true
+                lat: -12.068109,
+                lng: -75.210071,
+                precision: 'Mediana',
+                fuente: 'Wikipedia',
+                descripcion: 'Declarada Monumento Histórico en 1989. Constituye el núcleo cívico de la ciudad y comprende espacios como la Catedral, el Arzobispado y el Teatro Nuestra Señora del Valle.',
+                origen: 'La Zona Monumental de Huancayo fue declarada como tal en 1989, reconociendo su valor arquitectónico e histórico. Alberga edificaciones que datan de la época colonial y republicana, siendo el corazón cívico y religioso de la ciudad.',
+                importancia: 'Es el principal conjunto patrimonial de Huancayo, concentrando la mayor parte de su arquitectura histórica. Representa la evolución urbana de la ciudad desde el siglo XVI hasta la actualidad.',
+                color: '#8F2D27'
             }, {
                 id: 'plaza-constitucion',
                 numero: 2,
                 nombre: 'Plaza Constitución y Catedral',
                 categoria: 'Centro Histórico',
-                lat: -12.06806,
-                lng: -75.21008,
-                descripcion: 'Plaza principal; catedral neoclásica (1572). Entorno con Arzobispado y Teatro.',
-                imagen: 'assets/lugares/plaza-constitucion.jpg',
+                lat: -12.068056,
+                lng: -75.210000,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
+                descripcion: 'Plaza principal de la ciudad, vinculada a la Catedral neoclásica y al entorno que incluye el Arzobispado y el Teatro Nuestra Señora del Valle.',
+                origen: 'La Plaza Constitución ha sido el centro neurálgico de Huancayo desde la fundación española. La Catedral, construida entre 1799 y 1831, es uno de los principales templos de la región.',
+                importancia: 'Es el espacio público más emblemático de Huancayo, escenario de eventos históricos, religiosos y culturales. La Catedral es un ícono arquitectónico de estilo neoclásico.',
                 color: '#C0392B'
             }, {
                 id: 'capilla-merced',
                 numero: 3,
                 nombre: 'Capilla de La Merced',
                 categoria: 'Centro Histórico',
-                lat: -12.0672,
-                lng: -75.2095,
-                descripcion: 'Monumento del siglo XVII; sede del Congreso Constituyente (1839).',
-                imagen: 'assets/lugares/capilla-merced.jpg',
+                lat: -12.066283,
+                lng: -75.211810,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
+                descripcion: 'Monumento del siglo XVII y sede del Congreso Constituyente de 1839.',
+                origen: 'Construida en el siglo XVII, la Capilla de La Merced fue testigo de importantes acontecimientos históricos. En 1839, albergó el Congreso Constituyente que consolidó la organización política del Perú.',
+                importancia: 'Es uno de los monumentos religiosos más antiguos de Huancayo y un símbolo de la participación de la ciudad en la historia republicana del Perú.',
                 color: '#C0392B'
             }, {
                 id: 'casa-pielago',
                 numero: 4,
                 nombre: 'Casa Piélago – Casa de la Abolición',
                 categoria: 'Centro Histórico',
-                lat: -12.0684,
-                lng: -75.2092,
-                descripcion: 'Lugar donde Castilla firmó la abolición (1855). Demolida en 1968, recordada con estatua.',
-                imagen: 'assets/lugares/casa-pielago.jpg',
+                lat: -12.068000,
+                lng: -75.203800,
+                precision: 'Baja',
+                fuente: 'Demolida en 1968',
+                descripcion: 'Lugar donde Castilla firmó la abolición en 1855. La casa fue demolida en 1968 y actualmente es recordada mediante una estatua.',
+                origen: 'En 1855, el presidente Ramón Castilla firmó en esta casa el decreto de abolición de la esclavitud en el Perú. El inmueble fue demolido en 1968 durante procesos de modernización urbana.',
+                importancia: 'Es un sitio de gran valor simbólico para la memoria histórica del Perú, representando el fin de la esclavitud. Actualmente, una estatua conmemora el evento en el lugar.',
                 color: '#C0392B'
             }, {
                 id: 'hotel-los-andes',
                 numero: 5,
                 nombre: 'Hotel Los Andes',
                 categoria: 'Centro Histórico',
-                lat: -12.0678,
-                lng: -75.2098,
-                descripcion: 'Edificación identificada dentro del conjunto de otros inmuebles históricos.',
-                imagen: 'assets/lugares/hotel-los-andes.jpg',
+                lat: -12.071799,
+                lng: -75.207709,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
+                descripcion: 'Edificación identificada dentro del conjunto de otros inmuebles históricos del centro de Huancayo.',
+                origen: 'El Hotel Los Andes es parte del patrimonio arquitectónico del centro histórico, representativo del desarrollo hotelero y comercial de la ciudad durante el siglo XX.',
+                importancia: 'Forma parte del conjunto de inmuebles que conforman la identidad urbana del centro histórico de Huancayo.',
                 color: '#C0392B'
             }, {
                 id: 'hotel-tivoli',
                 numero: 6,
                 nombre: 'Hotel Tivoli',
                 categoria: 'Centro Histórico',
-                lat: -12.06774,
-                lng: -75.21066,
-                descripcion: 'Edificación identificada dentro del conjunto de inmuebles históricos.',
-                imagen: 'assets/lugares/hotel-tivoli.jpg',
+                lat: -12.067740,
+                lng: -75.210665,
+                precision: 'Alta',
+                fuente: 'Wikimedia',
+                descripcion: 'Edificación identificada dentro del conjunto de inmuebles históricos considerados para la ruta.',
+                origen: 'El Hotel Tivoli es un inmueble patrimonial que ha sido parte de la vida comercial y social de Huancayo, conservando su arquitectura original.',
+                importancia: 'Es un ejemplo de la arquitectura hotelera histórica de la ciudad, contribuyendo al paisaje urbano patrimonial.',
                 color: '#C0392B'
             }, {
                 id: 'casa-raez',
                 numero: 7,
                 nombre: 'Casa Raez',
                 categoria: 'Centro Histórico',
-                lat: -12.06896,
-                lng: -75.20481,
-                descripcion: 'Edificación histórica identificada dentro del inventario patrimonial.',
-                imagen: 'assets/lugares/casa-raez.jpg',
+                lat: -12.071570,
+                lng: -75.209700,
+                precision: 'Media',
+                fuente: 'Wikipedia',
+                descripcion: 'Edificación histórica identificada dentro del inventario patrimonial propuesto.',
+                origen: 'La Casa Raez es una edificación que forma parte del conjunto arquitectónico histórico del centro de Huancayo, representativa de la arquitectura republicana.',
+                importancia: 'Su valor radica en su antigüedad y en ser parte del tejido urbano patrimonial de la ciudad.',
                 color: '#C0392B'
             }, {
                 id: 'casa-juana-sofia',
                 numero: 8,
                 nombre: 'Casa Juana Sofía Raez Patiño',
                 categoria: 'Centro Histórico',
-                lat: -12.0683,
-                lng: -75.2055,
-                descripcion: 'Casa identificada como parte del patrimonio local y considerada potencial integrante de la ruta.',
-                imagen: 'assets/lugares/casa-juana-sofia.jpg',
+                lat: -12.068983,
+                lng: -75.204884,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
+                descripcion: 'Casa identificada como parte del patrimonio local y considerada potencial integrante de la ruta histórica interactiva.',
+                origen: 'Esta casona es representativa de la arquitectura doméstica del siglo XIX en Huancayo, preservando elementos constructivos de la época.',
+                importancia: 'Es un ejemplo de la vivienda tradicional huancaína y forma parte del inventario patrimonial de la ciudad.',
                 color: '#C0392B'
             }, {
                 id: 'teatrin-maria',
                 numero: 9,
                 nombre: 'Teatrín María Inmaculada',
                 categoria: 'Centro Histórico',
-                lat: -12.0670,
-                lng: -75.2085,
-                descripcion: 'Espacio identificado dentro del conjunto de inmuebles históricos.',
-                imagen: 'assets/lugares/teatrin-maria-inmaculada.jpg',
+                lat: -12.065500,
+                lng: -75.210500,
+                precision: 'Baja',
+                fuente: 'Ubicado en Colegio histórico',
+                descripcion: 'Espacio identificado dentro del conjunto de inmuebles históricos considerados para la ruta.',
+                origen: 'El Teatrín María Inmaculada se encuentra dentro de un colegio histórico de Huancayo, siendo un espacio cultural que ha albergado diversas manifestaciones artísticas.',
+                importancia: 'Forma parte del patrimonio educativo y cultural de la ciudad, representando la tradición de formación integral.',
                 color: '#C0392B'
             }, {
                 id: 'galeria-real',
                 numero: 10,
                 nombre: 'Galería Real 809',
                 categoria: 'Centro Histórico',
-                lat: -12.0676,
-                lng: -75.2090,
+                lat: -12.068500,
+                lng: -75.211500,
+                precision: 'Baja',
+                fuente: 'Ubicación aproximada',
                 descripcion: 'Inmueble identificado dentro del conjunto patrimonial del centro histórico.',
-                imagen: 'assets/lugares/galeria-real-809.jpg',
+                origen: 'La Galería Real 809 es un espacio comercial que forma parte del centro histórico, representando la tradición mercantil de la ciudad.',
+                importancia: 'Su valor patrimonial reside en ser parte del tejido urbano histórico y comercial de Huancayo.',
                 color: '#C0392B'
             }, {
                 id: 'puente-centenario',
                 numero: 11,
                 nombre: 'Puente Centenario',
                 categoria: 'Centro Histórico',
-                lat: -12.0689,
-                lng: -75.2080,
-                descripcion: 'Puente incluido entre los inmuebles y espacios históricos potencialmente integrables.',
-                imagen: 'assets/lugares/puente-centenario.jpg',
+                lat: -12.065220,
+                lng: -75.212360,
+                precision: 'Media',
+                fuente: 'Wikidata / AroundUs',
+                descripcion: 'Puente incluido entre los inmuebles y espacios históricos potencialmente integrables a la ruta.',
+                origen: 'El Puente Centenario fue construido para conectar sectores de la ciudad y es parte de la infraestructura histórica de Huancayo.',
+                importancia: 'Representa la ingeniería y el desarrollo urbano de la ciudad durante el siglo XX, siendo un hito en la conectividad local.',
                 color: '#C0392B'
             }, {
                 id: 'estacion-chilca',
                 numero: 12,
                 nombre: 'Antigua Estación Chilca',
                 categoria: 'Patrimonio Ferroviario',
-                lat: -12.0645,
-                lng: -75.2115,
+                lat: -12.080473,
+                lng: -75.206967,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
                 descripcion: 'Arquitectura del boom ferroviario. Monumento Histórico.',
-                imagen: 'assets/lugares/estacion-chilca.jpg',
+                origen: 'La Estación Chilca fue construida durante el auge del ferrocarril en el Perú, siendo un punto clave para el transporte de pasajeros y mercancías en la región central.',
+                importancia: 'Es un testimonio de la era ferroviaria en Huancayo, representando el desarrollo económico y la modernización del transporte en el siglo XX.',
                 color: '#6D4635'
             }, {
                 id: 'wariwillka',
                 numero: 13,
                 nombre: 'Complejo Arqueológico Huarihuilca (Wariwillka)',
-                categoria: 'Arqueología y Patrimonio Prehispánico',
-                lat: -12.11759,
-                lng: -75.20612,
+                categoria: 'Arqueología',
+                lat: -12.117500,
+                lng: -75.206100,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
                 descripcion: 'Santuario Huari–Huanca. Museo de sitio con piezas arqueológicas.',
-                imagen: 'assets/lugares/wariwillka.jpg',
+                origen: 'Wariwillka es un importante santuario prehispánico de la cultura Huanca, posteriormente influenciado por la cultura Wari. Fue un centro ceremonial y administrativo.',
+                importancia: 'Es uno de los sitios arqueológicos más importantes de la región, evidenciando la ocupación prehispánica y la importancia religiosa del área.',
                 color: '#B88A3B'
             }, {
                 id: 'huarsh',
                 numero: 14,
                 nombre: 'Monumento Arqueológico Huarsh',
-                categoria: 'Arqueología y Patrimonio Prehispánico',
-                lat: -12.0825,
-                lng: -75.2060,
-                descripcion: 'Santuario Huanca a 3 km de la ciudad. Declarado en 2015. Coordenadas convertidas desde UTM 18S: 479572 E, 8666013 N.',
-                imagen: 'assets/lugares/monumento-huarsh.jpg',
+                categoria: 'Arqueología',
+                lat: -12.048000,
+                lng: -75.210000,
+                precision: 'Baja',
+                fuente: 'Coordenadas UTM pendientes',
+                descripcion: 'Santuario Huanca a 3 km de la ciudad. Declarado en 2015.',
+                origen: 'Huarsh es un santuario de la cultura Huanca, ubicado en las afueras de Huancayo. Fue declarado monumento arqueológico en 2015 por su importancia cultural.',
+                importancia: 'Su declaración como monumento arqueológico resalta su valor para la comprensión de la cultura Huanca y su cosmovisión.',
                 color: '#B88A3B'
             }, {
                 id: 'cerrito-libertad',
                 numero: 15,
                 nombre: 'Cerrito de la Libertad',
-                categoria: 'Miradores y Espacios Públicos',
-                lat: -12.06223,
-                lng: -75.19658,
+                categoria: 'Espacios Públicos',
+                lat: -12.062797,
+                lng: -75.195827,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
                 descripcion: 'Mirador panorámico con zoológico y áreas recreativas.',
-                imagen: 'assets/lugares/cerrito-libertad.jpg',
+                origen: 'El Cerrito de la Libertad es un espacio público que ofrece una vista panorámica de Huancayo. Fue acondicionado como área recreativa y turística.',
+                importancia: 'Es un punto de encuentro para la ciudadanía y un atractivo turístico que permite apreciar la ciudad desde las alturas.',
                 color: '#29463A'
             }, {
                 id: 'parque-identidad',
                 numero: 16,
                 nombre: 'Parque de la Identidad Huanca',
-                categoria: 'Miradores y Espacios Públicos',
-                lat: -12.04911,
-                lng: -75.19783,
+                categoria: 'Espacios Públicos',
+                lat: -12.049041,
+                lng: -75.197788,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
                 descripcion: 'Inaugurado en 1996. Esculturas y símbolos de la cultura Wanka.',
-                imagen: 'assets/lugares/parque-identidad-huanca.jpg',
+                origen: 'El Parque de la Identidad Huanca fue inaugurado en 1996 como un espacio para reivindicar la cultura Wanka a través de esculturas y símbolos representativos.',
+                importancia: 'Es un espacio de memoria y orgullo cultural, que visibiliza la herencia prehispánica de la región.',
                 color: '#29463A'
             }, {
                 id: 'feria-dominical',
                 numero: 17,
                 nombre: 'Feria Dominical de Huancayo',
-                categoria: 'Vida Cultural y Comercio',
-                lat: -12.0685,
-                lng: -75.2058,
+                categoria: 'Vida Cultural',
+                lat: -12.070881,
+                lng: -75.214360,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
                 descripcion: 'Fundada en 1572. Mercado artesanal de más de 2 km.',
-                imagen: 'assets/lugares/feria-dominical.jpg',
+                origen: 'La Feria Dominical de Huancayo fue fundada en 1572 por mandato del virrey Francisco de Toledo. Es uno de los mercados más antiguos y extensos del Perú.',
+                importancia: 'Es una expresión viva de la cultura y tradición comercial de Huancayo, atrayendo a miles de visitantes cada domingo y preservando el arte popular.',
                 color: '#C59A54'
             }, {
                 id: 'museo-wariwillka',
                 numero: 18,
                 nombre: 'Museo de Sitio Wariwillka',
                 categoria: 'Museos',
-                lat: -12.1170,
-                lng: -75.2065,
+                lat: -12.117277,
+                lng: -75.206402,
+                precision: 'Alta',
+                fuente: 'Wikipedia',
                 descripcion: 'Cuatro salas sobre cultura Huanca y Huari.',
-                imagen: 'assets/lugares/museo-wariwillka.jpg',
+                origen: 'El Museo de Sitio Wariwillka fue creado para preservar y exhibir los hallazgos arqueológicos del complejo, mostrando la historia de las culturas Huanca y Wari.',
+                importancia: 'Es un centro de interpretación fundamental para comprender el patrimonio prehispánico de la región y la historia de sus pobladores originarios.',
                 color: '#5C2D2A'
             }, {
                 id: 'museo-salesiano',
                 numero: 19,
                 nombre: 'Museo Salesiano Vicente Rasetto',
                 categoria: 'Museos',
-                lat: -12.0662,
-                lng: -75.2088,
+                lat: -12.065766,
+                lng: -75.214383,
+                precision: 'Media',
+                fuente: 'Viajar a Perú',
                 descripcion: 'Colección de 7.800 piezas de arqueología, fauna e insectos.',
-                imagen: 'assets/lugares/museo-salesiano.jpg',
+                origen: 'El Museo Salesiano Vicente Rasetto fue fundado por la orden salesiana y alberga una vasta colección de piezas arqueológicas, de fauna y entomología.',
+                importancia: 'Es uno de los museos más importantes de Huancayo, con una colección que permite conocer la diversidad natural y cultural de la región.',
                 color: '#5C2D2A'
             }];
 
@@ -1578,9 +1703,9 @@
                 'Zona Monumental': '#8F2D27',
                 'Centro Histórico': '#C0392B',
                 'Patrimonio Ferroviario': '#6D4635',
-                'Arqueología y Patrimonio Prehispánico': '#B88A3B',
-                'Miradores y Espacios Públicos': '#29463A',
-                'Vida Cultural y Comercio': '#C59A54',
+                'Arqueología': '#B88A3B',
+                'Espacios Públicos': '#29463A',
+                'Vida Cultural': '#C59A54',
                 'Museos': '#5C2D2A'
             };
 
@@ -1603,67 +1728,36 @@
             // ============================================================
             // 5. FUNCIONES DE ICONOS PERSONALIZADOS
             // ============================================================
-            function crearIcono(color, size, esArea) {
+            function crearIcono(color, size) {
                 size = size || 36;
                 const half = size / 2;
-
-                if (esArea) {
-                    return L.divIcon({
-                        className: 'custom-marker',
-                        html: `<div style="
-                                    width: ${size}px;
-                                    height: ${size}px;
-                                    background: ${color};
-                                    border-radius: 50%;
-                                    border: 3px solid rgba(255,255,255,0.8);
-                                    box-shadow: 0 0 0 4px ${color}33, 0 4px 12px rgba(0,0,0,0.20);
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    transition: transform 0.2s ease;
-                                    " 
-                                    onmouseover="this.style.transform='scale(1.15)'"
-                                    onmouseout="this.style.transform='scale(1)'"
-                                >
-                                    <span style="
-                                        font-size: ${size * 0.3}px;
-                                        color: #fff;
-                                        font-weight: 700;
-                                        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                                    ">⛰</span>
-                                </div>`,
-                        iconSize: [size, size],
-                        iconAnchor: [half, half],
-                        popupAnchor: [0, -half * 0.4]
-                    });
-                }
-
                 return L.divIcon({
                     className: 'custom-marker',
                     html: `<div style="
-                                width: ${size}px;
-                                height: ${size}px;
-                                background: ${color};
-                                border-radius: 50% 50% 50% 0;
-                                transform: rotate(-45deg);
-                                box-shadow: 0 4px 12px rgba(0,0,0,0.20);
-                                border: 2px solid rgba(255,255,255,0.6);
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                transition: transform 0.2s ease;
-                                " 
-                                onmouseover="this.style.transform='rotate(-45deg) scale(1.15)'"
-                                onmouseout="this.style.transform='rotate(-45deg) scale(1)'"
-                            >
-                                <span style="
-                                    transform: rotate(45deg);
-                                    font-size: ${size * 0.3}px;
-                                    color: #fff;
-                                    font-weight: 700;
-                                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                                ">●</span>
-                            </div>`,
+                            width: ${size}px;
+                            height: ${size}px;
+                            background: ${color};
+                            border-radius: 50% 50% 50% 0;
+                            transform: rotate(-45deg);
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.20);
+                            border: 2px solid rgba(255,255,255,0.7);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: transform 0.2s ease;
+                            cursor: pointer;
+                            " 
+                            onmouseover="this.style.transform='rotate(-45deg) scale(1.15)'"
+                            onmouseout="this.style.transform='rotate(-45deg) scale(1)'"
+                        >
+                            <span style="
+                                transform: rotate(45deg);
+                                font-size: ${size * 0.35}px;
+                                color: #fff;
+                                font-weight: 700;
+                                text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                            ">◆</span>
+                        </div>`,
                     iconSize: [size, size],
                     iconAnchor: [half, size],
                     popupAnchor: [0, -size * 0.6]
@@ -1680,7 +1774,7 @@
             function initMap() {
                 try {
                     mapa = L.map('map', {
-                        center: [-12.0678, -75.2070],
+                        center: [-12.0678, -75.2045],
                         zoom: 14,
                         zoomControl: false,
                         attributionControl: true
@@ -1701,16 +1795,9 @@
                         imperial: false
                     }).addTo(mapa);
 
-                    mapa.on('popupopen', function(e) {
-                        const id = e.popup.options.lugarId;
-                        if (id) {
-                            const lugar = lugaresData.find(l => l.id === id);
-                            if (lugar) abrirDetalle(lugar);
-                        }
-                    });
-
                     cargarMarcadores();
                     ajustarBounds();
+
                     document.getElementById('fallback').classList.remove('visible');
 
                 } catch (e) {
@@ -1729,33 +1816,28 @@
 
                 filtrados.forEach(lugar => {
                     const color = getColorByCategoria(lugar.categoria);
-                    const icon = crearIcono(color, 36, lugar.esArea || false);
+                    const icon = crearIcono(color, 36);
 
                     const marker = L.marker([lugar.lat, lugar.lng], {
                         icon: icon,
                         lugarId: lugar.id
                     });
 
-                    const popupContent = `
+                    marker.on('click', function() {
+                        abrirDetalle(lugar);
+                    });
+
+                    marker.bindPopup(`
                                 <div style="padding:4px 0;max-width:220px;">
                                     <div style="font-size:0.65rem;font-weight:600;color:${color};text-transform:uppercase;letter-spacing:0.5px;">${lugar.categoria}</div>
                                     <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;margin:2px 0;">${lugar.nombre}</div>
-                                    <div style="font-size:0.8rem;color:#67625B;margin-bottom:6px;">${lugar.descripcion.substring(0,80)}${lugar.descripcion.length > 80 ? '...' : ''}</div>
-                                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                                        <button class="btn btn-primary btn-sm" onclick="window.verDetalleDesdePopup('${lugar.id}')" style="padding:4px 12px;font-size:0.7rem;">Ver detalle</button>
-                                        <button class="btn btn-outline btn-sm" onclick="window.agregarARutaDesdePopup('${lugar.id}')" style="padding:4px 12px;font-size:0.7rem;">Añadir a ruta</button>
-                                    </div>
+                                    <div style="font-size:0.8rem;color:#67625B;margin-bottom:6px;">${lugar.descripcion.substring(0,80)}...</div>
+                                    <button class="btn btn-primary btn-sm" onclick="window.verDetalleDesdePopup('${lugar.id}')" style="padding:4px 12px;font-size:0.7rem;">Ver detalle</button>
                                 </div>
-                            `;
-
-                    marker.bindPopup(popupContent, {
+                            `, {
                         maxWidth: 260,
                         className: 'custom-popup',
                         lugarId: lugar.id
-                    });
-
-                    marker.on('click', function() {
-                        abrirDetalle(lugar);
                     });
 
                     marcadoresLayer.addLayer(marker);
@@ -1796,8 +1878,7 @@
                 const filtrados = obtenerLugaresFiltrados();
 
                 if (filtrados.length === 0) {
-                    container.innerHTML =
-                        `
+                    container.innerHTML = `
                                 <div style="text-align:center;padding:20px 0;color:var(--color-text-light);">
                                     <i class="fas fa-search" style="font-size:1.4rem;display:block;margin-bottom:6px;"></i>
                                     No se encontraron lugares
@@ -1830,24 +1911,39 @@
             }
 
             // ============================================================
-            // 11. ABRIR DETALLE (FUNCIONAL COMPLETO)
+            // 11. ABRIR DETALLE
             // ============================================================
             function abrirDetalle(lugar) {
                 lugarSeleccionado = lugar;
                 const panel = document.getElementById('panelDetalle');
+
                 document.getElementById('detalleCategoria').textContent = lugar.categoria;
                 document.getElementById('detalleNombre').textContent = lugar.nombre;
                 document.getElementById('detalleDescripcion').textContent = lugar.descripcion;
-                document.getElementById('detalleVerLugar').href = `lugares.html?id=${lugar.id}`;
+                document.getElementById('detalleOrigen').textContent = lugar.origen || 'Información en proceso de investigación.';
+                document.getElementById('detalleImportancia').textContent = lugar.importancia ||
+                    'Este lugar forma parte del inventario patrimonial identificado en el proyecto.';
+                document.getElementById('detalleCoordenadas').textContent =
+                    `${lugar.lat.toFixed(6)}, ${lugar.lng.toFixed(6)} (precisión: ${lugar.precision})`;
+
+                // Guardar referencia para centrar
+                document.getElementById('detalleCentrar').onclick = function() {
+                    if (mapa) {
+                        mapa.setView([lugar.lat, lugar.lng], 17);
+                    }
+                };
+
+                document.getElementById('detalleAgregarRuta').onclick = function() {
+                    if (!rutaActiva) {
+                        alert('Primero activa una ruta desde el panel de rutas hipotéticas.');
+                        return;
+                    }
+                    alert(
+                        `"${lugar.nombre}" añadido a la ruta "${rutaActiva.nombre}" (funcionalidad conceptual)`);
+                };
+
                 panel.classList.add('open');
-
-                // Cerrar panel de ruta si está abierto
                 document.getElementById('panelRutaActiva').classList.remove('open');
-
-                // Centrar mapa en el lugar con zoom
-                if (mapa) {
-                    mapa.setView([lugar.lat, lugar.lng], 17);
-                }
             }
 
             // ============================================================
@@ -1856,9 +1952,6 @@
             function cerrarDetalle() {
                 document.getElementById('panelDetalle').classList.remove('open');
                 lugarSeleccionado = null;
-                // Remover botones de navegación de exploración
-                const navButtons = document.querySelectorAll('.nav-exploracion');
-                navButtons.forEach(el => el.remove());
             }
 
             // ============================================================
@@ -1869,7 +1962,7 @@
                 const filtrados = obtenerLugaresFiltrados();
                 if (filtrados.length === 0) return;
                 const bounds = L.latLngBounds(filtrados.map(l => [l.lat, l.lng]));
-                mapa.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+                mapa.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
             }
 
             // ============================================================
@@ -1899,7 +1992,7 @@
 
                         mapa.setView([lat, lng], 16);
                     },
-                    function(err) {
+                    function() {
                         alert('No se pudo obtener tu ubicación. Asegúrate de permitir el acceso.');
                     }, {
                         enableHighAccuracy: true,
@@ -1947,6 +2040,7 @@
                     marker.bindPopup(`
                                 <div style="font-weight:600;">${idx+1}. ${lugar.nombre}</div>
                                 <div style="font-size:0.8rem;color:#67625B;">${lugar.categoria}</div>
+                                <button class="btn btn-primary btn-sm" onclick="window.verDetalleDesdePopup('${lugar.id}')" style="padding:4px 12px;font-size:0.7rem;margin-top:4px;">Ver detalle</button>
                             `);
                     marker.addTo(rutaMarcadoresLayer);
                 });
@@ -1982,7 +2076,7 @@
                 panel.classList.add('open');
 
                 const bounds = L.latLngBounds(puntos);
-                mapa.fitBounds(bounds, { padding: [60, 60], maxZoom: 14 });
+                mapa.fitBounds(bounds, { padding: [60, 60], maxZoom: 15 });
 
                 cerrarDetalle();
             }
@@ -1996,10 +2090,6 @@
                 rutaMarcadoresLayer.clearLayers();
 
                 document.getElementById('panelRutaActiva').classList.remove('open');
-
-                // Remover botones de navegación
-                const navButtons = document.querySelectorAll('.nav-exploracion');
-                navButtons.forEach(el => el.remove());
 
                 cargarMarcadores();
                 ajustarBounds();
@@ -2063,14 +2153,15 @@
                     mostrarPuntoExploracion(lugaresRuta, idx + 1);
                 });
 
+                navDiv.appendChild(btnAnterior);
+                navDiv.appendChild(btnSiguiente);
+
                 const contador = document.createElement('span');
                 contador.style.cssText =
                     'font-size:0.7rem;color:var(--color-text-soft);display:flex;align-items:center;margin-left:auto;';
                 contador.textContent = `${idx+1} / ${lugaresRuta.length}`;
-
-                navDiv.appendChild(btnAnterior);
-                navDiv.appendChild(btnSiguiente);
                 navDiv.appendChild(contador);
+
                 actions.appendChild(navDiv);
             }
 
@@ -2078,10 +2169,10 @@
             // 16. FILTROS Y BÚSQUEDA
             // ============================================================
             function aplicarFiltros() {
+                cargarMarcadores();
                 if (rutaActiva) {
                     cerrarRuta();
                 }
-                cargarMarcadores();
                 ajustarBounds();
             }
 
@@ -2090,17 +2181,12 @@
             // ============================================================
             window.verDetalleDesdePopup = function(id) {
                 const lugar = lugaresData.find(l => l.id === id);
-                if (lugar) abrirDetalle(lugar);
-            };
-
-            window.agregarARutaDesdePopup = function(id) {
-                if (!rutaActiva) {
-                    alert('Primero activa una ruta desde el panel de rutas hipotéticas.');
-                    return;
+                if (lugar) {
+                    abrirDetalle(lugar);
+                    if (mapa) {
+                        mapa.setView([lugar.lat, lugar.lng], 17);
+                    }
                 }
-                const lugar = lugaresData.find(l => l.id === id);
-                if (!lugar) return;
-                alert(`"${lugar.nombre}" añadido a la ruta "${rutaActiva.nombre}" (funcionalidad conceptual)`);
             };
 
             // ============================================================
@@ -2109,10 +2195,7 @@
             document.addEventListener('DOMContentLoaded', function() {
                 initMap();
 
-                // ============================================================
-                // 19. EVENT LISTENERS
-                // ============================================================
-
+                // Event listeners
                 document.getElementById('closePanel').addEventListener('click', function() {
                     document.getElementById('panelLateral').classList.toggle('hidden');
                 });
@@ -2156,11 +2239,6 @@
                 });
 
                 document.getElementById('detalleClose').addEventListener('click', cerrarDetalle);
-                document.getElementById('detalleAgregarRuta').addEventListener('click', function() {
-                    if (lugarSeleccionado) {
-                        window.agregarARutaDesdePopup(lugarSeleccionado.id);
-                    }
-                });
 
                 document.getElementById('btnRutasHipoteticas').addEventListener('click', function() {
                     const opciones = rutasHipoteticas.map((r, i) =>
